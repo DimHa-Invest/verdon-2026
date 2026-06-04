@@ -35,7 +35,50 @@
 
 const App = () => {
       const [activeTab, setActiveTab] = useState('programme');
-      const [expandedDay, setExpandedDay] = useState(null);
+
+
+      // --- MODULE B : FOCUS JOUR-J (SMART SCROLL) ---
+      const [expandedDay, setExpandedDay] = useState(() => {
+        // Mettre modeTest sur "true" pour forcer l'affichage d'une date précise aujourd'hui
+        const modeTest = true; 
+        const dateSimulee = new Date('2026-08-12T08:00:00'); // Simule le Mercredi 12 août
+        
+        const today = modeTest ? dateSimulee : new Date();
+        
+        // Vérifie si nous sommes en Août (mois 7) 2026
+        if (today.getFullYear() === 2026 && today.getMonth() === 7) {
+          const day = today.getDate();
+          // Vérifie si on est entre le 8 et le 23
+          if (day >= 8 && day <= 23) {
+            return day - 8; // Le 8 août correspond à l'index 0 de ton tableau
+          }
+        }
+        return null;
+      });
+
+      // L'effet qui déclenche le défilement visuel
+      useEffect(() => {
+        if (activeTab === 'programme' && expandedDay !== null) {
+          const cible = document.getElementById(`jour-${expandedDay}`);
+          if (cible) {
+            setTimeout(() => {
+              cible.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }, 300); // Léger délai pour laisser la page s'afficher
+          }
+        }
+      }, [activeTab, expandedDay]);
+      // ----------------------------------------------
+
+      // --- MODULE A : PERSISTANCE CHECKLIST ---
+      const [checkedItems, setCheckedItems] = useState(() => {
+        const savedChecklist = localStorage.getItem('verdonChecklistMemory');
+        return savedChecklist ? JSON.parse(savedChecklist) : {};
+      });
+
+      useEffect(() => {
+        localStorage.setItem('verdonChecklistMemory', JSON.stringify(checkedItems));
+      }, [checkedItems]);
+      // ----------------------------------------
 
       // --- MODULE A : PERSISTANCE CHECKLIST ---
       // 1. Au démarrage, on lit la mémoire du téléphone
@@ -230,7 +273,7 @@ const App = () => {
                     const Icon = day.icon;
                     const isExpanded = expandedDay === index;
                     return (
-                      <div key={index} className="relative pl-8 md:pl-10 group">
+                      <div key={index} id={`jour-${index}`} className="relative pl-8 md:pl-10 group">
                         <div className={`absolute -left-[14px] md:-left-[18px] top-1 w-6 h-6 md:w-8 md:h-8 rounded-full border-4 border-slate-50 flex items-center justify-center shadow-sm transition-transform duration-300 ${day.color}`}>
                           <Icon className="w-3 h-3 md:w-4 md:h-4 text-white" />
                         </div>
