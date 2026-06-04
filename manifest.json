@@ -1,8 +1,9 @@
 {
   "name": "Verdon 2026",
   "short_name": "Verdon",
-  "start_url": "/",
+  "start_url": "/verdon-2026/index.html",
   "display": "standalone",
   "background_color": "#0f766e",
-  "theme_color": "#14b8a6"
+  "theme_color": "#14b8a6",
+  "scope": "/verdon-2026/"
 }
