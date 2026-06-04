@@ -1,4 +1,4 @@
-const CACHE_NAME = 'verdon-v9';
+const CACHE_NAME = 'verdon-v12';
 const REPO = '/verdon-2026'; // Verrouillage strict sur ton dépôt
 
 const ASSETS = [
