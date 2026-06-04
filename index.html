@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Verdon 2026 - Carnet de Bord</title>
+  
+  <link rel="manifest" href="manifest.json">
+  
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  
+  <script type="importmap">
+  {
+    "imports": {
+      "react": "https://esm.sh/react@18.2.0",
+      "react-dom/client": "https://esm.sh/react-dom@18.2.0/client",
+      "lucide-react": "https://esm.sh/lucide-react@0.292.0"
+    }
+  }
+  </script>
+</head>
+<body class="bg-slate-50">
+  <div id="root"></div>
+
+  <script type="text/babel" data-type="module">
+    import React, { useState, useEffect } from 'react';
+    import { createRoot } from 'react-dom/client';
+    import { 
+      Map, Calendar, Tent, Wallet, Info, Sun, Waves, Mountain, Utensils, Car, 
+      CheckCircle, MapPin, Anchor, Camera, Heart, ClipboardCheck, CheckSquare, 
+      Square, Compass, Navigation, Coffee, ShoppingBag, ChevronDown, ChevronUp, List, Cloud
+    } from 'lucide-react';
+
+    const App = () => {
+      const [activeTab, setActiveTab] = useState('programme');
+      const [checkedItems, setCheckedItems] = useState({});
+      const [expandedDay, setExpandedDay] = useState(null);
+
+      // --- NOUVELLE LOGIQUE : MÉTÉO ET RÉSEAU ---
+      const [meteoLive, setMeteoLive] = useState(null);
+      const [isOffline, setIsOffline] = useState(!navigator.onLine);
+
+      useEffect(() => {
+        const handleOnline = () => setIsOffline(false);
+        const handleOffline = () => setIsOffline(true);
+        window.addEventListener('online', handleOnline);
+        window.addEventListener('offline', handleOffline);
+
+        const fetchMeteo = async () => {
+          try {
+            // Clé API de démonstration OpenWeather (à remplacer par la tienne si besoin)
+            const response = await fetch('https://api.openweathermap.org/data/2.5/weather?q=Moustiers-Sainte-Marie&units=metric&appid=bd5e378503939ddaee76f12ad7a97608');
+            if (response.ok) {
+              const data = await response.json();
+              const meteoData = { temp: Math.round(data.main.temp), condi: data.weather[0].main };
+              setMeteoLive(meteoData);
+              localStorage.setItem('meteoVerdonCache', JSON.stringify(meteoData));
+            }
+          } catch (error) {
+            const cache = localStorage.getItem('meteoVerdonCache');
+            if (cache) setMeteoLive({ ...JSON.parse(cache), cached: true });
+          }
+        };
+
+        fetchMeteo();
+
+        return () => {
+          window.removeEventListener('online', handleOnline);
+          window.removeEventListener('offline', handleOffline);
+        };
+      }, []);
+
+      const fmtPrix = (prix) => (Math.round(prix * 100) / 100).toFixed(2);
+
+      const budgetData = [
+        { label: "Hébergement (14 nuits)", prevu: 2640.78, ancv: 550, dejaPaye: 891.90, icon: Tent, color: "text-blue-500", bg: "bg-blue-100" },
+        { label: "Trajet (Manche - Verdon)", prevu: 600, ancv: 0, dejaPaye: 0, icon: Car, color: "text-purple-500", bg: "bg-purple-100" },
+        { label: "Loisirs & Activités", prevu: 750, ancv: 0, dejaPaye: 0, icon: Sun, color: "text-orange-500", bg: "bg-orange-100" },
+        { label: "Alimentaire", prevu: 550, ancv: 0, dejaPaye: 0, icon: Utensils, color: "text-red-500", bg: "bg-red-100" },
+      ];
+
+      const totalPrevu = budgetData.reduce((acc, item) => acc + item.prevu, 0);
+      const totalANCV = budgetData.reduce((acc, item) => acc + item.ancv, 0);
+      const totalDejaPaye = budgetData.reduce((acc, item) => acc + item.dejaPaye, 0);
+      const resteACharge = totalPrevu - totalANCV - totalDejaPaye;
+
+      const toggleCheck = (id) => setCheckedItems(prev => ({ ...prev, [id]: !prev[id] }));
+
+      // --- TES BASES DE DONNÉES INTACTES ---
+      const programme = [
+        { date: "Sam 08.08", type: "Départ", title: "En route vers le Sud !", desc: "Départ de Normandie à bord du Hyundai Tucson. La route des vacances s'ouvre à nous !", icon: Car, color: "bg-blue-500", image: "https://photos.auto-moto.com/32/2020/12/photos/164467/zoom-essai_hyundai_tucson_hybride_repartir_de_zro.webp", imagePosition: "object-cover object-center", details: ["Départ tôt le matin pour éviter les bouchons", "Pique-nique à prévoir pour la route", "Vérification de la pression des pneus faite la veille"] },
+        { date: "Dim 09.08", type: "Arrivée", title: "La Farigoulette (5 étoiles)", desc: "Arrivée au camping et découverte de son superbe parc aquatique. Les vacances commencent !", icon: Tent, color: "bg-teal-500", image: "https://luxe-res.cloudinary.com/t_1400/f_auto/v1670256422/campings/1616511/camping-la-farigoulette-saint-laurent-du-verdon-5E-FB-CF-24-88-4B-0A-63-37-CE-56-00-CB-9E-0B-2A-26-B1-63-31.jpg", imagePosition: "object-cover object-bottom", details: ["Arrivée prévue vers 15h/16h", "Check-in à la réception (garder les bons de réservation à portée)", "Installation dans le mobil-home", "Découverte de la piscine pour se détendre"] }
+      ];
+
+      const adressesData = [
+        { title: "Camping La Farigoulette", desc: "Votre camp de base.", address: "Route de Montpezat, 04500 Saint-Laurent-du-Verdon", icon: Tent, color: "text-teal-500", bg: "bg-teal-100" },
+        { title: "Pont du Galetas (Pédalo)", desc: "Entrée du Grand Canyon. Parking vite complet en août !", address: "D957, 04360 Aiguines", icon: Anchor, color: "text-blue-500", bg: "bg-blue-100" }
+      ];
+
+      return (
+        <div className="min-h-screen font-sans text-slate-800">
+          <header className="bg-gradient-to-r from-teal-500 to-emerald-400 text-white p-6 shadow-lg rounded-b-3xl relative overflow-hidden">
+            <div className="max-w-4xl mx-auto relative z-10 flex flex-col md:flex-row items-center justify-between">
+              <div className="text-center md:text-left mb-4 md:mb-0">
+                <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight mb-2 drop-shadow-md">
+                  Verdon 2026 🛶
+                </h1>
+                <p className="text-teal-50 text-lg font-medium">L'Aventure Familiale de Dimitri & Co !</p>
+                {isOffline && <span className="inline-block mt-2 px-2 py-1 bg-red-500 text-xs rounded-md font-bold">MODE HORS-LIGNE ACTIVÉ</span>}
+              </div>
+              <div className="flex flex-col gap-2">
+                <div className="bg-white/20 backdrop-blur-sm rounded-xl p-3 flex items-center space-x-3 border border-white/30">
+                  <Calendar className="w-6 h-6 text-yellow-300" />
+                  <span className="font-bold text-lg">9 - 23 Août 2026</span>
+                </div>
+                {meteoLive && (
+                  <div className="bg-white/20 backdrop-blur-sm rounded-xl p-3 flex items-center justify-between border border-white/30">
+                    <span className="text-sm font-medium">Moustiers-Sainte-Marie</span>
+                    <div className="flex items-center space-x-2">
+                      <Cloud className="w-5 h-5 text-blue-200" />
+                      <span className="font-bold text-lg">{meteoLive.temp}°C</span>
+                    </div>
+                  </div>
+                )}
+              </div>
+            </div>
+          </header>
+
+          <nav className="max-w-4xl mx-auto mt-8 px-4">
+            <div className="flex flex-wrap justify-center gap-2 md:gap-4 bg-white p-2 rounded-2xl shadow-sm border border-slate-100">
+              {[
+                { id: 'programme', label: 'Programme', icon: Map },
+                { id: 'budget', label: 'Budget', icon: Wallet }
+              ].map((tab) => (
+                <button
+                  key={tab.id}
+                  onClick={() => setActiveTab(tab.id)}
+                  className={`flex items-center space-x-2 px-4 py-3 rounded-xl font-semibold transition-all duration-300 ${
+                    activeTab === tab.id ? 'bg-teal-500 text-white shadow-md transform scale-105' : 'bg-slate-50 text-slate-600 hover:bg-teal-50 hover:text-teal-600'
+                  }`}
+                >
+                  <tab.icon className="w-5 h-5" />
+                  <span>{tab.label}</span>
+                </button>
+              ))}
+            </div>
+          </nav>
+
+          <main className="max-w-4xl mx-auto mt-8 px-4 pb-16">
+            {activeTab === 'programme' && (
+              <div className="animate-fade-in">
+                <h2 className="text-2xl font-bold mb-6 text-teal-800 flex items-center">
+                  <Map className="w-6 h-6 mr-2 text-teal-500" /> Carnet de Bord
+                </h2>
+                <div className="relative border-l-4 border-teal-200 ml-4 md:ml-6 space-y-8">
+                  {programme.map((day, index) => {
+                    const Icon = day.icon;
+                    return (
+                      <div key={index} className="relative pl-8 md:pl-10">
+                        <div className={`absolute -left-[18px] top-1 w-8 h-8 rounded-full border-4 border-slate-50 flex items-center justify-center ${day.color}`}>
+                          <Icon className="w-4 h-4 text-white" />
+                        </div>
+                        <div className="bg-white p-5 rounded-2xl shadow-sm border border-slate-100">
+                          <span className="inline-block px-3 py-1 bg-slate-100 text-slate-700 font-bold rounded-lg text-sm mb-2">{day.date}</span>
+                          <h3 className="text-xl font-bold text-slate-800 mb-2">{day.title}</h3>
+                          <p className="text-slate-600">{day.desc}</p>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            )}
+            {activeTab === 'budget' && (
+              <div className="animate-fade-in">
+                <h2 className="text-2xl font-bold text-teal-800 flex items-center mb-6">
+                  <Wallet className="w-6 h-6 mr-2 text-teal-500" /> Bilan Budgétaire
+                </h2>
+                <div className="bg-slate-800 text-white p-6 rounded-3xl shadow-lg">
+                  <h3 className="text-slate-300 font-medium mb-1">Budget Prévu Total</h3>
+                  <p className="text-5xl font-black">{fmtPrix(totalPrevu)} €</p>
+                </div>
+              </div>
+            )}
+          </main>
+        </div>
+      );
+    };
+
+    const root = createRoot(document.getElementById('root'));
+    root.render(<App />);
+  </script>
+
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('service-worker.js')
+          .then(() => console.log('Mode hors-ligne activé'))
+          .catch(err => console.error('Erreur Service Worker', err));
+      });
+    }
+  </script>
+</body>
+</html>
