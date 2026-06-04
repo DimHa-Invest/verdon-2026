@@ -110,7 +110,11 @@
 
       const fmtPrix = (prix) => (Math.round(prix * 100) / 100).toFixed(2);
       const toggleCheck = (id) => setCheckedItems(prev => ({ ...prev, [id]: !prev[id] }));
-
+// --- MODULE C : ROUTAGE GPS NATIF ---
+      const getGpsLink = (address) => {
+        return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(address)}`;
+      };
+      // ------------------------------------
       // --- BASES DE DONNÉES ---
       const budgetData = [
         { label: "Hébergement (14 nuits)", prevu: 2640.78, ancv: 550, dejaPaye: 891.90, icon: Tent, color: "text-blue-500", bg: "bg-blue-100" },
@@ -322,7 +326,7 @@
                           <span className="text-xs font-mono bg-slate-50 p-1.5 rounded border border-slate-100 block select-all">{item.address}</span>
                         </div>
                       </div>
-                      <a href={`geo:0,0?q=${encodeURIComponent(item.address)}`} className="bg-teal-50 p-3 rounded-xl text-teal-600 hover:bg-teal-500 hover:text-white transition-colors" title="Lancer l'itinéraire GPS">
+                     <a href={getGpsLink(item.address)} target="_blank" rel="noopener noreferrer" className="bg-teal-50 p-3 rounded-xl text-teal-600 hover:bg-teal-500 hover:text-white transition-colors" title="Lancer l'itinéraire GPS">
                         <Navigation size={18} />
                       </a>
                     </div>
