@@ -33,10 +33,22 @@
       Square, Compass, Navigation, Coffee, ShoppingBag, ChevronDown, ChevronUp, List, Cloud
     } from 'lucide-react';
 
-    const App = () => {
+const App = () => {
       const [activeTab, setActiveTab] = useState('programme');
-      const [checkedItems, setCheckedItems] = useState({});
       const [expandedDay, setExpandedDay] = useState(null);
+
+      // --- MODULE A : PERSISTANCE CHECKLIST ---
+      // 1. Au démarrage, on lit la mémoire du téléphone
+      const [checkedItems, setCheckedItems] = useState(() => {
+        const savedChecklist = localStorage.getItem('verdonChecklistMemory');
+        return savedChecklist ? JSON.parse(savedChecklist) : {};
+      });
+
+      // 2. À chaque clic, on écrit silencieusement dans la mémoire
+      useEffect(() => {
+        localStorage.setItem('verdonChecklistMemory', JSON.stringify(checkedItems));
+      }, [checkedItems]);
+      // ----------------------------------------
 
       // --- CAPTEURS HYBRIDES : COUVERTURE RÉSEAU & MÉTÉO ---
       const [meteoLive, setMeteoLive] = useState(null);
