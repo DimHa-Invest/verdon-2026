@@ -35,7 +35,7 @@
 
 const App = () => {
       const [activeTab, setActiveTab] = useState('programme');
-
+  
 
       // --- MODULE B : FOCUS JOUR-J (SMART SCROLL) ---
       const [expandedDay, setExpandedDay] = useState(() => {
@@ -59,7 +59,7 @@ const App = () => {
       // L'effet qui déclenche le défilement visuel
       useEffect(() => {
         if (activeTab === 'programme' && expandedDay !== null) {
-          const cible = document.getElementById(`jour-${expandedDay}`);
+          const cible = document.getElementById("jour-" + expandedDay);
           if (cible) {
             setTimeout(() => {
               cible.scrollIntoView({ behavior: 'smooth', block: 'center' });
@@ -273,7 +273,7 @@ const App = () => {
                     const Icon = day.icon;
                     const isExpanded = expandedDay === index;
                     return (
-                      <div key={index} id={`jour-${index}`} className="relative pl-8 md:pl-10 group">
+                      <div key={index} id={"jour-" + index} className="relative pl-8 md:pl-10 group">
                         <div className={`absolute -left-[14px] md:-left-[18px] top-1 w-6 h-6 md:w-8 md:h-8 rounded-full border-4 border-slate-50 flex items-center justify-center shadow-sm transition-transform duration-300 ${day.color}`}>
                           <Icon className="w-3 h-3 md:w-4 md:h-4 text-white" />
                         </div>
