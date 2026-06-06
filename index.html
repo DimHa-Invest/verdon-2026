@@ -1,375 +1,471 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Verdon 2026 - Carnet de Bord</title>
-  
-  <link rel="manifest" href="manifest.json">
-  <meta name="theme-color" content="#14b8a6">
-  
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-  
-  <script type="importmap">
-  {
-    "imports": {
-      "react": "https://esm.sh/react@18.2.0",
-      "react-dom/client": "https://esm.sh/react-dom@18.2.0/client",
-      "lucide-react": "https://esm.sh/lucide-react@0.292.0"
-    }
-  }
-  </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Master Plan Verdon 2026</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <style>
+        /* Scannabilité verticale et ajustements mobiles */
+        * { box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; -webkit-tap-highlight-color: transparent; }
+        
+        /* Personnalisation Accordéons (Hide default marker) */
+        details > summary { list-style: none; outline: none; }
+        details > summary::-webkit-details-marker { display: none; }
+        details[open] summary ~ * { animation: fadeIn 0.3s ease-in-out; }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* UI Mode Canicule */
+        .heat-sensitive { transition: all 0.3s ease; }
+        body.canicule-active .heat-sensitive {
+            opacity: 0.35;
+            filter: grayscale(100%);
+            pointer-events: none;
+            position: relative;
+        }
+        body.canicule-active .heat-sensitive::after {
+            content: 'Masqué (Risque Chaleur)';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #ef4444;
+            color: #ffffff;
+            padding: 4px 10px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            border-radius: 6px;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            opacity: 1 !important;
+            filter: none !important;
+        }
+
+        /* Checkbox Styling */
+        .custom-checkbox:checked + label .box {
+            background-color: #10b981;
+            border-color: #10b981;
+        }
+        .custom-checkbox:checked + label .check-icon {
+            opacity: 1;
+        }
+    </style>
 </head>
-<body class="bg-slate-50">
-  <div id="root"></div>
+<body class="bg-slate-50 text-slate-800 pb-24">
 
-  <script type="text/babel" data-type="module">
-    import React, { useState, useEffect } from 'react';
-    import { createRoot } from 'react-dom/client';
-    import { 
-      Map, Calendar, Tent, Wallet, Info, Sun, Waves, Mountain, Utensils, Car, 
-      MapPin, Anchor, Camera, Heart, ClipboardCheck, CheckSquare, 
-      Square, Compass, Navigation, Coffee, ShoppingBag, List, Cloud
-    } from 'lucide-react';
-
-    const App = () => {
-      const [activeTab, setActiveTab] = useState('programme');
-
-      // --- MODULE C : ROUTAGE GPS UNIVERSEL FIABILISÉ ---
-      const getGpsLink = (placeName, city) => {
-        const query = `${placeName} ${city}`.trim();
-        return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(query)}`;
-      };
-
-      // --- MODULE B : SMART SCROLL ---
-      const [expandedDay, setExpandedDay] = useState(() => {
-        const today = new Date();
-        if (today.getFullYear() === 2026 && today.getMonth() === 7) {
-          const day = today.getDate();
-          if (day >= 8 && day <= 23) return day - 8;
-        }
-        return null;
-      });
-
-      useEffect(() => {
-        if (activeTab === 'programme' && expandedDay !== null) {
-          const cible = document.getElementById("jour-" + expandedDay);
-          if (cible) {
-            setTimeout(() => {
-              cible.scrollIntoView({ behavior: 'smooth', block: 'center' });
-            }, 300);
-          }
-        }
-      }, [activeTab, expandedDay]);
-
-      // --- MODULE A : PERSISTANCE CHECKLIST ---
-      const [checkedItems, setCheckedItems] = useState(() => {
-        const saved = localStorage.getItem('verdonChecklistMemory');
-        return saved ? JSON.parse(saved) : {};
-      });
-
-      useEffect(() => {
-        localStorage.setItem('verdonChecklistMemory', JSON.stringify(checkedItems));
-      }, [checkedItems]);
-
-      const toggleCheck = (id) => setCheckedItems(prev => ({ ...prev, [id]: !prev[id] }));
-
-      // --- METEO ---
-      const [meteoLive, setMeteoLive] = useState(null);
-      const [isOffline, setIsOffline] = useState(!navigator.onLine);
-
-      useEffect(() => {
-        const handleOnline = () => setIsOffline(false);
-        const handleOffline = () => setIsOffline(true);
-        window.addEventListener('online', handleOnline);
-        window.addEventListener('offline', handleOffline);
-
-        const fetchMeteo = async () => {
-          try {
-            const response = await fetch('https://api.openweathermap.org/data/2.5/weather?q=Moustiers-Sainte-Marie&units=metric&appid=bd5e378503939ddaee76f12ad7a97608');
-            if (response.ok) {
-              const data = await response.json();
-              setMeteoLive({ temp: Math.round(data.main.temp) });
-            }
-          } catch {
-            const cache = localStorage.getItem('meteoVerdonCache');
-            if (cache) setMeteoLive(JSON.parse(cache));
-          }
-        };
-        fetchMeteo();
-        return () => {
-          window.removeEventListener('online', handleOnline);
-          window.removeEventListener('offline', handleOffline);
-        };
-      }, []);
-
-      // --- CODES DE TRÉSORERIE ---
-      const budgetData = [
-        { label: "Hébergement (14 nuits)", prevu: 2640.78, ancv: 550, dejaPaye: 891.90, icon: Tent, color: "text-blue-500", bg: "bg-blue-100" },
-        { label: "Trajet (Manche - Verdon)", prevu: 600, ancv: 0, dejaPaye: 0, icon: Car, color: "text-purple-500", bg: "bg-purple-100" },
-        { label: "Loisirs & Activités", prevu: 750, ancv: 0, dejaPaye: 0, icon: Sun, color: "text-orange-500", bg: "bg-orange-100" },
-        { label: "Alimentaire", prevu: 550, ancv: 0, dejaPaye: 0, icon: Utensils, color: "text-red-500", bg: "bg-red-100" },
-      ];
-
-      const totalPrevu = budgetData.reduce((acc, item) => acc + item.prevu, 0);
-      const totalANCV = budgetData.reduce((acc, item) => acc + item.ancv, 0);
-      const totalDejaPaye = budgetData.reduce((acc, item) => acc + item.dejaPaye, 0);
-      const resteACharge = totalPrevu - totalANCV - totalDejaPaye;
-
-      // --- ITINÉRAIRE INTERACTIF CONTEXTUALISÉ ---
-      const programme = [
-        { date: "Sam 08.08", type: "Départ", title: "En route vers le Sud !", desc: "Départ de Normandie à bord du Hyundai Tucson.", icon: Car, color: "bg-blue-500", image: "https://photos.auto-moto.com/32/2020/12/photos/164467/zoom-essai_hyundai_tucson_hybride_repartir_de_zro.webp", details: ["Départ tôt le matin pour éviter les flux", "Vérification Tucson OK"], food: { city: "Autoroute A6", snack: "Boulangerie Paul Aire de Jugny", resto: "Resto Courtepaille Aire d'Asnières" } },
-        { date: "Dim 09.08", type: "Arrivée", title: "La Farigoulette (5 étoiles)", desc: "Arrivée au camping, check-in et découverte des infrastructures.", icon: Tent, color: "bg-teal-500", image: "https://luxe-res.cloudinary.com/t_1400/f_auto/v1670256422/campings/1616511/camping-la-farigoulette-saint-laurent-du-verdon-5E-FB-CF-24-88-4B-0A-63-37-CE-56-00-CB-9E-0B-2A-26-B1-63-31.jpg", details: ["Arrivée prévue vers 15h/16h", "Installation complète mobil-home"], food: { city: "Saint-Laurent-du-Verdon", snack: "Snack de la Piscine Farigoulette", resto: "Le Comptoir de la Farigoulette" } },
-        { date: "Lun 10.08", type: "Repos", title: "Journée 'Chill' & Ravitaillement", desc: "Repos total au camping, repérage de la base nautique et organisation interne.", icon: Tent, color: "bg-green-500", image: "https://luxe-res.cloudinary.com/t_1400/f_auto/v1670256447/campings/1616511/camping-la-farigoulette-saint-laurent-du-verdon-6A-9C-42-2F-A3-47-D7-A8-33-B1-49-F9-02-20-57-86-DF-0B-5F-B9.jpg", details: ["Pas de voiture sauf courses", "Piscine l'après-midi"], food: { city: "Riez", snack: "Boulangerie Le Moulin de Riez", resto: "Café de la Place Riez" } },
-        { date: "Mar 11.08", type: "Sortie 1", title: "Cascade, Grottes & Dîner Perché", desc: "9h00 : Cascade de Sillans. 12h30 : Pique-nique ombragé à Salernes. 17h00 : Tourtour au coucher du soleil.", icon: Mountain, color: "bg-orange-500", image: "https://images.ctfassets.net/xq9dpkhr06mf/1OF2QJyVKPmx47zCJT3Q1a/0da0c8e463c3624b56ccd32686f8952c/1-zozz_bdr.jpg", details: ["Marche d'approche ombragée à Sillans (3.8km)", "Grottes troglodytes de Salernes", "Dîner panoramique à Tourtour"], food: { city: "Sillans-la-Cascade", snack: "Boulangerie Les Pins", resto: "Restaurant La Table", restoCity: "Tourtour" } },
-        { date: "Mer 12.08", type: "Sortie 1b", title: "Les Gorges de Baudinard", desc: "Canyon secret en canoë directement depuis la base nautique privée du camping.", icon: Waves, color: "bg-orange-500", image: "https://www.decouvrirlesud.fr/wp-content/uploads/2024/08/Gorges_de_baudinard_pepite_sud_france3.webp", details: ["Location simplifiée au ponton du camping", "Passage sous les rideaux de mousse"], food: { city: "Saint-Laurent-du-Verdon", snack: "Snack de la Base Nautique", resto: "Le Cours", restoCity: "Riez" } },
-        { date: "Jeu 13.08", type: "Sortie 2", title: "Canyon en Pédalo & Route des Crêtes", desc: "9h00 : Pédalo au Galetas. Après-midi : Baignade longue. 16h30 : Belvédères de la Route des Crêtes.", icon: Anchor, color: "bg-orange-500", image: "https://verdonsecret.com/wp-content/uploads/2020/03/Pedalo-entr%C3%A9e-canyon-2.jpg", details: ["Départ impératif du Tucson à 8h15", "Vautours fauves visibles aux belvédères dès 17h"], food: { city: "Aiguines", snack: "Snack de l'Étoile Galetas", resto: "Hôtel du Levant", restoCity: "La Palud-sur-Verdon" } },
-        { date: "Ven 14.08", type: "Sortie 3", title: "Marché de Moustiers & Baignade sous les Pins", desc: "Matin : Grand marché provençal. Après-midi : Détente absolue à la Plage des Ruisses.", icon: Mountain, color: "bg-orange-500", image: "https://www.moustiers.fr/wp-content/uploads/2025/05/img-2484-scaled.jpg", details: ["Se garer impérativement avant 9h00 à Moustiers", "Plage des Ruisses : ombrage naturel"], food: { city: "Moustiers-Sainte-Marie", snack: "PÉPITE artisan glacier café", resto: "La Treille Muscate" } },
-        { date: "Sam 15.08", type: "Sortie 4", title: "Fête Nationale de l'Assomption", desc: "Grand marché de Riez le matin. Festivités, animations et feux d'artifice en soirée.", icon: Heart, color: "bg-orange-500", image: "https://api.cloudly.space/resize/clip/640/640/75/aHR0cHM6Ly9zdGF0aWMuYXBpZGFlLXRvdXJpc21lLmNvbS9maWxlc3RvcmUvb2JqZXRzLXRvdXJpc3RpcXVlcy9pbWFnZXMvNzEvMjQ5LzM1MTI1NTc1LnBuZw==/image.webp", details: ["Affluence maximale dans la région", "Privilégier le repos l'après-midi"], food: { city: "Riez", snack: "Boulangerie Le Moulin de Riez", resto: "Les Terrasses du Lac", restoCity: "Sainte-Croix-du-Verdon" } },
-        { date: "Dim 16.08", type: "Repos", title: "Oasis du Vallon des Carmes", desc: "Exploration des vasques naturelles et des grottes suspendues à Barjols.", icon: MapPin, color: "bg-green-500", image: "https://www.la-provence-verte.net/apidae/photos/photo1147_1.jpg", details: ["35 minutes de route", "Idéal pour fuir la chaleur des grands canyons"], food: { city: "Barjols", snack: "Fabrik Fourdrain", resto: "Le Moulin de la Cascade" } },
-        { date: "Lun 17.08", type: "Sortie 5", title: "Le Canal Historique & Préhistoire", desc: "Matin : Sentier facile du Garde-Canal. Après-midi : Musée national de Quinson (Climatisé).", icon: Camera, color: "bg-orange-500", image: "https://i.ytimg.com/vi/YALE_UStTI4/maxresdefault.jpg", details: ["9h00 : Marche à l'ombre des falaises du bas-Verdon", "Musée idéal de 14h00 à 16h00"], food: { city: "Quinson", snack: "Lou Goustaroun boulangerie", resto: "Relais Notre Dame" } },
-        { date: "Mar 18.08", type: "Repos", title: "Journée Transat & Paddle", desc: "Zéro kilomètre. Baignade au lac du camping, tournoi de pétanque et repos.", icon: Sun, color: "bg-green-500", image: "https://camping-la-farigoulette-verdon.com/wp-content/uploads/2023/11/camping-bord-de-lac-verdon-acces-direct-lac-1.jpg", details: ["Barbecue le soir", "Recharge des batteries de la famille"], food: { city: "Saint-Laurent-du-Verdon", snack: "Snack Base Nautique Farigoulette", resto: "Auberge de Baudinard", restoCity: "Baudinard-sur-Verdon" } },
-        { date: "Mer 19.08", type: "Sortie 6", title: "Croisière Électrique à Esparron", desc: "Location d'un bateau électrique pour la journée. Exploration sauvage des Basses Gorges.", icon: Waves, color: "bg-orange-500", image: "https://www.toocamp.com/mag/lac-esparron-bateau-shutterstock_2029013387.jpg", details: ["Embarquement à 10h00 précises au port d'Esparron", "Prendre masques et tubas"], food: { city: "Esparron-de-Verdon", snack: "La Bohème Esparron", resto: "Le Bistrot du Lac Esparron" } },
-        { date: "Jeu 20.08", type: "Repos", title: "Plage Aménagée de Bauduen", desc: "Après-midi sur la plage en pente douce de Bauduen. Marché nocturne en soirée.", icon: Tent, color: "bg-green-500", image: "https://www.spot-de-baignade.fr/wp-content/uploads/2025/05/plage-de-bauduen-4.webp", details: ["Sécurisé pour les enfants", "Glaces artisanales sur le port"], food: { city: "Bauduen", snack: "O' Snack de la Plage Bauduen", resto: "Restaurant Ô de Croix" } },
-        { date: "Ven 21.08", type: "Sensations Fortes !", title: "Rando Aqua Aqua-Trekking", desc: "Rendez-vous à Castellane pour la descente aquatique guidée. Arrêt Point Sublime au retour.", icon: Waves, color: "bg-orange-500", image: "https://www.verdon-passion.com/wp-content/uploads/2014/07/Aqua_4-600x398.jpg", details: ["7h30 : Départ du Tucson (1h20 de route de montagne)", "Prendre de vieilles baskets pour l'eau"], food: { city: "Castellane", snack: "La Taverne des Canyons boulangerie", resto: "Restaurant La Capanna" } },
-        { date: "Sam 22.08", type: "Repos", title: "Marché de Riez & Clôture", desc: "Derniers achats de lavande, miel et souvenirs à Riez. Après-midi valises.", icon: Utensils, color: "bg-green-500", image: "https://www.palaisdelamer.com/uploads/blog/location-mobil-home-pyrenees-orientales(1).jpg", details: ["Nettoyage complet du mobil-home", "Pression des pneus Tucson"], food: { city: "Riez", snack: "Boulangerie La Fougasse Riézienne", resto: "Restaurant Au Devençoun" } },
-        { date: "Dim 23.08", type: "Départ", title: "Retour en Normandie", desc: "Départ au petit matin, fin des vacances Verdon 2026.", icon: Car, color: "bg-blue-500", image: "https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?auto=format&fit=crop&w=800&q=80", details: ["Remise des clés avant 10h00", "Trajet retour vers Cherbourg"] }
-      ];
-
-      // --- RESTAURATON INTÉGRALE DES 14 ADRESSES ---
-      const adressesData = [
-        { title: "Camping La Farigoulette", desc: "Votre camp de base.", address: "Camping La Farigoulette, Saint-Laurent-du-Verdon", icon: Tent, color: "text-teal-500", bg: "bg-teal-100" },
-        { title: "Pont du Galetas (Pédalo)", desc: "Entrée du Grand Canyon. Parking vite complet en août !", address: "Pont du Galetas, Aiguines", icon: Anchor, color: "text-blue-500", bg: "bg-blue-100" },
-        { title: "Plage des Ruisses", desc: "Ombre sous la pinède et baignade en pente douce.", address: "Plage des Ruisses, Les Salles-sur-Verdon", icon: MapPin, color: "text-blue-500", bg: "bg-blue-100" },
-        { title: "Parking Sillans-la-Cascade", desc: "Parking de la Cascade (Point de départ).", address: "Parking de la Cascade, Sillans-la-Cascade", icon: MapPin, color: "text-blue-500", bg: "bg-blue-100" },
-        { title: "Vallon de Saint-Barthélemy", desc: "Oasis de fraîcheur (Grottes et rivière).", address: "Vallon de Saint-Barthélémy, Salernes", icon: Mountain, color: "text-emerald-500", bg: "bg-emerald-100" },
-        { title: "Musée de la Préhistoire", desc: "Garez-vous au parking visiteurs gratuit.", address: "Musée de la Préhistoire des Gorges du Verdon, Quinson", icon: Camera, color: "text-orange-500", bg: "bg-orange-100" },
-        { title: "Port d'Esparron (Bateau élec.)", desc: "Point de départ pour l'exploration.", address: "Port d'Esparron, Esparron-de-Verdon", icon: Waves, color: "text-cyan-500", bg: "bg-cyan-100" },
-        { title: "Village de Tourtour", desc: "Le village dans le ciel.", address: "Place des Ormeaux, Tourtour", icon: Mountain, color: "text-emerald-500", bg: "bg-emerald-100" },
-        { title: "Restaurant 'La Table'", desc: "Dîner avec vue panoramique à Tourtour.", address: "Restaurant La Table, Tourtour", icon: Utensils, color: "text-orange-500", bg: "bg-orange-100" },
-        { title: "Route des Crêtes (Départ)", desc: "Boucle de 24km (Sens unique !).", address: "Route des Crêtes D23, La Palud-sur-Verdon", icon: Camera, color: "text-orange-500", bg: "bg-orange-100" },
-        { title: "Vallon des Carmes", desc: "Parking en haut du village de Barjols.", address: "Vallon des Carmes, Barjols", icon: MapPin, color: "text-blue-500", bg: "bg-blue-100" },
-        { title: "Réserve de Saint-Maurin", desc: "Petit parking sur la D952.", address: "Réserve Naturelle de Saint-Maurin, Moustiers-Sainte-Marie", icon: Mountain, color: "text-emerald-500", bg: "bg-emerald-100" },
-        { title: "Marché de Riez", desc: "Le mercredi et samedi matin.", address: "Place Quinconces, Riez", icon: ShoppingBag, color: "text-purple-500", bg: "bg-purple-100" },
-        { title: "Point de rdv Rando Aqua", desc: "Rendez-vous guides à Castellane.", address: "Place Marcel Sauvaire, Castellane", icon: Compass, color: "text-red-500", bg: "bg-red-100" }
-      ];
-
-      // --- RESTAURATION INTÉGRALE DES 6 CATÉGORIES CHECKLIST ---
-      const checklistCategories = [
-        { id: 'cat-maison', title: "🏠 Avant le départ (Maison)", items: [{ id: "c1", text: "Couper l'eau, l'électricité et le gaz" }, { id: "c2", text: "Vider entièrement le frigo et nettoyer" }, { id: "c3", text: "Sortir les poubelles" }, { id: "c4", text: "Fermer tous les volets roulants et fenêtres" }, { id: "c5", text: "Arroser les plantes" }] },
-        { id: 'cat-trajet', title: "🚗 Pour le trajet (Tucson)", items: [{ id: "c6", text: "Papiers, permis de conduire et Chèques-Vacances ANCV" }, { id: "c7", text: "Vérifier la pression des pneus à froid et niveaux" }, { id: "c8", text: "Gourdes d'eau et snacks pour la route" }, { id: "c9", text: "Tablettes chargées + écouteurs pour enfants" }, { id: "c10", text: "Lunettes de soleil à portée de main" }] },
-        { id: 'cat-valise', title: "🧳 Valises & Vêtements", items: [{ id: "c11", text: "Maillots de bain (x2 par personne)" }, { id: "c12", text: "Serviettes de plage" }, { id: "c13", text: "Chaussures d'eau (Crucial pour les lacs/galets)" }, { id: "c14", text: "Baskets de marche/rando fermées" }, { id: "c15", text: "Vêtements légers + un pull pour les soirées" }, { id: "c16", text: "Casquettes / Chapeaux" }] },
-        { id: 'cat-sante', title: "🧴 Santé & Trousse de toilette", items: [{ id: "c17", text: "Crème solaire indice 50 haute protection" }, { id: "c18", text: "Spray répulsif anti-moustiques zone humide" }, { id: "c19", text: "Trousse de premiers secours (pansements, désinfectant)" }, { id: "c20", text: "Biafine ou gel après-soleil" }] },
-        { id: 'cat-loisirs', title: "🏕️ Matériel Loisirs & Activités", items: [{ id: "c23", text: "Espèces (liquide) pour les petits parkings" }, { id: "c24", text: "Masques, tubas et lunettes de piscine" }, { id: "c25", text: "Sac à dos étanche pour les sorties bateau" }] },
-        { id: 'cat-retour', title: "🔙 Avant le retour", items: [{ id: "c28", text: "Vider et nettoyer le frigo du mobil-home" }, { id: "c29", text: "Vérifier sous les lits" }, { id: "c30", text: "Faire l'état des lieux de sortie" }] }
-      ];
-
-      return (
-        <div className="min-h-screen bg-slate-50 font-sans text-slate-800 pb-16">
-          
-          {/* HEADER */}
-          <header className="bg-gradient-to-r from-teal-500 to-emerald-400 text-white p-6 shadow-md rounded-b-3xl">
-            <div className="max-w-4xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
-              <div className="text-center sm:text-left">
-                <h1 className="text-4xl font-black tracking-tight mb-1">Verdon 2026 🛶</h1>
-                <p className="text-teal-50 text-xs font-bold uppercase tracking-wider">Routage & Logistique Précise • Dim</p>
-                {isOffline && <span className="inline-block mt-2 px-2 py-0.5 bg-red-600 text-white text-[9px] font-black rounded uppercase animate-pulse">Mode Hors-Ligne Actif</span>}
-              </div>
-              <div className="bg-white/20 backdrop-blur-md rounded-xl p-3 border border-white/30 text-xs font-black tracking-wide flex items-center gap-2">
-                <Calendar className="w-4 h-4 text-yellow-300" />
-                <span>08 - 23 AOÛT 2026</span>
-              </div>
+    <header class="fixed top-0 left-0 w-full bg-slate-900 text-white shadow-lg z-50">
+        <div class="px-4 py-4 flex justify-between items-center max-w-2xl mx-auto">
+            <div>
+                <h1 class="text-lg font-bold tracking-tight">Opération Verdon</h1>
+                <p class="text-xs text-slate-400 font-medium">Août 2026 • Accès Stratégique</p>
             </div>
-          </header>
-
-          {/* NAV INTERFACE */}
-          <nav className="max-w-4xl mx-auto mt-6 px-4">
-            <div className="flex flex-wrap justify-center gap-2 bg-white p-2 rounded-xl shadow-sm border border-slate-100">
-              {[
-                { id: 'programme', label: 'Programme', icon: Map },
-                { id: 'adresses', label: 'Lieux & GPS', icon: Navigation },
-                { id: 'checklist', label: 'Checklist', icon: ClipboardCheck },
-                { id: 'budget', label: 'Budget/Solde', icon: Wallet },
-                { id: 'infos', label: 'Boîte à Malices', icon: Info },
-              ].map((tab) => (
-                <button
-                  key={tab.id}
-                  onClick={() => setActiveTab(tab.id)}
-                  className={`flex items-center space-x-1.5 px-3 py-2 rounded-lg font-extrabold text-xs transition-all ${
-                    activeTab === tab.id ? 'bg-teal-500 text-white shadow-sm scale-105' : 'bg-slate-50 text-slate-600 hover:bg-teal-50'
-                  }`}
-                >
-                  <tab.icon className="w-3.5 h-3.5" />
-                  <span>{tab.label}</span>
+            <div class="flex items-center gap-3">
+                <span class="text-xs font-semibold text-slate-300">Mode Canicule</span>
+                <button id="toggle-canicule" onclick="toggleCanicule()" class="w-12 h-6 rounded-full bg-slate-600 relative transition-colors duration-300">
+                    <div id="canicule-knob" class="w-5 h-5 bg-white rounded-full absolute top-0.5 left-0.5 transition-transform duration-300 shadow-sm"></div>
                 </button>
-              ))}
             </div>
-          </nav>
-
-          {/* CONTENU LOGIQUE */}
-          <main className="max-w-4xl mx-auto mt-6 px-4">
-            
-            {/* COMPOSANT : PROGRAMME DÉPLOYABLE */}
-            {activeTab === 'programme' && (
-              <div className="space-y-6">
-                <div className="relative border-l-4 border-teal-200 ml-4 space-y-6">
-                  {programme.map((day, index) => {
-                    const Icon = day.icon;
-                    const isExpanded = expandedDay === index;
-                    return (
-                      <div key={index} id={"jour-" + index} className="relative pl-6">
-                        <div className={`absolute -left-[14px] top-1 w-6 h-6 rounded-full flex items-center justify-center text-white text-xs font-bold ${day.color}`}>
-                          <Icon className="w-3 h-3" />
-                        </div>
-                        <div 
-                          className="bg-white p-4 rounded-xl shadow-sm border border-slate-100 cursor-pointer hover:border-teal-300 transition-all"
-                          onClick={() => setExpandedDay(isExpanded ? null : index)}
-                        >
-                          <div className="flex justify-between items-center mb-1">
-                            <span className="text-[11px] font-black text-teal-700 bg-teal-50 px-2 py-0.5 rounded uppercase">{day.date}</span>
-                            <span className="text-[9px] font-black uppercase tracking-widest text-slate-400">{day.type}</span>
-                          </div>
-                          <h3 className="font-extrabold text-slate-800 text-base">{day.title}</h3>
-                          <p className="text-slate-500 text-xs mt-1 leading-relaxed">{day.desc}</p>
-                          
-                          {isExpanded && (
-                            <div className="mt-4 pt-4 border-t border-slate-100 space-y-4">
-                              {day.image && <img src={day.image} className="w-full h-40 object-cover rounded-lg shadow-inner" />}
-                              <div>
-                                <h4 className="text-xs font-black uppercase tracking-wider text-slate-400 mb-1 flex items-center"><List className="w-3.5 h-3.5 mr-1"/> Logistique de terrain :</h4>
-                                <ul className="space-y-1 text-xs text-slate-600 font-medium">
-                                  {day.details.map((det, idx) => <li key={idx} className="flex items-center gap-1.5"><span className="text-teal-500">•</span>{det}</li>)}
-                                </ul>
-                              </div>
-
-                              {/* DUAL CHOICE DYNAMIQUE */}
-                              {day.food && (
-                                <div className="bg-slate-50 p-3 rounded-lg border border-slate-200">
-                                  <p className="text-[10px] font-black uppercase text-slate-400 tracking-wider mb-2">⚖️ Restauration : Snack ou Resto (Au Choix)</p>
-                                  <div className="grid grid-cols-2 gap-2">
-                                    <button 
-                                      onClick={(e) => { e.stopPropagation(); window.open(getGpsLink(day.food.snack, day.food.city), '_blank'); }}
-                                      className="flex flex-col items-center justify-between p-2.5 bg-white border border-orange-200 rounded-lg hover:bg-orange-50 transition-all text-center group"
-                                    >
-                                      <Coffee className="w-4 h-4 text-orange-500 mb-1" />
-                                      <span className="text-xs font-black text-orange-900 group-hover:text-orange-600">Option Rapide / Snack</span>
-                                      <span className="text-[10px] text-slate-500 font-bold mt-1 line-clamp-1 border-t border-slate-100 pt-1 w-full">{day.food.snack}</span>
-                                    </button>
-                                    <button 
-                                      onClick={(e) => { e.stopPropagation(); window.open(getGpsLink(day.food.resto, day.food.restoCity || day.food.city), '_blank'); }}
-                                      className="flex flex-col items-center justify-between p-2.5 bg-white border border-teal-200 rounded-lg hover:bg-teal-50 transition-all text-center group"
-                                    >
-                                      <Heart className="w-4 h-4 text-teal-500 mb-1" />
-                                      <span className="text-xs font-black text-teal-900 group-hover:text-teal-600">Option Restaurant</span>
-                                      <span className="text-[10px] text-slate-500 font-bold mt-1 line-clamp-1 border-t border-slate-100 pt-1 w-full">{day.food.resto}</span>
-                                    </button>
-                                  </div>
-                                </div>
-                              )}
-                            </div>
-                          )}
-                        </div>
-                      </div>
-                    );
-                  })}
-                </div>
-              </div>
-            )}
-
-            {/* COMPOSANT : ADRESSES CLÉS */}
-            {activeTab === 'adresses' && (
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                {adressesData.map((item, idx) => (
-                  <div key={idx} className="bg-white p-4 rounded-xl shadow-sm border border-slate-100 flex justify-between items-center gap-4">
-                    <div>
-                      <h3 className="font-extrabold text-slate-800 text-sm">{item.title}</h3>
-                      <p className="text-[11px] font-medium text-slate-400 mt-0.5">{item.desc}</p>
-                    </div>
-                    <button onClick={() => window.open(getGpsLink(item.address, ""), '_blank')} className="bg-teal-50 p-2.5 rounded-lg text-teal-600 hover:bg-teal-500 hover:text-white transition-all shrink-0">
-                      <Navigation size={16} />
-                    </button>
-                  </div>
-                ))}
-              </div>
-            )}
-
-            {/* COMPOSANT : CHECKLIST EXHAUSTIVE */}
-            {activeTab === 'checklist' && (
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {checklistCategories.map((cat) => (
-                  <div key={cat.id} className="bg-white p-4 rounded-xl shadow-sm border border-slate-100">
-                    <h3 className="font-black text-slate-800 text-sm mb-3 pb-1 border-b border-slate-100">{cat.title}</h3>
-                    <div className="space-y-2">
-                      {cat.items.map((item) => {
-                        const isChecked = checkedItems[item.id] || false;
-                        return (
-                          <label key={item.id} className="flex items-start space-x-2.5 p-1 rounded cursor-pointer hover:bg-slate-50">
-                            <input type="checkbox" className="hidden" checked={isChecked} onChange={() => toggleCheck(item.id)} />
-                            <div className="mt-0.5 shrink-0">{isChecked ? <CheckSquare className="w-4 h-4 text-green-500" /> : <Square className="w-4 h-4 text-slate-300" />}</div>
-                            <span className={`text-xs font-bold text-slate-600 ${isChecked ? 'line-through text-slate-400 font-medium' : ''}`}>{item.text}</span>
-                          </label>
-                        );
-                      })}
-                    </div>
-                  </div>
-                ))}
-              </div>
-            )}
-
-            {/* COMPOSANT : BUDGET */}
-            {activeTab === 'budget' && (
-              <div className="space-y-4">
-                <div className="bg-slate-900 text-white p-5 rounded-2xl shadow-md">
-                  <h3 className="text-slate-400 text-[10px] font-black uppercase tracking-wider mb-0.5">Solde Restant à Charge sur Place</h3>
-                  <p className="text-3xl font-black tracking-tight text-teal-400">{resteACharge.toFixed(2)} €</p>
-                  <div className="text-xs text-slate-400 mt-3 border-t border-slate-800 pt-3 space-y-1.5 font-medium">
-                    <div className="flex justify-between"><span>Budget prévisionnel total</span><span className="text-white font-bold">{totalPrevu.toFixed(2)} €</span></div>
-                    <div className="flex justify-between"><span>Financement Chèques ANCV</span><span className="text-green-400 font-bold">-{totalANCV.toFixed(2)} €</span></div>
-                    <div className="flex justify-between"><span>Acompte déjà débité</span><span className="text-blue-400 font-bold">-{totalDejaPaye.toFixed(2)} €</span></div>
-                  </div>
-                </div>
-              </div>
-            )}
-
-            {/* COMPOSANT : BOITE A MALICES */}
-            {activeTab === 'infos' && (
-              <div className="space-y-4">
-                <div className="bg-white p-4 rounded-xl shadow-sm border border-slate-100">
-                  <h3 className="font-black text-slate-800 text-sm mb-3 flex items-center text-indigo-700">
-                    <ShoppingBag className="w-4 h-4 mr-1.5"/> Approvisionnements & Supermarchés Centraux
-                  </h3>
-                  <div className="bg-slate-50 p-3 rounded-lg border border-slate-200 flex justify-between items-center gap-4">
-                    <div>
-                      <p className="text-xs font-black text-slate-800">Intermarché SUPER — Riez</p>
-                      <p className="text-[11px] font-medium text-slate-500 mt-0.5">Le point d'ancrage principal. Idéal pour éviter les micro-frais des épiceries de camping. Horaires stratégiques : 08h30 à l'ouverture.</p>
-                    </div>
-                    <button onClick={() => window.open(getGpsLink("Intermarché SUPER", "Riez"), '_blank')} className="bg-indigo-50 p-2 rounded-lg text-indigo-600 hover:bg-indigo-500 hover:text-white transition-all shrink-0">
-                      <Navigation size={14} />
-                    </button>
-                  </div>
-                </div>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                  {[
-                    { title: "Gestion Financière", desc: "Conserve une réserve de liquidités en coupures de 10€/20€ dans le Tucson. Les horodateurs des belvédères sauvages et les artisans des marchés refusent la carte bancaire." },
-                    { title: "Bateaux Électriques & Activités", desc: "Aucune exception possible au mois d'août : appelle à l'avance (48h minimum) pour bloquer ton créneau à Esparron ou au Galetas." }
-                  ].map((cons, idx) => (
-                    <div key={idx} className="bg-amber-50/70 border border-amber-200 p-3 rounded-xl">
-                      <h4 className="font-black text-amber-950 text-xs mb-0.5">{cons.title}</h4>
-                      <p className="text-amber-900 text-[11px] font-medium leading-relaxed">{cons.desc}</p>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            )}
-
-          </main>
         </div>
-      );
-    };
+    </header>
 
-    const root = createRoot(document.getElementById('root'));
-    root.render(<App />);
-  </script>
+    <main id="app-container" class="pt-24 px-3 max-w-2xl mx-auto flex flex-col gap-5">
+        </main>
+
+    <nav class="fixed bottom-0 left-0 w-full bg-white border-t border-slate-200 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.05)] z-50 pb-safe">
+        <div class="flex justify-around items-center max-w-2xl mx-auto h-16">
+            <button class="flex flex-col items-center justify-center w-full h-full text-indigo-600 transition-colors">
+                <i class="ph-fill ph-calendar-check text-2xl mb-1"></i>
+                <span class="text-[10px] font-bold">Planning</span>
+            </button>
+            <button class="flex flex-col items-center justify-center w-full h-full text-slate-400 hover:text-slate-600 transition-colors">
+                <i class="ph ph-map-trifold text-2xl mb-1"></i>
+                <span class="text-[10px] font-medium">Cartes</span>
+            </button>
+            <button class="flex flex-col items-center justify-center w-full h-full text-slate-400 hover:text-slate-600 transition-colors">
+                <i class="ph ph-list-checks text-2xl mb-1"></i>
+                <span class="text-[10px] font-medium">Checklists</span>
+            </button>
+            <button class="flex flex-col items-center justify-center w-full h-full text-red-400 hover:text-red-500 transition-colors">
+                <i class="ph ph-warning-circle text-2xl mb-1"></i>
+                <span class="text-[10px] font-medium">Urgences</span>
+            </button>
+        </div>
+    </nav>
+
+    <script>
+        const masterPlan = [
+            {
+                date: "Dimanche 09 Août", type: "Logistique", title: "Arrivée & Déploiement",
+                desc: "Arrivée sur zone à La Farigoulette, prise en main du mobil-home.",
+                icon: "ph-house-line", color: "bg-slate-500", intensity: "Moyenne",
+                details: [
+                    { time: "16:00+", text: "Check-in, état des lieux et installation au mobil-home." }
+                ],
+                materials: [], catering: null
+            },
+            {
+                date: "Lundi 10 Août", type: "Camp de Base", title: "Reconnaissance & Approvisionnement",
+                desc: "Courses lourdes, aménagement complet, visite du camping et de la base nautique.",
+                icon: "ph-shopping-cart", color: "bg-blue-500", intensity: "Faible",
+                details: [
+                    { time: "Matin", text: "Courses d'approvisionnement lourd pour la semaine." },
+                    { time: "Après-midi", text: "Visite des infrastructures du camping, piscines et repérage de la base nautique privée." }
+                ],
+                materials: [], catering: null
+            },
+            {
+                date: "Mardi 11 Août", type: "Sortie 1", title: "Sillans & Villages de Caractère",
+                desc: "Découverte des cascades et chasse aux fontaines dans le Haut-Var.",
+                icon: "ph-drop", color: "bg-teal-500", intensity: "Moyenne",
+                details: [
+                    { time: "09h00 - 10h10", text: "Sillans : Stationnement tactique au Parking Rue des Écoles. Le véhicule ne bouge plus jusqu'à 14h30. Marche vers le Belvédère (Tracé Violet, 1.6km A/R)." },
+                    { time: "10h10 - 12h15", text: "Sentier des Berges (Tracé Rouge). Progression ombragée le long de la Bresque. Rafraîchissement autorisé 2e cascade. <a href='https://unevieenvrai.com/cascade-de-sillans-action-anti-pollution/#plan-sentiers-randonnee' target='_blank' class='text-indigo-600 font-semibold underline mt-1 inline-block'>Voir Tracé GPS</a>" },
+                    { time: "12h15 - 14h30", text: "Déjeuner assis au village de Sillans (Réservation requise à l'avance)." },
+                    { time: "14h30 - 15h30", text: "Récupération véhicule et transition (25 min) vers Villecroze." },
+                    { time: "15h30 - 17h30", text: "Villecroze : Visite des grottes troglodytiques (clim naturelle à 15°C) et parc municipal." },
+                    { time: "17h30 - 18h00", text: "Route sinueuse vers le village perché de Tourtour (20-25 min).", canicule: true },
+                    { time: "18h00 - 21h00+", text: "Tourtour : Chasse aux fontaines, marche vers la Chapelle Saint-Barthélemy et dîner face au coucher du soleil." }
+                ],
+                materials: [
+                    { name: "Baskets fermées (Enfant & Adultes)", isCritical: true, reason: "Obligatoires pour le sentier rouge (racines, roches glissantes)." }
+                ],
+                catering: {
+                    restaurantJoliCadre: { name: "La Table de Tourtour", rating: 4.6, distanceText: "18km (25 min) / Centre village perché" },
+                    snackSurLePouce: { name: "Café de la Cascade (Sillans)", rating: 4.2, distanceText: "0km (Sur place après la marche)" }
+                }
+            },
+            {
+                date: "Mercredi 12 Août", type: "Repos", title: "Décompression Totale",
+                desc: "Coupure voiture, repos musculaire et baignade au camping.",
+                icon: "ph-sun", color: "bg-emerald-500", intensity: "Faible",
+                details: [{ time: "Journée", text: "Repos complet à La Farigoulette. Rechargement des batteries." }],
+                materials: [], catering: null
+            },
+            {
+                date: "Jeudi 13 Août", type: "Sortie 2", title: "Baudinard en Bateau Électrique",
+                desc: "Exploration douce du canyon secret sans effort direct depuis le camping.",
+                icon: "ph-boat", color: "bg-orange-500", intensity: "Faible",
+                details: [
+                    { time: "09h00 - 13h00", text: "Navigation électrique (4h). Départ depuis la base privée du camping (0 km)." },
+                    { time: "Sur l'eau", text: "Immersion sous les 'rideaux de mousse'. Respect strict du balisage des bouées du barrage." },
+                    { time: "Après 13h00", text: "Retour direct au mobil-home. Après-midi 100% repos et piscine." }
+                ],
+                materials: [
+                    { name: "Gilet de sauvetage enfant", isCritical: true, reason: "Ajustement strict obligatoire avant embarquement." },
+                    { name: "Gestion Batterie", isCritical: true, reason: "Allure modérée obligatoire pour ne pas tomber en panne." }
+                ],
+                catering: {
+                    restaurantJoliCadre: { name: "La Table du Vieux Riez (Riez)", rating: 4.8, distanceText: "15km (20 min) / 16 Rue du Marché" },
+                    snackSurLePouce: { name: "Snack de la Base Nautique", rating: 4.0, distanceText: "0km (Ponton du camping)" }
+                }
+            },
+            {
+                date: "Vendredi 14 Août", type: "Repos", title: "Stratégie Avant-Fête",
+                desc: "Hydratation et stockage d'énergie avant l'extraction tardive du lendemain.",
+                icon: "ph-bed", color: "bg-emerald-500", intensity: "Faible",
+                details: [{ time: "Journée", text: "Zéro contrainte horaire. On préserve l'enfant." }],
+                materials: [], catering: null
+            },
+            {
+                date: "Samedi 15 Août", type: "Sortie 4", title: "Moustiers : Bal & Feu d'Artifice",
+                desc: "Ancrage Fixe Assomption : Baignade lac, logistique anti-bouchons et soirée festive.",
+                icon: "ph-fireworks", color: "bg-red-600", intensity: "Élevée",
+                details: [
+                    { time: "Matin", text: "Grasse matinée. Repos complet à La Farigoulette." },
+                    { time: "11h00 - 12h00", text: "Départ (30 min) vers le Lac de Ste-Croix (Ruisses/Galetas). Achat immédiat du repas au snack avant la file de 12h15." },
+                    { time: "12h00 - 15h00", text: "Pique-nique ombragé sous les pins et baignade." },
+                    { time: "15h00 - 15h30", text: "Extraction de la plage. Route vers Moustiers (15 min).", canicule: true },
+                    { time: "15h30 - STRICT", text: "Infiltration critique : Stationnement obligatoire parkings bas (P3/P4) pendant la rotation du midi." },
+                    { time: "15h45 - 18h45", text: "Exploration de Moustiers, cascade de la source, faïences. Goûter/Glace à l'ombre." },
+                    { time: "18h45 - 21h00", text: "Dîner tactique aux Barbecues du Bal des Pompiers (Place du Faubourg) dès l'ouverture." },
+                    { time: "21h00 - 22h00", text: "Musique et bal familial." },
+                    { time: "22h00 - 22h30", text: "Feu d'artifice tiré depuis les falaises." },
+                    { time: "22h30 - 23h15", text: "Extraction immédiate avant blocage routier. 45 min de retour nocturne." }
+                ],
+                materials: [
+                    { name: "Timing Parking Moustiers", isCritical: true, reason: "15h30 sur P3/P4. Ni avant (bouchons), ni après (complet)." }
+                ],
+                catering: {
+                    restaurantJoliCadre: { name: "Restaurant Les Santons", rating: 4.5, distanceText: "0km / Moustiers Haut (Plan B)" },
+                    snackSurLePouce: { name: "Barbecue Bal des Pompiers", rating: 5.0, distanceText: "Place du Faubourg (Tactique)" }
+                }
+            },
+            {
+                date: "Dimanche 16 Août", type: "Repos", title: "Récupération Nocturne",
+                desc: "Grasse matinée et remise à niveau physique obligatoire.",
+                icon: "ph-moon-stars", color: "bg-emerald-500", intensity: "Faible",
+                details: [{ time: "Journée", text: "Le planning est gelé. Priorité au sommeil réparateur de l'enfant." }],
+                materials: [], catering: null
+            },
+            {
+                date: "Lundi 17 Août", type: "Sortie 3", title: "Grand Canyon & Vautours",
+                desc: "Verticalité absolue, pédalo matinal et Route des Crêtes.",
+                icon: "ph-mountains", color: "bg-purple-600", intensity: "Élevée",
+                details: [
+                    { time: "08h15 - 09h00", text: "Départ strict. 35 min de route fluide vers le lac." },
+                    { time: "09h00 - 11h00", text: "Location pédalo au Canyon du Galetas (Objectif Cascade St-Maurin)." },
+                    { time: "11h00 - 13h00", text: "Déjeuner préventif aux terrasses du Galetas avant le rush." },
+                    { time: "13h00 - 15h15", text: "Baignade longue (Plage du Galetas). Tucson statique." },
+                    { time: "15h15 - 16h45", text: "Liaison routière (D952) vers La Palud.", canicule: true },
+                    { time: "16h45 - 18h00", text: "Route des Crêtes (D23, sens Est). Arrêts Trescaïre, La Carelle. Fixation à L'Escalès à 17h00 pour vautours." },
+                    { time: "18h15 - 19h00", text: "Point Sublime (10 min de marche à plat). Couloir Samson en lumière rasante." },
+                    { time: "19h00 - 20h15", text: "Dîner en terrasse à La Palud." },
+                    { time: "20h15 - 21h00", text: "Trajet retour de nuit (45 min)." }
+                ],
+                materials: [
+                    { name: "Parasol de Plage", isCritical: true, reason: "Aucune ombre sur la plage du Galetas l'après-midi." },
+                    { name: "Crème Solaire 50 + Casquette", isCritical: true, reason: "Réverbération maximale à 100% sur le pédalo." },
+                    { name: "Stock Eau Critique", isCritical: true, reason: "Grosse déshydratation Route des Crêtes + Clim Tucson." }
+                ],
+                catering: {
+                    restaurantJoliCadre: { name: "Le Perroquet Vert (La Palud)", rating: 4.4, distanceText: "18km / Au bout de la Route des Crêtes" },
+                    snackSurLePouce: { name: "Terrasses du Galetas", rating: 4.0, distanceText: "0km / Sur la base nautique (Midi)" }
+                }
+            },
+            {
+                date: "Mardi 18 Août", type: "Repos", title: "Break Post-Canyon",
+                desc: "Récupération physique post-conduite de montagne.",
+                icon: "ph-armchair", color: "bg-emerald-500", intensity: "Faible",
+                details: [{ time: "Journée", text: "Détente musculaire, balade au sein du camping." }],
+                materials: [], catering: null
+            },
+            {
+                date: "Mercredi 19 Août", type: "Sortie 5", title: "Bauduen, Jouets & Artignosc",
+                desc: "Bourg médiéval, exposition fraîcheur et plage ombragée sans vent.",
+                icon: "ph-castle-turret", color: "bg-pink-500", intensity: "Moyenne",
+                details: [
+                    { time: "09h15 - 10h00", text: "Départ fluide (35 min via D30). Stationnement Bauduen." },
+                    { time: "10h00 - 12h30", text: "Exploration piétonne du front de lac et des ruelles. ACTION : Intercepter le restaurant du port dès 10h pour midi." },
+                    { time: "12h30 - 14h30", text: "Déjeuner assis en terrasse face aux voiliers." },
+                    { time: "14h30 - 15h30", text: "Esquive Thermique : Visite expo 'L'Art en Jouet' (Playmobil) dans l'ancienne école (à l'abri)." },
+                    { time: "15h30 - 16h00", text: "Route (25 min) vers le Lac d'Artignosc (sens du retour camping)." },
+                    { time: "16h00 - 18h00", text: "Baignade Artignosc : Pelouse ombragée, eau calme, pas de clapot. Option pédalo." },
+                    { time: "18h00 - 18h15", text: "Retour flash au camping (10 min)." }
+                ],
+                materials: [
+                    { name: "Verrouillage Table à 10h", isCritical: true, reason: "Technique infaillible pour ne pas faire la queue à 12h30 sur le port." }
+                ],
+                catering: {
+                    restaurantJoliCadre: { name: "Restaurant Ô de Croix", rating: 4.5, distanceText: "0km / Face au port de Bauduen" },
+                    snackSurLePouce: { name: "O' Snack de la Plage", rating: 4.2, distanceText: "0km / Sur les quais" }
+                }
+            },
+            {
+                date: "Jeudi 20 Août", type: "Repos", title: "Journée Tampon",
+                desc: "Transition vers la fin de séjour, activités légères.",
+                icon: "ph-beach-tent", color: "bg-emerald-500", intensity: "Faible",
+                details: [{ time: "Journée", text: "Option base nautique du camping ou farniente absolu." }],
+                materials: [], catering: null
+            },
+            {
+                date: "Vendredi 21 Août", type: "Sortie 6", title: "Canal Historique & Préhistoire",
+                desc: "Bilan carbone ultra-bas, tunnel d'aventure et climatisation muséale.",
+                icon: "ph-footprints", color: "bg-cyan-600", intensity: "Moyenne",
+                details: [
+                    { time: "08h30 - 08h45", text: "Trajet flash (7km, 8 min via D11). Stationnement Quinson (près du pont)." },
+                    { time: "09h00 - 12h00", text: "Marche plate Sentier du Garde-Canal A/R. (Passerelles au-dessus de l'eau)." },
+                    { time: "Le Tunnel", text: "Franchissement du grand tunnel (120m dans l'obscurité)." },
+                    { time: "DEMI-TOUR", text: "Demi-tour strict acté à la sortie du tunnel (escaliers). Interdiction formelle de monter à la Chapelle." },
+                    { time: "12h00 - 13h45", text: "Pique-nique berges du Verdon ou village." },
+                    { time: "14h00 - 16h00", text: "Visite Musée de la Préhistoire (Climatisé à 100%)." },
+                    { time: "16h00 - 16h15", text: "Retour au camping, clôture des sorties." }
+                ],
+                materials: [
+                    { name: "Lampe Frontale", isCritical: true, reason: "Indispensable pour sécuriser les appuis de l'enfant dans le tunnel de 120m." },
+                    { name: "Baskets / Chaussures Fermées", isCritical: true, reason: "Tongs interdites (sol très humide, passerelles métalliques ajourées)." },
+                    { name: "Tenue de Main", isCritical: true, reason: "Vigilance sur les passerelles arrimées à la roche." }
+                ],
+                catering: {
+                    restaurantJoliCadre: { name: "Le Relais Notre-Dame", rating: 4.4, distanceText: "1km / Centre Quinson" },
+                    snackSurLePouce: { name: "Chez Kinou (Brasserie)", rating: 4.5, distanceText: "0.5km / Place du village" }
+                }
+            },
+            {
+                date: "Samedi 22 Août", type: "Repos", title: "Sas de Décompression",
+                desc: "Rangement logistique, inventaire et préparation.",
+                icon: "ph-package", color: "bg-slate-600", intensity: "Faible",
+                details: [{ time: "Journée", text: "Derniers achats souvenirs, nettoyage mobil-home, bouclage des bagages." }],
+                materials: [], catering: null
+            },
+            {
+                date: "Dimanche 23 Août", type: "Logistique", title: "Extraction & Retour",
+                desc: "Fin de l'Opération Verdon 2026.",
+                icon: "ph-car-profile", color: "bg-slate-800", intensity: "Élevée",
+                details: [{ time: "Matin", text: "Remise des clés, état des lieux et prise de route finale." }],
+                materials: [], catering: null
+            }
+        ];
+
+        // Rendu UI du Programme
+        function renderApp() {
+            const container = document.getElementById('app-container');
+            container.innerHTML = '';
+
+            masterPlan.forEach((day, index) => {
+                
+                // Calcul Intensité Styles
+                let intensityPill = '';
+                if(day.intensity === 'Faible') intensityPill = 'bg-emerald-100 text-emerald-800 border-emerald-200';
+                else if(day.intensity === 'Moyenne') intensityPill = 'bg-amber-100 text-amber-800 border-amber-200';
+                else if(day.intensity === 'Élevée') intensityPill = 'bg-rose-100 text-rose-800 border-rose-200';
+
+                // Gestion du Warning Matériel Critique
+                let alertBannerHTML = '';
+                const hasCritical = day.materials && day.materials.some(m => m.isCritical);
+                if (hasCritical) {
+                    alertBannerHTML = `
+                        <div class="bg-red-50 border-l-4 border-red-500 p-3 mb-4 rounded-r-md flex items-start gap-3 shadow-sm">
+                            <i class="ph-fill ph-warning-octagon text-red-500 text-xl mt-0.5 shrink-0"></i>
+                            <div>
+                                <p class="text-sm font-bold text-red-800 uppercase tracking-wide">Alerte Matériel & Terrain</p>
+                                <ul class="mt-1 space-y-1">
+                                    ${day.materials.map(m => m.isCritical ? `<li class="text-xs text-red-700 leading-snug"><span class="font-bold border-b border-red-200">${m.name}</span> : ${m.reason}</li>` : '').join('')}
+                                </ul>
+                            </div>
+                        </div>
+                    `;
+                }
+
+                // Génération des Détails / Chronogramme
+                let timelineHTML = day.details.map(d => `
+                    <li class="relative pl-6 pb-4 last:pb-0 ${d.canicule ? 'heat-sensitive' : ''}">
+                        <div class="absolute left-0 top-1 w-2 h-2 rounded-full ${day.color.replace('bg-', 'bg-').replace('500','400')} ring-4 ring-white"></div>
+                        <div class="absolute left-1 top-3 bottom-0 w-[1px] bg-slate-200 last:hidden"></div>
+                        <span class="block text-xs font-bold text-slate-500 mb-0.5">${d.time}</span>
+                        <span class="block text-sm text-slate-700 leading-relaxed">${d.text}</span>
+                    </li>
+                `).join('');
+
+                // Génération Accordéon Restauration (avec LocalStorage logic)
+                let cateringHTML = '';
+                if (day.catering) {
+                    const restoId = `resto-${index}`;
+                    const snackId = `snack-${index}`;
+                    
+                    cateringHTML = `
+                        <details class="mt-4 bg-slate-50 rounded-lg border border-slate-200 overflow-hidden group">
+                            <summary class="flex justify-between items-center p-3 cursor-pointer bg-white hover:bg-slate-50 transition-colors">
+                                <div class="flex items-center gap-2">
+                                    <i class="ph-fill ph-fork-knife text-indigo-500 text-lg"></i>
+                                    <span class="text-sm font-bold text-slate-700">Restauration Tactique</span>
+                                </div>
+                                <i class="ph ph-caret-down text-slate-400 group-open:-rotate-180 transition-transform"></i>
+                            </summary>
+                            <div class="p-4 border-t border-slate-100 space-y-3 bg-white">
+                                <div class="flex items-start gap-3 relative">
+                                    <input type="checkbox" id="${restoId}" class="custom-checkbox hidden" onchange="saveSelection('${restoId}')">
+                                    <label for="${restoId}" class="flex items-start gap-3 cursor-pointer w-full group/label">
+                                        <div class="box w-5 h-5 mt-0.5 rounded border-2 border-slate-300 flex items-center justify-center transition-colors">
+                                            <i class="ph-bold ph-check text-white text-xs opacity-0 check-icon transition-opacity"></i>
+                                        </div>
+                                        <div class="flex-1">
+                                            <p class="text-sm font-bold text-slate-800 group-hover/label:text-indigo-600 transition-colors">${day.catering.restaurantJoliCadre.name}</p>
+                                            <p class="text-xs text-slate-500 mt-0.5 font-medium flex items-center gap-1"><i class="ph-fill ph-star text-amber-400"></i> ${day.catering.restaurantJoliCadre.rating}/5 • Cadre & Assis</p>
+                                            <p class="text-xs text-slate-400 mt-0.5 flex items-center gap-1"><i class="ph-fill ph-map-pin text-slate-300"></i> ${day.catering.restaurantJoliCadre.distanceText}</p>
+                                        </div>
+                                    </label>
+                                </div>
+                                <div class="flex items-start gap-3 relative">
+                                    <input type="checkbox" id="${snackId}" class="custom-checkbox hidden" onchange="saveSelection('${snackId}')">
+                                    <label for="${snackId}" class="flex items-start gap-3 cursor-pointer w-full group/label">
+                                        <div class="box w-5 h-5 mt-0.5 rounded border-2 border-slate-300 flex items-center justify-center transition-colors">
+                                            <i class="ph-bold ph-check text-white text-xs opacity-0 check-icon transition-opacity"></i>
+                                        </div>
+                                        <div class="flex-1">
+                                            <p class="text-sm font-bold text-slate-800 group-hover/label:text-indigo-600 transition-colors">${day.catering.snackSurLePouce.name}</p>
+                                            <p class="text-xs text-slate-500 mt-0.5 font-medium flex items-center gap-1"><i class="ph-fill ph-star text-amber-400"></i> ${day.catering.snackSurLePouce.rating}/5 • Rapide & Pratique</p>
+                                            <p class="text-xs text-slate-400 mt-0.5 flex items-center gap-1"><i class="ph-fill ph-map-pin text-slate-300"></i> ${day.catering.snackSurLePouce.distanceText}</p>
+                                        </div>
+                                    </label>
+                                </div>
+                            </div>
+                        </details>
+                    `;
+                }
+
+                // Construction finale de la carte
+                const card = document.createElement('article');
+                card.className = "bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden break-inside-avoid";
+                card.innerHTML = `
+                    <div class="${day.color} text-white px-4 py-3 flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center shrink-0">
+                            <i class="ph-fill ${day.icon} text-xl"></i>
+                        </div>
+                        <div class="flex-1 min-w-0">
+                            <p class="text-xs font-medium text-white/80 uppercase tracking-wider">${day.date}</p>
+                            <h2 class="text-lg font-bold truncate">${day.title}</h2>
+                        </div>
+                    </div>
+                    
+                    <div class="p-4 md:p-5">
+                        <div class="flex justify-between items-start gap-2 mb-4">
+                            <p class="text-sm text-slate-600 font-medium leading-snug">${day.desc}</p>
+                            <span class="shrink-0 text-[10px] font-bold px-2 py-1 rounded border ${intensityPill} uppercase tracking-wide">Intensité : ${day.intensity}</span>
+                        </div>
+
+                        ${alertBannerHTML}
+
+                        <ul class="relative mt-2">
+                            ${timelineHTML}
+                        </ul>
+
+                        ${cateringHTML}
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+
+            // Hydratation des Checkboxes depuis le LocalStorage
+            document.querySelectorAll('.custom-checkbox').forEach(cb => {
+                if(localStorage.getItem(cb.id) === 'true') {
+                    cb.checked = true;
+                }
+            });
+        }
+
+        // Logic Checkboxes Persistance
+        function saveSelection(id) {
+            const isChecked = document.getElementById(id).checked;
+            if (isChecked) {
+                localStorage.setItem(id, 'true');
+            } else {
+                localStorage.removeItem(id);
+            }
+        }
+
+        // Logic Mode Canicule
+        function toggleCanicule() {
+            const body = document.body;
+            const knob = document.getElementById('canicule-knob');
+            
+            body.classList.toggle('canicule-active');
+            const isActive = body.classList.contains('canicule-active');
+            
+            if (isActive) {
+                knob.style.transform = 'translateX(20px)';
+                document.getElementById('toggle-canicule').classList.replace('bg-slate-600', 'bg-red-500');
+            } else {
+                knob.style.transform = 'translateX(0)';
+                document.getElementById('toggle-canicule').classList.replace('bg-red-500', 'bg-slate-600');
+            }
+            
+            localStorage.setItem('caniculeMode', isActive);
+        }
+
+        // Initialisation Globale
+        document.addEventListener('DOMContentLoaded', () => {
+            renderApp();
+            // Restauration de l'état du mode canicule
+            if (localStorage.getItem('caniculeMode') === 'true') {
+                toggleCanicule();
+            }
+        });
+    </script>
 </body>
 </html>
