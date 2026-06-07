@@ -7,11 +7,11 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
     <style>
-        /* Scannabilité verticale et ajustements mobiles */
+        /* Base et Scannabilité */
         * { box-sizing: border-box; }
-        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; -webkit-tap-highlight-color: transparent; }
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; -webkit-tap-highlight-color: transparent; scroll-behavior: smooth; }
         
-        /* Personnalisation Accordéons (Hide default marker) */
+        /* Personnalisation Accordéons Restauration (Hide default marker) */
         details > summary { list-style: none; outline: none; }
         details > summary::-webkit-details-marker { display: none; }
         details[open] summary ~ * { animation: fadeIn 0.3s ease-in-out; }
@@ -19,6 +19,19 @@
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(-5px); }
             to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Comportement Accordéon (Cartes Principales) avec CSS Grid */
+        .card-body-wrapper {
+            display: grid;
+            grid-template-rows: 0fr;
+            transition: grid-template-rows 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .card-body-wrapper.open {
+            grid-template-rows: 1fr;
+        }
+        .card-body-inner {
+            overflow: hidden;
         }
 
         /* UI Mode Canicule */
@@ -32,25 +45,17 @@
         body.canicule-active .heat-sensitive::after {
             content: 'Masqué (Risque Chaleur)';
             position: absolute;
-            top: 50%;
-            left: 50%;
+            top: 50%; left: 50%;
             transform: translate(-50%, -50%);
-            background-color: #ef4444;
-            color: #ffffff;
-            padding: 4px 10px;
-            font-size: 0.75rem;
-            font-weight: 700;
-            border-radius: 6px;
-            letter-spacing: 0.5px;
-            text-transform: uppercase;
-            opacity: 1 !important;
-            filter: none !important;
+            background-color: #ef4444; color: #ffffff;
+            padding: 4px 10px; font-size: 0.75rem; font-weight: 700;
+            border-radius: 6px; letter-spacing: 0.5px; text-transform: uppercase;
+            opacity: 1 !important; filter: none !important;
         }
 
         /* Checkbox Styling */
         .custom-checkbox:checked + label .box {
-            background-color: #10b981;
-            border-color: #10b981;
+            background-color: #10b981; border-color: #10b981;
         }
         .custom-checkbox:checked + label .check-icon {
             opacity: 1;
@@ -74,24 +79,61 @@
         </div>
     </header>
 
-    <main id="app-container" class="pt-24 px-3 max-w-2xl mx-auto flex flex-col gap-5">
-        </main>
+    <main class="pt-24 px-3 max-w-2xl mx-auto">
+        
+        <div id="view-planning" class="app-view flex flex-col gap-4">
+            </div>
+
+        <div id="view-cartes" class="app-view hidden flex flex-col items-center justify-center text-center py-20">
+            <div class="w-20 h-20 bg-slate-200 rounded-full flex items-center justify-center mb-6">
+                <i class="ph ph-map-trifold text-4xl text-slate-400"></i>
+            </div>
+            <h2 class="text-xl font-bold text-slate-800 mb-2">Cartographie GPS</h2>
+            <p class="text-sm text-slate-500 mb-8 max-w-xs">Le module de cartographie locale est en cours de synchronisation spatiale.</p>
+            <button onclick="switchView('planning')" class="bg-indigo-600 text-white px-6 py-3 rounded-lg font-bold shadow-md hover:bg-indigo-700 transition-colors">
+                Retour au Planning
+            </button>
+        </div>
+
+        <div id="view-checklists" class="app-view hidden flex flex-col items-center justify-center text-center py-20">
+            <div class="w-20 h-20 bg-slate-200 rounded-full flex items-center justify-center mb-6">
+                <i class="ph ph-list-checks text-4xl text-slate-400"></i>
+            </div>
+            <h2 class="text-xl font-bold text-slate-800 mb-2">Inventaire Matériel</h2>
+            <p class="text-sm text-slate-500 mb-8 max-w-xs">La checklist dynamique du Tucson et du mobil-home sera injectée ici.</p>
+            <button onclick="switchView('planning')" class="bg-indigo-600 text-white px-6 py-3 rounded-lg font-bold shadow-md hover:bg-indigo-700 transition-colors">
+                Retour au Planning
+            </button>
+        </div>
+
+        <div id="view-urgences" class="app-view hidden flex flex-col items-center justify-center text-center py-20">
+            <div class="w-20 h-20 bg-red-100 rounded-full flex items-center justify-center mb-6">
+                <i class="ph-fill ph-warning-circle text-4xl text-red-500"></i>
+            </div>
+            <h2 class="text-xl font-bold text-slate-800 mb-2">Protocoles d'Urgence</h2>
+            <p class="text-sm text-slate-500 mb-8 max-w-xs">Numéros de secours locaux, hôpitaux et protocoles de crise.</p>
+            <button onclick="switchView('planning')" class="bg-indigo-600 text-white px-6 py-3 rounded-lg font-bold shadow-md hover:bg-indigo-700 transition-colors">
+                Retour au Planning
+            </button>
+        </div>
+
+    </main>
 
     <nav class="fixed bottom-0 left-0 w-full bg-white border-t border-slate-200 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.05)] z-50 pb-safe">
         <div class="flex justify-around items-center max-w-2xl mx-auto h-16">
-            <button class="flex flex-col items-center justify-center w-full h-full text-indigo-600 transition-colors">
+            <button id="nav-planning" onclick="switchView('planning')" class="nav-btn text-indigo-600 flex flex-col items-center justify-center w-full h-full transition-colors">
                 <i class="ph-fill ph-calendar-check text-2xl mb-1"></i>
                 <span class="text-[10px] font-bold">Planning</span>
             </button>
-            <button class="flex flex-col items-center justify-center w-full h-full text-slate-400 hover:text-slate-600 transition-colors">
+            <button id="nav-cartes" onclick="switchView('cartes')" class="nav-btn text-slate-400 hover:text-slate-600 flex flex-col items-center justify-center w-full h-full transition-colors">
                 <i class="ph ph-map-trifold text-2xl mb-1"></i>
                 <span class="text-[10px] font-medium">Cartes</span>
             </button>
-            <button class="flex flex-col items-center justify-center w-full h-full text-slate-400 hover:text-slate-600 transition-colors">
+            <button id="nav-checklists" onclick="switchView('checklists')" class="nav-btn text-slate-400 hover:text-slate-600 flex flex-col items-center justify-center w-full h-full transition-colors">
                 <i class="ph ph-list-checks text-2xl mb-1"></i>
                 <span class="text-[10px] font-medium">Checklists</span>
             </button>
-            <button class="flex flex-col items-center justify-center w-full h-full text-red-400 hover:text-red-500 transition-colors">
+            <button id="nav-urgences" onclick="switchView('urgences')" class="nav-btn text-red-400 hover:text-red-500 flex flex-col items-center justify-center w-full h-full transition-colors">
                 <i class="ph ph-warning-circle text-2xl mb-1"></i>
                 <span class="text-[10px] font-medium">Urgences</span>
             </button>
@@ -99,10 +141,12 @@
     </nav>
 
     <script>
+        // Note: Les urls d'images pointent vers des photos haute qualité (Unsplash) liées aux thématiques pour un rendu pro immédiat.
         const masterPlan = [
             {
                 date: "Dimanche 09 Août", type: "Logistique", title: "Arrivée & Déploiement",
                 desc: "Arrivée sur zone à La Farigoulette, prise en main du mobil-home.",
+                imagePath: "https://images.unsplash.com/photo-1523987355523-c7b5b0dd90a7?q=80&w=800&auto=format&fit=crop",
                 icon: "ph-house-line", color: "bg-slate-500", intensity: "Moyenne",
                 details: [
                     { time: "16:00+", text: "Check-in, état des lieux et installation au mobil-home." }
@@ -112,6 +156,7 @@
             {
                 date: "Lundi 10 Août", type: "Camp de Base", title: "Reconnaissance & Approvisionnement",
                 desc: "Courses lourdes, aménagement complet, visite du camping et de la base nautique.",
+                imagePath: "https://images.unsplash.com/photo-1588964895597-cfccd6e2dbf9?q=80&w=800&auto=format&fit=crop",
                 icon: "ph-shopping-cart", color: "bg-blue-500", intensity: "Faible",
                 details: [
                     { time: "Matin", text: "Courses d'approvisionnement lourd pour la semaine." },
@@ -122,6 +167,7 @@
             {
                 date: "Mardi 11 Août", type: "Sortie 1", title: "Sillans & Villages de Caractère",
                 desc: "Découverte des cascades et chasse aux fontaines dans le Haut-Var.",
+                imagePath: "https://images.unsplash.com/photo-1432405972618-c60b0225b8f9?q=80&w=800&auto=format&fit=crop",
                 icon: "ph-drop", color: "bg-teal-500", intensity: "Moyenne",
                 details: [
                     { time: "09h00 - 10h10", text: "Sillans : Stationnement tactique au Parking Rue des Écoles. Le véhicule ne bouge plus jusqu'à 14h30. Marche vers le Belvédère (Tracé Violet, 1.6km A/R)." },
@@ -143,6 +189,7 @@
             {
                 date: "Mercredi 12 Août", type: "Repos", title: "Décompression Totale",
                 desc: "Coupure voiture, repos musculaire et baignade au camping.",
+                imagePath: "https://images.unsplash.com/photo-1519046904884-53103b34b206?q=80&w=800&auto=format&fit=crop",
                 icon: "ph-sun", color: "bg-emerald-500", intensity: "Faible",
                 details: [{ time: "Journée", text: "Repos complet à La Farigoulette. Rechargement des batteries." }],
                 materials: [], catering: null
@@ -150,6 +197,7 @@
             {
                 date: "Jeudi 13 Août", type: "Sortie 2", title: "Baudinard en Bateau Électrique",
                 desc: "Exploration douce du canyon secret sans effort direct depuis le camping.",
+                imagePath: "https://images.unsplash.com/photo-1498307833015-e7b400441eb8?q=80&w=800&auto=format&fit=crop",
                 icon: "ph-boat", color: "bg-orange-500", intensity: "Faible",
                 details: [
                     { time: "09h00 - 13h00", text: "Navigation électrique (4h). Départ depuis la base privée du camping (0 km)." },
@@ -168,6 +216,7 @@
             {
                 date: "Vendredi 14 Août", type: "Repos", title: "Stratégie Avant-Fête",
                 desc: "Hydratation et stockage d'énergie avant l'extraction tardive du lendemain.",
+                imagePath: "https://images.unsplash.com/photo-1544490802-bd537877ce56?q=80&w=800&auto=format&fit=crop",
                 icon: "ph-bed", color: "bg-emerald-500", intensity: "Faible",
                 details: [{ time: "Journée", text: "Zéro contrainte horaire. On préserve l'enfant." }],
                 materials: [], catering: null
@@ -175,6 +224,7 @@
             {
                 date: "Samedi 15 Août", type: "Sortie 4", title: "Moustiers : Bal & Feu d'Artifice",
                 desc: "Ancrage Fixe Assomption : Baignade lac, logistique anti-bouchons et soirée festive.",
+                imagePath: "https://images.unsplash.com/photo-1533362143640-59695d3a51f8?q=80&w=800&auto=format&fit=crop",
                 icon: "ph-fireworks", color: "bg-red-600", intensity: "Élevée",
                 details: [
                     { time: "Matin", text: "Grasse matinée. Repos complet à La Farigoulette." },
@@ -199,6 +249,7 @@
             {
                 date: "Dimanche 16 Août", type: "Repos", title: "Récupération Nocturne",
                 desc: "Grasse matinée et remise à niveau physique obligatoire.",
+                imagePath: "https://images.unsplash.com/photo-1531353826977-152e0bc2a2f3?q=80&w=800&auto=format&fit=crop",
                 icon: "ph-moon-stars", color: "bg-emerald-500", intensity: "Faible",
                 details: [{ time: "Journée", text: "Le planning est gelé. Priorité au sommeil réparateur de l'enfant." }],
                 materials: [], catering: null
@@ -206,6 +257,7 @@
             {
                 date: "Lundi 17 Août", type: "Sortie 3", title: "Grand Canyon & Vautours",
                 desc: "Verticalité absolue, pédalo matinal et Route des Crêtes.",
+                imagePath: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?q=80&w=800&auto=format&fit=crop",
                 icon: "ph-mountains", color: "bg-purple-600", intensity: "Élevée",
                 details: [
                     { time: "08h15 - 09h00", text: "Départ strict. 35 min de route fluide vers le lac." },
@@ -231,6 +283,7 @@
             {
                 date: "Mardi 18 Août", type: "Repos", title: "Break Post-Canyon",
                 desc: "Récupération physique post-conduite de montagne.",
+                imagePath: "https://images.unsplash.com/photo-1542304910-a23b9d0325fa?q=80&w=800&auto=format&fit=crop",
                 icon: "ph-armchair", color: "bg-emerald-500", intensity: "Faible",
                 details: [{ time: "Journée", text: "Détente musculaire, balade au sein du camping." }],
                 materials: [], catering: null
@@ -238,6 +291,7 @@
             {
                 date: "Mercredi 19 Août", type: "Sortie 5", title: "Bauduen, Jouets & Artignosc",
                 desc: "Bourg médiéval, exposition fraîcheur et plage ombragée sans vent.",
+                imagePath: "https://images.unsplash.com/photo-1505322022379-7c3353ee6291?q=80&w=800&auto=format&fit=crop",
                 icon: "ph-castle-turret", color: "bg-pink-500", intensity: "Moyenne",
                 details: [
                     { time: "09h15 - 10h00", text: "Départ fluide (35 min via D30). Stationnement Bauduen." },
@@ -259,6 +313,7 @@
             {
                 date: "Jeudi 20 Août", type: "Repos", title: "Journée Tampon",
                 desc: "Transition vers la fin de séjour, activités légères.",
+                imagePath: "https://images.unsplash.com/photo-1510414842594-a61c69b5ae57?q=80&w=800&auto=format&fit=crop",
                 icon: "ph-beach-tent", color: "bg-emerald-500", intensity: "Faible",
                 details: [{ time: "Journée", text: "Option base nautique du camping ou farniente absolu." }],
                 materials: [], catering: null
@@ -266,6 +321,7 @@
             {
                 date: "Vendredi 21 Août", type: "Sortie 6", title: "Canal Historique & Préhistoire",
                 desc: "Bilan carbone ultra-bas, tunnel d'aventure et climatisation muséale.",
+                imagePath: "https://images.unsplash.com/photo-1501785888041-af3ef285b470?q=80&w=800&auto=format&fit=crop",
                 icon: "ph-footprints", color: "bg-cyan-600", intensity: "Moyenne",
                 details: [
                     { time: "08h30 - 08h45", text: "Trajet flash (7km, 8 min via D11). Stationnement Quinson (près du pont)." },
@@ -289,6 +345,7 @@
             {
                 date: "Samedi 22 Août", type: "Repos", title: "Sas de Décompression",
                 desc: "Rangement logistique, inventaire et préparation.",
+                imagePath: "https://images.unsplash.com/photo-1488646953014-85cb44e25828?q=80&w=800&auto=format&fit=crop",
                 icon: "ph-package", color: "bg-slate-600", intensity: "Faible",
                 details: [{ time: "Journée", text: "Derniers achats souvenirs, nettoyage mobil-home, bouclage des bagages." }],
                 materials: [], catering: null
@@ -296,26 +353,72 @@
             {
                 date: "Dimanche 23 Août", type: "Logistique", title: "Extraction & Retour",
                 desc: "Fin de l'Opération Verdon 2026.",
+                imagePath: "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?q=80&w=800&auto=format&fit=crop",
                 icon: "ph-car-profile", color: "bg-slate-800", intensity: "Élevée",
                 details: [{ time: "Matin", text: "Remise des clés, état des lieux et prise de route finale." }],
                 materials: [], catering: null
             }
         ];
 
-        // Rendu UI du Programme
+        // LOGIQUE D'AFFICHAGE ET ROUTAGE
+        function switchView(viewId) {
+            // Masquer toutes les vues
+            document.querySelectorAll('.app-view').forEach(el => el.classList.add('hidden'));
+            // Afficher la vue cible
+            document.getElementById(`view-${viewId}`).classList.remove('hidden');
+            
+            // Mettre à jour l'état visuel de la Bottom Bar
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.classList.remove('text-indigo-600');
+                btn.classList.add('text-slate-400');
+                // Gestion de l'icône pleine/vide (UX detail)
+                const icon = btn.querySelector('i');
+                if(icon.classList.contains('ph-fill')) {
+                    icon.classList.replace('ph-fill', 'ph');
+                }
+            });
+            
+            const activeBtn = document.getElementById(`nav-${viewId}`);
+            activeBtn.classList.remove('text-slate-400');
+            activeBtn.classList.add('text-indigo-600');
+            activeBtn.querySelector('i').classList.replace('ph', 'ph-fill');
+
+            // Scroll Top systématique lors du changement de vue
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // TOGGLE ACCORDÉON (Cartes Principales)
+        function toggleCard(index, forceOpen = false) {
+            const wrapper = document.getElementById(`card-body-${index}`);
+            const chevron = document.getElementById(`chevron-${index}`);
+            
+            if (!wrapper) return;
+
+            const isOpen = wrapper.classList.contains('open');
+            
+            if (isOpen && !forceOpen) {
+                wrapper.classList.remove('open');
+                chevron.style.transform = 'rotate(0deg)';
+            } else {
+                wrapper.classList.add('open');
+                chevron.style.transform = 'rotate(180deg)';
+            }
+        }
+
+        // RENDU DOM DES CARTES
         function renderApp() {
-            const container = document.getElementById('app-container');
+            const container = document.getElementById('view-planning');
             container.innerHTML = '';
 
             masterPlan.forEach((day, index) => {
                 
-                // Calcul Intensité Styles
+                // Badges Intensité
                 let intensityPill = '';
                 if(day.intensity === 'Faible') intensityPill = 'bg-emerald-100 text-emerald-800 border-emerald-200';
                 else if(day.intensity === 'Moyenne') intensityPill = 'bg-amber-100 text-amber-800 border-amber-200';
                 else if(day.intensity === 'Élevée') intensityPill = 'bg-rose-100 text-rose-800 border-rose-200';
 
-                // Gestion du Warning Matériel Critique
+                // Alertes Matériel
                 let alertBannerHTML = '';
                 const hasCritical = day.materials && day.materials.some(m => m.isCritical);
                 if (hasCritical) {
@@ -332,7 +435,7 @@
                     `;
                 }
 
-                // Génération des Détails / Chronogramme
+                // Chronogramme
                 let timelineHTML = day.details.map(d => `
                     <li class="relative pl-6 pb-4 last:pb-0 ${d.canicule ? 'heat-sensitive' : ''}">
                         <div class="absolute left-0 top-1 w-2 h-2 rounded-full ${day.color.replace('bg-', 'bg-').replace('500','400')} ring-4 ring-white"></div>
@@ -342,7 +445,7 @@
                     </li>
                 `).join('');
 
-                // Génération Accordéon Restauration (avec LocalStorage logic)
+                // Module Restauration (Checkbox + LocalStorage)
                 let cateringHTML = '';
                 if (day.catering) {
                     const restoId = `resto-${index}`;
@@ -355,7 +458,7 @@
                                     <i class="ph-fill ph-fork-knife text-indigo-500 text-lg"></i>
                                     <span class="text-sm font-bold text-slate-700">Restauration Tactique</span>
                                 </div>
-                                <i class="ph ph-caret-down text-slate-400 group-open:-rotate-180 transition-transform"></i>
+                                <i class="ph ph-caret-down text-slate-400 group-open:-rotate-180 transition-transform duration-300"></i>
                             </summary>
                             <div class="p-4 border-t border-slate-100 space-y-3 bg-white">
                                 <div class="flex items-start gap-3 relative">
@@ -389,39 +492,47 @@
                     `;
                 }
 
-                // Construction finale de la carte
+                // Construction de la Carte Globale
                 const card = document.createElement('article');
-                card.className = "bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden break-inside-avoid";
+                card.id = `card-${index}`;
+                card.className = "bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden break-inside-avoid scroll-mt-24";
+                
                 card.innerHTML = `
-                    <div class="${day.color} text-white px-4 py-3 flex items-center gap-3">
-                        <div class="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center shrink-0">
-                            <i class="ph-fill ${day.icon} text-xl"></i>
+                    <div onclick="toggleCard(${index})" class="${day.color} cursor-pointer text-white px-4 py-3 flex items-center justify-between transition-colors hover:brightness-95">
+                        <div class="flex items-center gap-3 min-w-0 flex-1">
+                            <div class="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center shrink-0">
+                                <i class="ph-fill ${day.icon} text-xl"></i>
+                            </div>
+                            <div class="flex-1 min-w-0 pr-2">
+                                <div class="flex items-center gap-2">
+                                    <p class="text-[10px] font-bold text-white/90 uppercase tracking-wider">${day.date}</p>
+                                    <span class="text-[9px] font-bold px-1.5 py-0.5 rounded bg-white/20 uppercase tracking-wide">${day.intensity}</span>
+                                </div>
+                                <h2 class="text-base font-bold truncate">${day.title}</h2>
+                            </div>
                         </div>
-                        <div class="flex-1 min-w-0">
-                            <p class="text-xs font-medium text-white/80 uppercase tracking-wider">${day.date}</p>
-                            <h2 class="text-lg font-bold truncate">${day.title}</h2>
-                        </div>
+                        <i id="chevron-${index}" class="ph-bold ph-caret-down text-xl shrink-0 transition-transform duration-300"></i>
                     </div>
                     
-                    <div class="p-4 md:p-5">
-                        <div class="flex justify-between items-start gap-2 mb-4">
-                            <p class="text-sm text-slate-600 font-medium leading-snug">${day.desc}</p>
-                            <span class="shrink-0 text-[10px] font-bold px-2 py-1 rounded border ${intensityPill} uppercase tracking-wide">Intensité : ${day.intensity}</span>
+                    <div id="card-body-${index}" class="card-body-wrapper">
+                        <div class="card-body-inner">
+                            <img src="${day.imagePath}" alt="${day.title}" class="w-full h-40 object-cover object-center border-b border-slate-100">
+                            
+                            <div class="p-4 md:p-5">
+                                <p class="text-sm text-slate-600 font-medium leading-snug mb-4">${day.desc}</p>
+                                ${alertBannerHTML}
+                                <ul class="relative mt-2">
+                                    ${timelineHTML}
+                                </ul>
+                                ${cateringHTML}
+                            </div>
                         </div>
-
-                        ${alertBannerHTML}
-
-                        <ul class="relative mt-2">
-                            ${timelineHTML}
-                        </ul>
-
-                        ${cateringHTML}
                     </div>
                 `;
                 container.appendChild(card);
             });
 
-            // Hydratation des Checkboxes depuis le LocalStorage
+            // Restauration des sélections (LocalStorage)
             document.querySelectorAll('.custom-checkbox').forEach(cb => {
                 if(localStorage.getItem(cb.id) === 'true') {
                     cb.checked = true;
@@ -429,7 +540,41 @@
             });
         }
 
-        // Logic Checkboxes Persistance
+        // LOGIQUE AUTO-SCROLL ET OUVERTURE DU JOUR J
+        function executeAutoScroll() {
+            const today = new Date();
+            const currentYear = today.getFullYear();
+            const currentMonth = today.getMonth() + 1; // getMonth() est 0-indexé
+            const currentDay = today.getDate();
+
+            let targetIndex = 0; // Par défaut : Dimanche 09 Août (Index 0)
+
+            // Si nous sommes en Août 2026
+            if (currentYear === 2026 && currentMonth === 8) {
+                // Recherche dans le dataset la date correspondante (ex: "Dimanche 09 Août" -> extrait "09")
+                const matchIndex = masterPlan.findIndex(plan => {
+                    const match = plan.date.match(/(\d{2})/);
+                    return match && parseInt(match[1], 10) === currentDay;
+                });
+                
+                if (matchIndex !== -1) {
+                    targetIndex = matchIndex;
+                }
+            }
+
+            // Ouverture de l'accordéon cible
+            toggleCard(targetIndex, true);
+
+            // Scroll sécurisé après le rendu du DOM et l'animation d'ouverture
+            setTimeout(() => {
+                const targetCard = document.getElementById(`card-${targetIndex}`);
+                if (targetCard) {
+                    targetCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            }, 400); 
+        }
+
+        // SAUVEGARDE CHECKBOX (LocalStorage)
         function saveSelection(id) {
             const isChecked = document.getElementById(id).checked;
             if (isChecked) {
@@ -439,7 +584,7 @@
             }
         }
 
-        // Logic Mode Canicule
+        // TOGGLE MODE CANICULE
         function toggleCanicule() {
             const body = document.body;
             const knob = document.getElementById('canicule-knob');
@@ -458,13 +603,17 @@
             localStorage.setItem('caniculeMode', isActive);
         }
 
-        // Initialisation Globale
+        // BOOT DE L'APPLICATION
         document.addEventListener('DOMContentLoaded', () => {
             renderApp();
-            // Restauration de l'état du mode canicule
+            
+            // Restauration de l'état "Canicule"
             if (localStorage.getItem('caniculeMode') === 'true') {
                 toggleCanicule();
             }
+
+            // Lancement du positionnement automatique
+            executeAutoScroll();
         });
     </script>
 </body>
