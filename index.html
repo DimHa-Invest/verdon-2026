@@ -84,37 +84,231 @@
         <div id="view-planning" class="app-view flex flex-col gap-4">
             </div>
 
-        <div id="view-cartes" class="app-view hidden flex flex-col items-center justify-center text-center py-20">
-            <div class="w-20 h-20 bg-slate-200 rounded-full flex items-center justify-center mb-6">
-                <i class="ph ph-map-trifold text-4xl text-slate-400"></i>
+       <div id="view-cartes" class="app-view hidden flex flex-col gap-4 pb-8">
+            <div class="px-2 pt-2">
+                <h2 class="text-xl font-bold text-slate-800">Logistique Routière</h2>
+                <p class="text-xs text-slate-500 mt-1">Coordonnées GPS absolues pour navigation hors-ligne.</p>
             </div>
-            <h2 class="text-xl font-bold text-slate-800 mb-2">Cartographie GPS</h2>
-            <p class="text-sm text-slate-500 mb-8 max-w-xs">Le module de cartographie locale est en cours de synchronisation spatiale.</p>
-            <button onclick="switchView('planning')" class="bg-indigo-600 text-white px-6 py-3 rounded-lg font-bold shadow-md hover:bg-indigo-700 transition-colors">
-                Retour au Planning
-            </button>
+
+            <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-4 border-l-4 border-l-slate-800">
+                <div class="flex items-center gap-2 mb-3">
+                    <i class="ph-fill ph-map-pin text-slate-800 text-lg"></i>
+                    <h3 class="font-bold text-slate-800 text-sm uppercase tracking-wide">Camp de Base</h3>
+                </div>
+                <a href="https://www.google.com/maps/search/?api=1&query=Camping+Homair+La+Farigoulette+Saint-Laurent-du-Verdon" target="_blank" class="flex items-center justify-between w-full bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold py-2.5 px-4 rounded-lg transition-colors text-sm">
+                    <span>La Farigoulette</span>
+                    <i class="ph-bold ph-navigation-arrow"></i>
+                </a>
+            </div>
+
+            <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-4 border-l-4 border-l-teal-500">
+                <h3 class="font-bold text-slate-800 text-sm mb-3">Sortie 1 : Sillans & Villages</h3>
+                <div class="space-y-2">
+                    <a href="https://www.google.com/maps/search/?api=1&query=Sillans-la-Cascade+Parking+Rue+des+Ecoles" target="_blank" class="flex items-center justify-between w-full bg-teal-50 hover:bg-teal-100 text-teal-800 font-medium py-2 px-3 rounded-lg text-sm transition-colors">
+                        <span>1. Parking Rue des Écoles (Sillans)</span><span class="text-xs font-bold bg-white/50 px-2 py-0.5 rounded">40 min</span>
+                    </a>
+                    <a href="https://www.google.com/maps/search/?api=1&query=Grottes+de+Villecroze+Parking" target="_blank" class="flex items-center justify-between w-full bg-slate-50 hover:bg-slate-100 text-slate-700 font-medium py-2 px-3 rounded-lg text-sm transition-colors">
+                        <span>2. Grottes de Villecroze</span><span class="text-xs font-bold bg-slate-200/50 px-2 py-0.5 rounded">25 min</span>
+                    </a>
+                    <a href="https://www.google.com/maps/search/?api=1&query=Tourtour+Esplanade" target="_blank" class="flex items-center justify-between w-full bg-slate-50 hover:bg-slate-100 text-slate-700 font-medium py-2 px-3 rounded-lg text-sm transition-colors">
+                        <span>3. Esplanade (Tourtour)</span><span class="text-xs font-bold bg-slate-200/50 px-2 py-0.5 rounded">20 min</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-2 gap-3">
+                <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-4 border-l-4 border-l-orange-500">
+                    <h3 class="font-bold text-slate-800 text-xs mb-2 truncate">S2: Gorges Baudinard</h3>
+                    <div class="text-xs text-slate-500 font-medium py-2 px-3 bg-slate-50 rounded-lg flex items-center justify-between"><span>Ponton Camping</span><span class="font-bold">0 km</span></div>
+                </div>
+                <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-4 border-l-4 border-l-cyan-600">
+                    <h3 class="font-bold text-slate-800 text-xs mb-2 truncate">S6: Canal Quinson</h3>
+                    <a href="https://www.google.com/maps/search/?api=1&query=Base+Nautique+Quinson" target="_blank" class="flex items-center justify-between w-full bg-cyan-50 hover:bg-cyan-100 text-cyan-800 font-medium py-2 px-2 rounded-lg text-xs transition-colors">
+                        <span class="truncate">Base Nautique</span><span class="font-bold bg-white/50 px-1 py-0.5 rounded ml-1">8m</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-4 border-l-4 border-l-purple-600">
+                <h3 class="font-bold text-slate-800 text-sm mb-3">Sortie 3 : Grand Canyon</h3>
+                <div class="space-y-2">
+                    <a href="https://www.google.com/maps/search/?api=1&query=Pont+du+Galetas" target="_blank" class="flex items-center justify-between w-full bg-purple-50 hover:bg-purple-100 text-purple-800 font-medium py-2 px-3 rounded-lg text-sm transition-colors">
+                        <span>1. Pont du Galetas</span><span class="text-xs font-bold bg-white/50 px-2 py-0.5 rounded">35 min</span>
+                    </a>
+                    <a href="https://www.google.com/maps/search/?api=1&query=Route+des+Cretes+La+Palud+sur+Verdon" target="_blank" class="flex items-center justify-between w-full bg-slate-50 hover:bg-slate-100 text-slate-700 font-medium py-2 px-3 rounded-lg text-sm transition-colors">
+                        <span>2. D23 (Sens unique Est)</span><span class="text-xs font-bold bg-slate-200/50 px-2 py-0.5 rounded">20 min</span>
+                    </a>
+                    <a href="https://www.google.com/maps/search/?api=1&query=Point+Sublime+Rougon" target="_blank" class="flex items-center justify-between w-full bg-slate-50 hover:bg-slate-100 text-slate-700 font-medium py-2 px-3 rounded-lg text-sm transition-colors">
+                        <span>3. Point Sublime</span><span class="text-xs font-bold bg-slate-200/50 px-2 py-0.5 rounded">15 min</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-4 border-l-4 border-l-red-600">
+                <h3 class="font-bold text-slate-800 text-sm mb-3">Sortie 4 : Moustiers (Assomption)</h3>
+                <div class="space-y-2">
+                    <a href="https://www.google.com/maps/search/?api=1&query=Plage+des+Ruisses+Lac+Sainte+Croix" target="_blank" class="flex items-center justify-between w-full bg-slate-50 hover:bg-slate-100 text-slate-700 font-medium py-2 px-3 rounded-lg text-sm transition-colors">
+                        <span>1. Plage des Ruisses</span><span class="text-xs font-bold bg-slate-200/50 px-2 py-0.5 rounded">30 min</span>
+                    </a>
+                    <a href="https://www.google.com/maps/search/?api=1&query=Parking+Moustiers+Sainte+Marie" target="_blank" class="flex items-center justify-between w-full bg-red-50 hover:bg-red-100 text-red-800 font-medium py-2 px-3 rounded-lg text-sm transition-colors">
+                        <span>2. Parkings bas P3/P4</span><span class="text-xs font-bold bg-white/50 px-2 py-0.5 rounded">15 min</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-4 border-l-4 border-l-pink-500">
+                <h3 class="font-bold text-slate-800 text-sm mb-3">Sortie 5 : Bauduen & Artignosc</h3>
+                <div class="space-y-2">
+                    <a href="https://www.google.com/maps/search/?api=1&query=Port+de+Bauduen" target="_blank" class="flex items-center justify-between w-full bg-slate-50 hover:bg-slate-100 text-slate-700 font-medium py-2 px-3 rounded-lg text-sm transition-colors">
+                        <span>1. Port de Bauduen</span><span class="text-xs font-bold bg-slate-200/50 px-2 py-0.5 rounded">35 min</span>
+                    </a>
+                    <a href="https://www.google.com/maps/search/?api=1&query=Base+Nautique+Artignosc" target="_blank" class="flex items-center justify-between w-full bg-pink-50 hover:bg-pink-100 text-pink-800 font-medium py-2 px-3 rounded-lg text-sm transition-colors">
+                        <span>2. Lac d'Artignosc</span><span class="text-xs font-bold bg-white/50 px-2 py-0.5 rounded">25 min</span>
+                    </a>
+                </div>
+            </div>
         </div>
 
-        <div id="view-checklists" class="app-view hidden flex flex-col items-center justify-center text-center py-20">
-            <div class="w-20 h-20 bg-slate-200 rounded-full flex items-center justify-center mb-6">
-                <i class="ph ph-list-checks text-4xl text-slate-400"></i>
+        <div id="view-checklists" class="app-view hidden flex flex-col gap-4 pb-8">
+            <div class="px-2 pt-2">
+                <h2 class="text-xl font-bold text-slate-800">Inventaire Opérationnel</h2>
+                <p class="text-xs text-slate-500 mt-1">L'état des éléments est sauvegardé sur cet appareil.</p>
             </div>
-            <h2 class="text-xl font-bold text-slate-800 mb-2">Inventaire Matériel</h2>
-            <p class="text-sm text-slate-500 mb-8 max-w-xs">La checklist dynamique du Tucson et du mobil-home sera injectée ici.</p>
-            <button onclick="switchView('planning')" class="bg-indigo-600 text-white px-6 py-3 rounded-lg font-bold shadow-md hover:bg-indigo-700 transition-colors">
-                Retour au Planning
-            </button>
+
+            <details class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden group" open>
+                <summary class="flex justify-between items-center p-4 cursor-pointer bg-slate-100/50 hover:bg-slate-100 transition-colors">
+                    <div class="flex items-center gap-3">
+                        <i class="ph-fill ph-jeep text-slate-700 text-xl"></i>
+                        <span class="font-bold text-slate-800">1. Équipement Tucson</span>
+                    </div>
+                    <i class="ph ph-caret-down text-slate-400 group-open:-rotate-180 transition-transform duration-300"></i>
+                </summary>
+                <div class="p-4 border-t border-slate-100 space-y-4">
+                    <div class="flex items-start gap-3 relative"><input type="checkbox" id="chk-tucson-1" class="custom-checkbox hidden" onchange="saveSelection('chk-tucson-1')"><label for="chk-tucson-1" class="flex gap-3 cursor-pointer w-full group/label"><div class="box w-5 h-5 mt-0.5 shrink-0 rounded border-2 border-slate-300 flex items-center justify-center transition-colors"><i class="ph-bold ph-check text-white text-xs opacity-0 check-icon"></i></div><span class="text-sm font-medium text-slate-700">Parasol de plage <span class="text-red-500 font-bold">(Impératif S3)</span></span></label></div>
+                    <div class="flex items-start gap-3 relative"><input type="checkbox" id="chk-tucson-2" class="custom-checkbox hidden" onchange="saveSelection('chk-tucson-2')"><label for="chk-tucson-2" class="flex gap-3 cursor-pointer w-full group/label"><div class="box w-5 h-5 mt-0.5 shrink-0 rounded border-2 border-slate-300 flex items-center justify-center transition-colors"><i class="ph-bold ph-check text-white text-xs opacity-0 check-icon"></i></div><span class="text-sm font-medium text-slate-700">Glacière + accumulateurs de froid</span></label></div>
+                    <div class="flex items-start gap-3 relative"><input type="checkbox" id="chk-tucson-3" class="custom-checkbox hidden" onchange="saveSelection('chk-tucson-3')"><label for="chk-tucson-3" class="flex gap-3 cursor-pointer w-full group/label"><div class="box w-5 h-5 mt-0.5 shrink-0 rounded border-2 border-slate-300 flex items-center justify-center transition-colors"><i class="ph-bold ph-check text-white text-xs opacity-0 check-icon"></i></div><span class="text-sm font-medium text-slate-700">Sac isotherme pour le goûter (S5)</span></label></div>
+                    <div class="flex items-start gap-3 relative"><input type="checkbox" id="chk-tucson-4" class="custom-checkbox hidden" onchange="saveSelection('chk-tucson-4')"><label for="chk-tucson-4" class="flex gap-3 cursor-pointer w-full group/label"><div class="box w-5 h-5 mt-0.5 shrink-0 rounded border-2 border-slate-300 flex items-center justify-center transition-colors"><i class="ph-bold ph-check text-white text-xs opacity-0 check-icon"></i></div><span class="text-sm font-medium text-slate-700">Chargeur allume-cigare + câbles</span></label></div>
+                    <div class="flex items-start gap-3 relative"><input type="checkbox" id="chk-tucson-5" class="custom-checkbox hidden" onchange="saveSelection('chk-tucson-5')"><label for="chk-tucson-5" class="flex gap-3 cursor-pointer w-full group/label"><div class="box w-5 h-5 mt-0.5 shrink-0 rounded border-2 border-slate-300 flex items-center justify-center transition-colors"><i class="ph-bold ph-check text-white text-xs opacity-0 check-icon"></i></div><span class="text-sm font-medium text-slate-700">Lunettes de soleil + Crème Indice 50</span></label></div>
+                </div>
+            </details>
+
+            <details class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden group">
+                <summary class="flex justify-between items-center p-4 cursor-pointer bg-slate-100/50 hover:bg-slate-100 transition-colors">
+                    <div class="flex items-center gap-3">
+                        <i class="ph-fill ph-backpack text-slate-700 text-xl"></i>
+                        <span class="font-bold text-slate-800">2. Équipement Enfant & Marche</span>
+                    </div>
+                    <i class="ph ph-caret-down text-slate-400 group-open:-rotate-180 transition-transform duration-300"></i>
+                </summary>
+                <div class="p-4 border-t border-slate-100 space-y-4">
+                    <div class="flex items-start gap-3 relative"><input type="checkbox" id="chk-enf-1" class="custom-checkbox hidden" onchange="saveSelection('chk-enf-1')"><label for="chk-enf-1" class="flex gap-3 cursor-pointer w-full group/label"><div class="box w-5 h-5 mt-0.5 shrink-0 rounded border-2 border-slate-300 flex items-center justify-center transition-colors"><i class="ph-bold ph-check text-white text-xs opacity-0 check-icon"></i></div><span class="text-sm font-medium text-slate-700">Lampe frontale chargée <span class="text-red-500 font-bold">(Impératif S6)</span></span></label></div>
+                    <div class="flex items-start gap-3 relative"><input type="checkbox" id="chk-enf-2" class="custom-checkbox hidden" onchange="saveSelection('chk-enf-2')"><label for="chk-enf-2" class="flex gap-3 cursor-pointer w-full group/label"><div class="box w-5 h-5 mt-0.5 shrink-0 rounded border-2 border-slate-300 flex items-center justify-center transition-colors"><i class="ph-bold ph-check text-white text-xs opacity-0 check-icon"></i></div><span class="text-sm font-medium text-slate-700">Baskets fermées propres (S1/S6)</span></label></div>
+                    <div class="flex items-start gap-3 relative"><input type="checkbox" id="chk-enf-3" class="custom-checkbox hidden" onchange="saveSelection('chk-enf-3')"><label for="chk-enf-3" class="flex gap-3 cursor-pointer w-full group/label"><div class="box w-5 h-5 mt-0.5 shrink-0 rounded border-2 border-slate-300 flex items-center justify-center transition-colors"><i class="ph-bold ph-check text-white text-xs opacity-0 check-icon"></i></div><span class="text-sm font-medium text-slate-700">Chaussures d'eau / Sandales (S4/S5)</span></label></div>
+                    <div class="flex items-start gap-3 relative"><input type="checkbox" id="chk-enf-4" class="custom-checkbox hidden" onchange="saveSelection('chk-enf-4')"><label for="chk-enf-4" class="flex gap-3 cursor-pointer w-full group/label"><div class="box w-5 h-5 mt-0.5 shrink-0 rounded border-2 border-slate-300 flex items-center justify-center transition-colors"><i class="ph-bold ph-check text-white text-xs opacity-0 check-icon"></i></div><span class="text-sm font-medium text-slate-700">Casquette / Chapeau haute protection</span></label></div>
+                    <div class="flex items-start gap-3 relative"><input type="checkbox" id="chk-enf-5" class="custom-checkbox hidden" onchange="saveSelection('chk-enf-5')"><label for="chk-enf-5" class="flex gap-3 cursor-pointer w-full group/label"><div class="box w-5 h-5 mt-0.5 shrink-0 rounded border-2 border-slate-300 flex items-center justify-center transition-colors"><i class="ph-bold ph-check text-white text-xs opacity-0 check-icon"></i></div><span class="text-sm font-medium text-slate-700">Gourde thermique (2L min / pers.)</span></label></div>
+                </div>
+            </details>
+
+            <details class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden group">
+                <summary class="flex justify-between items-center p-4 cursor-pointer bg-slate-100/50 hover:bg-slate-100 transition-colors">
+                    <div class="flex items-center gap-3">
+                        <i class="ph-fill ph-folder-open text-slate-700 text-xl"></i>
+                        <span class="font-bold text-slate-800">3. Logistique Administrative</span>
+                    </div>
+                    <i class="ph ph-caret-down text-slate-400 group-open:-rotate-180 transition-transform duration-300"></i>
+                </summary>
+                <div class="p-4 border-t border-slate-100 space-y-4">
+                    <div class="flex items-start gap-3 relative"><input type="checkbox" id="chk-adm-1" class="custom-checkbox hidden" onchange="saveSelection('chk-adm-1')"><label for="chk-adm-1" class="flex gap-3 cursor-pointer w-full group/label"><div class="box w-5 h-5 mt-0.5 shrink-0 rounded border-2 border-slate-300 flex items-center justify-center transition-colors"><i class="ph-bold ph-check text-white text-xs opacity-0 check-icon"></i></div><span class="text-sm font-medium text-slate-700">Réservations validées (Sillans / Bauduen)</span></label></div>
+                    <div class="flex items-start gap-3 relative"><input type="checkbox" id="chk-adm-2" class="custom-checkbox hidden" onchange="saveSelection('chk-adm-2')"><label for="chk-adm-2" class="flex gap-3 cursor-pointer w-full group/label"><div class="box w-5 h-5 mt-0.5 shrink-0 rounded border-2 border-slate-300 flex items-center justify-center transition-colors"><i class="ph-bold ph-check text-white text-xs opacity-0 check-icon"></i></div><span class="text-sm font-medium text-slate-700">Espèces/Monnaie (Bal des Pompiers S4)</span></label></div>
+                    <div class="flex items-start gap-3 relative"><input type="checkbox" id="chk-adm-3" class="custom-checkbox hidden" onchange="saveSelection('chk-adm-3')"><label for="chk-adm-3" class="flex gap-3 cursor-pointer w-full group/label"><div class="box w-5 h-5 mt-0.5 shrink-0 rounded border-2 border-slate-300 flex items-center justify-center transition-colors"><i class="ph-bold ph-check text-white text-xs opacity-0 check-icon"></i></div><span class="text-sm font-medium text-slate-700">Billets / Pass téléchargés (Musée Quinson)</span></label></div>
+                </div>
+            </details>
         </div>
 
-        <div id="view-urgences" class="app-view hidden flex flex-col items-center justify-center text-center py-20">
-            <div class="w-20 h-20 bg-red-100 rounded-full flex items-center justify-center mb-6">
-                <i class="ph-fill ph-warning-circle text-4xl text-red-500"></i>
+        <div id="view-urgences" class="app-view hidden flex flex-col gap-4 pb-8">
+            
+            <div class="bg-red-600 text-white p-4 rounded-xl shadow-md flex items-center gap-3">
+                <i class="ph-fill ph-warning-circle text-4xl shrink-0"></i>
+                <div>
+                    <h2 class="text-xl font-bold uppercase tracking-wide">État d'Urgence</h2>
+                    <p class="text-xs font-medium text-red-100 leading-tight">Numéros et protocoles de crise. Touchez un numéro pour appeler directement.</p>
+                </div>
             </div>
-            <h2 class="text-xl font-bold text-slate-800 mb-2">Protocoles d'Urgence</h2>
-            <p class="text-sm text-slate-500 mb-8 max-w-xs">Numéros de secours locaux, hôpitaux et protocoles de crise.</p>
-            <button onclick="switchView('planning')" class="bg-indigo-600 text-white px-6 py-3 rounded-lg font-bold shadow-md hover:bg-indigo-700 transition-colors">
-                Retour au Planning
-            </button>
+
+            <div class="bg-white rounded-xl shadow-sm border-2 border-red-100 p-4">
+                <h3 class="font-bold text-slate-800 text-sm mb-4 border-b border-slate-100 pb-2">Numéros d'Urgence Absolus</h3>
+                <div class="grid grid-cols-1 gap-3">
+                    <a href="tel:15" class="flex items-center justify-between bg-slate-50 border border-slate-200 p-3 rounded-lg hover:border-red-300 transition-colors">
+                        <div class="flex items-center gap-3">
+                            <i class="ph-fill ph-first-aid-kit text-red-600 text-2xl"></i>
+                            <span class="font-bold text-slate-800">SAMU (Médical)</span>
+                        </div>
+                        <span class="text-2xl font-black text-red-600">15</span>
+                    </a>
+                    <a href="tel:112" class="flex items-center justify-between bg-slate-50 border border-slate-200 p-3 rounded-lg hover:border-red-300 transition-colors">
+                        <div class="flex items-center gap-3">
+                            <i class="ph-fill ph-fire text-red-600 text-2xl"></i>
+                            <span class="font-bold text-slate-800">Pompiers (Feux)</span>
+                        </div>
+                        <span class="text-2xl font-black text-red-600">18 / 112</span>
+                    </a>
+                    <a href="tel:17" class="flex items-center justify-between bg-slate-50 border border-slate-200 p-3 rounded-lg hover:border-red-300 transition-colors">
+                        <div class="flex items-center gap-3">
+                            <i class="ph-fill ph-police-car text-blue-600 text-2xl"></i>
+                            <span class="font-bold text-slate-800">Gendarmerie</span>
+                        </div>
+                        <span class="text-2xl font-black text-blue-600">17</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-4">
+                <h3 class="font-bold text-slate-800 text-sm mb-4 border-b border-slate-100 pb-2 flex items-center gap-2">
+                    <i class="ph-fill ph-hospital text-red-500"></i> Structures de Santé Proches
+                </h3>
+                <ul class="space-y-4">
+                    <li class="flex items-start gap-3">
+                        <div class="w-2 h-2 mt-1.5 rounded-full bg-amber-500 shrink-0"></div>
+                        <div>
+                            <p class="text-sm font-bold text-slate-800">Centre Médical de Riez</p>
+                            <p class="text-xs text-slate-500 mt-0.5">Place Maxime-Planche (À 15 min du camping).</p>
+                        </div>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <div class="w-2 h-2 mt-1.5 rounded-full bg-red-600 shrink-0"></div>
+                        <div>
+                            <p class="text-sm font-bold text-slate-800">Centre Hospitalier Manosque</p>
+                            <p class="text-xs text-slate-500 mt-0.5">Urgences - Rue Auguste-Guillaume.</p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="bg-slate-800 rounded-xl shadow-sm p-4 text-white">
+                <h3 class="font-bold text-white text-sm mb-4 border-b border-slate-700 pb-2 flex items-center gap-2">
+                    <i class="ph-fill ph-shield-warning text-amber-400"></i> Protocoles Réflexes
+                </h3>
+                <ul class="space-y-5">
+                    <li>
+                        <p class="text-sm font-bold text-amber-400 mb-1">🔥 Alerte Incendie</p>
+                        <p class="text-xs text-slate-300 leading-relaxed mb-2">L'accès aux massifs du Var est réglementé en été. À consulter obligatoirement avant le départ.</p>
+                        <a href="https://www.risque-prevention-incendie.fr/var/" target="_blank" class="inline-flex items-center gap-2 text-xs font-bold text-white bg-white/20 px-3 py-1.5 rounded hover:bg-white/30 transition-colors">
+                            <i class="ph ph-map-pin-line"></i> Carte officielle des massifs
+                        </a>
+                        <div class="mt-3 p-2 bg-black/30 rounded border border-white/10">
+                            <p class="text-xs text-slate-300"><span class="font-bold text-white">Rassemblement Camping :</span> Zone d'accueil principale.</p>
+                        </div>
+                    </li>
+                    <li>
+                        <p class="text-sm font-bold text-sky-400 mb-1">☀️ Alerte Insolation (Enfant)</p>
+                        <p class="text-xs text-slate-300 leading-relaxed">Activation immédiate du plan de repli. Zones fraîches à proximité :</p>
+                        <ul class="text-xs text-slate-400 list-disc list-inside mt-1 ml-1 space-y-1 font-medium">
+                            <li>Musée de Quinson (Climatisé à 100%)</li>
+                            <li>Lac d'Artignosc (Ombragé)</li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
         </div>
 
     </main>
