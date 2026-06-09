@@ -275,233 +275,334 @@
         <!-- ========================================== -->
         <div id="view-checklists" class="app-view hidden flex flex-col gap-4 pb-4">
             <div class="px-2 pt-2">
-                <h2 class="text-xl font-bold text-slate-800">Inventaire & Colisage Complet</h2>
-                <p class="text-xs text-slate-500 mt-1">Planification du départ au retour. État persistant sauvegardé localement.</p>
+                <h2 class="text-xl font-bold text-slate-800">Checklist Haute Sécurité</h2>
+                <p class="text-xs text-slate-500 mt-1">Inventaire scindé en 7 phases tactiques. État persistant sauvegardé en local.</p>
             </div>
 
-            <!-- Catégorie 1 -->
+            <details class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden group">
+                <summary class="flex justify-between items-center p-4 cursor-pointer bg-slate-100/60 hover:bg-slate-100 transition-colors">
+                    <div class="flex items-center gap-3">
+                        <i class="ph-fill ph-car text-slate-800 text-xl"></i>
+                        <span class="font-bold text-slate-800 text-sm">1. Contrôle du Tucson (J-2)</span>
+                    </div>
+                    <i class="ph ph-caret-down text-slate-400 group-open:-rotate-180 transition-transform duration-300"></i>
+                </summary>
+                <div class="p-4 border-t border-slate-100 space-y-4 bg-white">
+                    <div class="flex items-start gap-3 relative">
+                        <input type="checkbox" id="chk-v4-c1-1" class="custom-checkbox hidden" onchange="saveSelection('chk-v4-c1-1')">
+                        <label for="chk-v4-c1-1" class="flex gap-3 cursor-pointer w-full group/label">
+                            <div class="box w-5 h-5 mt-0.5 shrink-0 rounded border-2 border-slate-300 flex items-center justify-center transition-colors"><i class="ph-bold ph-check text-white text-xs opacity-0 check-icon transition-opacity"></i></div>
+                            <span class="text-sm font-medium text-slate-700">Niveaux mécaniques (Huile, Refroidissement, Frein, Essuie-glace)</span>
+                        </label>
+                    </div>
+                    <div class="flex items-start gap-3 relative">
+                        <input type="checkbox" id="chk-v4-c1-2" class="custom-checkbox hidden" onchange="saveSelection('chk-v4-c1-2')">
+                        <label for="chk-v4-c1-2" class="flex gap-3 cursor-pointer w-full group/label">
+                            <div class="box w-5 h-5 mt-0.5 shrink-0 rounded border-2 border-slate-300 flex items-center justify-center transition-colors"><i class="ph-bold ph-check text-white text-xs opacity-0 check-icon transition-opacity"></i></div>
+                            <span class="text-sm font-medium text-slate-700">Pression des pneumatiques à froid (Ajustée charge lourde)</span>
+                        </label>
+                    </div>
+                    <div class="flex items-start gap-3 relative">
+                        <input type="checkbox" id="chk-v4-c1-3" class="custom-checkbox hidden" onchange="saveSelection('chk-v4-c1-3')">
+                        <label for="chk-v4-c1-3" class="flex gap-3 cursor-pointer w-full group/label">
+                            <div class="box w-5 h-5 mt-0.5 shrink-0 rounded border-2 border-slate-300 flex items-center justify-center transition-colors"><i class="ph-bold ph-check text-white text-xs opacity-0 check-icon transition-opacity"></i></div>
+                            <span class="text-sm font-medium text-slate-700">Contrôle visuel de l'usure des plaquettes de frein</span>
+                        </label>
+                    </div>
+                    <div class="flex items-start gap-3 relative">
+                        <input type="checkbox" id="chk-v4-c1-4" class="custom-checkbox hidden" onchange="saveSelection('chk-v4-c1-4')">
+                        <label for="chk-v4-c1-4" class="flex gap-3 cursor-pointer w-full group/label">
+                            <div class="box w-5 h-5 mt-0.5 shrink-0 rounded border-2 border-slate-300 flex items-center justify-center transition-colors"><i class="ph-bold ph-check text-white text-xs opacity-0 check-icon transition-opacity"></i></div>
+                            <span class="text-sm font-medium text-slate-700">Vérification des feux de stop, clignotants et état des balais</span>
+                        </label>
+                    </div>
+                </div>
+            </details>
+
+            <details class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden group">
+                <summary class="flex justify-between items-center p-4 cursor-pointer bg-slate-100/60 hover:bg-slate-100 transition-colors">
+                    <div class="flex items-center gap-3">
+                        <i class="ph-fill ph-folder text-blue-600 text-xl"></i>
+                        <span class="font-bold text-slate-800 text-sm">2. Sacoche Administrative & Papiers</span>
+                    </div>
+                    <i class="ph ph-caret-down text-slate-400 group-open:-rotate-180 transition-transform duration-300"></i>
+                </summary>
+                <div class="p-4 border-t border-slate-100 space-y-4 bg-white">
+                    <div class="flex items-start gap-3 relative">
+                        <input type="checkbox" id="chk-v4-c2-1" class="custom-checkbox hidden" onchange="saveSelection('chk-v4-c2-1')">
+                        <label for="chk-v4-c2-1" class="flex gap-3 cursor-pointer w-full group/label">
+                            <div class="box w-5 h-5 mt-0.5 shrink-0 rounded border-2 border-slate-300 flex items-center justify-center transition-colors"><i class="ph-bold ph-check text-white text-xs opacity-0 check-icon transition-opacity"></i></div>
+                            <span class="text-sm font-medium text-slate-700">CNI de toute la famille + Permis de conduire</span>
+                        </label>
+                    </div>
+                    <div class="flex items-start gap-3 relative">
+                        <input type="checkbox" id="chk-v4-c2-2" class="custom-checkbox hidden" onchange="saveSelection('chk-v4-c2-2')">
+                        <label for="chk-v4-c2-2" class="flex gap-3 cursor-pointer w-full group/label">
+                            <div class="box w-5 h-5 mt-0.5 shrink-0 rounded border-2 border-slate-300 flex items-center justify-center transition-colors"><i class="ph-bold ph-check text-white text-xs opacity-0 check-icon transition-opacity"></i></div>
+                            <span class="text-sm font-medium text-slate-700">Carte grise + Attestation d'assurance du Tucson (Mémo)</span>
+                        </label>
+                    </div>
+                    <div class="flex items-start gap-3 relative">
+                        <input type="checkbox" id="chk-v4-c2-3" class="custom-checkbox hidden" onchange="saveSelection('chk-v4-c2-3')">
+                        <label for="chk-v4-c2-3" class="flex gap-3 cursor-pointer w-full group/label">
+                            <div class="box w-5 h-5 mt-0.5 shrink-0 rounded border-2 border-slate-300 flex items-center justify-center transition-colors"><i class="ph-bold ph-check text-white text-xs opacity-0 check-icon transition-opacity"></i></div>
+                            <span class="text-sm font-medium text-slate-700 font-bold text-red-600">Cartes Vitale parents/enfant + Carnet de santé</span>
+                        </label>
+                    </div>
+                    <div class="flex items-start gap-3 relative">
+                        <input type="checkbox" id="chk-v4-c2-4" class="custom-checkbox hidden" onchange="saveSelection('chk-v4-c2-4')">
+                        <label for="chk-v4-c2-4" class="flex gap-3 cursor-pointer w-full group/label">
+                            <div class="box w-5 h-5 mt-0.5 shrink-0 rounded border-2 border-slate-300 flex items-center justify-center transition-colors"><i class="ph-bold ph-check text-white text-xs opacity-0 check-icon transition-opacity"></i></div>
+                            <span class="text-sm font-medium text-slate-700">Vouchers de réservation imprimés/PDF (Camping & Musée)</span>
+                        </label>
+                    </div>
+                </div>
+            </details>
+
+            <details class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden group">
+                <summary class="flex justify-between items-center p-4 cursor-pointer bg-slate-100/60 hover:bg-slate-100 transition-colors">
+                    <div class="flex items-center gap-3">
+                        <i class="ph-fill ph-t-shirt text-indigo-500 text-xl"></i>
+                        <span class="font-bold text-slate-800 text-sm">3. Logistique des Valises (Textile)</span>
+                    </div>
+                    <i class="ph ph-caret-down text-slate-400 group-open:-rotate-180 transition-transform duration-300"></i>
+                </summary>
+                <div class="p-4 border-t border-slate-100 space-y-4 bg-white">
+                    <div class="flex items-start gap-3 relative">
+                        <input type="checkbox" id="chk-v4-c3-1" class="custom-checkbox hidden" onchange="saveSelection('chk-v4-c3-1')">
+                        <label for="chk-v4-c3-1" class="flex gap-3 cursor-pointer w-full group/label">
+                            <div class="box w-5 h-5 mt-0.5 shrink-0 rounded border-2 border-slate-300 flex items-center justify-center transition-colors"><i class="ph-bold ph-check text-white text-xs opacity-0 check-icon transition-opacity"></i></div>
+                            <span class="text-sm font-medium text-slate-700 font-bold">1 Veste polaire/coupe-vent par personne <span class="text-slate-500 font-semibold">(Nuits & Crêtes à 12°C)</span></span>
+                        </label>
+                    </div>
+                    <div class="flex items-start gap-3 relative">
+                        <input type="checkbox" id="chk-v4-c3-2" class="custom-checkbox hidden" onchange="saveSelection('chk-v4-c3-2')">
+                        <label for="chk-v4-c3-2" class="flex gap-3 cursor-pointer w-full group/label">
+                            <div class="box w-5 h-5 mt-0.5 shrink-0 rounded border-2 border-slate-300 flex items-center justify-center transition-colors"><i class="ph-bold ph-check text-white text-xs opacity-0 check-icon transition-opacity"></i></div>
+                            <span class="text-sm font-medium text-slate-700">T-shirts anti-UV, casquettes et lunettes de soleil (Cat. 3)</span>
+                        </label>
+                    </div>
+                    <div class="flex items-start gap-3 relative">
+                        <input type="checkbox" id="chk-v4-c3-3" class="custom-checkbox hidden" onchange="saveSelection('chk-v4-c3-3')">
+                        <label for="chk-v4-c3-3" class="flex gap-3 cursor-pointer w-full group/label">
+                            <div class="box w-5 h-5 mt-0.5 shrink-0 rounded border-2 border-slate-300 flex items-center justify-center transition-colors"><i class="ph-bold ph-check text-white text-xs opacity-0 check-icon transition-opacity"></i></div>
+                            <span class="text-sm font-medium text-slate-700">Maillots de bain + Serviettes microfibres compactes</span>
+                        </label>
+                    </div>
+                    <div class="flex items-start gap-3 relative">
+                        <input type="checkbox" id="chk-v4-c3-4" class="custom-checkbox hidden" onchange="saveSelection('chk-v4-c3-4')">
+                        <label for="chk-v4-c3-4" class="flex gap-3 cursor-pointer w-full group/label">
+                            <div class="box w-5 h-5 mt-0.5 shrink-0 rounded border-2 border-slate-300 flex items-center justify-center transition-colors"><i class="ph-bold ph-check text-white text-xs opacity-0 check-icon transition-opacity"></i></div>
+                            <span class="text-sm font-medium text-slate-700">Baskets à semelles crantées + Chaussures d'eau fermées</span>
+                        </label>
+                    </div>
+                    <div class="flex items-start gap-3 relative">
+                        <input type="checkbox" id="chk-v4-c3-5" class="custom-checkbox hidden" onchange="saveSelection('chk-v4-c3-5')">
+                        <label for="chk-v4-c3-5" class="flex gap-3 cursor-pointer w-full group/label">
+                            <div class="box w-5 h-5 mt-0.5 shrink-0 rounded border-2 border-slate-300 flex items-center justify-center transition-colors"><i class="ph-bold ph-check text-white text-xs opacity-0 check-icon transition-opacity"></i></div>
+                            <span class="text-sm font-medium text-slate-700">Linge de lit complet (Housses de couette, draps, taies)</span>
+                        </label>
+                    </div>
+                </div>
+            </details>
+
+            <details class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden group">
+                <summary class="flex justify-between items-center p-4 cursor-pointer bg-slate-100/60 hover:bg-slate-100 transition-colors">
+                    <div class="flex items-center gap-3">
+                        <i class="ph-fill ph-drop text-teal-500 text-xl"></i>
+                        <span class="font-bold text-slate-800 text-sm">4. Trousse de Toilette & Hygiène</span>
+                    </div>
+                    <i class="ph ph-caret-down text-slate-400 group-open:-rotate-180 transition-transform duration-300"></i>
+                </summary>
+                <div class="p-4 border-t border-slate-100 space-y-4 bg-white">
+                    <div class="flex items-start gap-3 relative">
+                        <input type="checkbox" id="chk-v4-c4-1" class="custom-checkbox hidden" onchange="saveSelection('chk-v4-c4-1')">
+                        <label for="chk-v4-c4-1" class="flex gap-3 cursor-pointer w-full group/label">
+                            <div class="box w-5 h-5 mt-0.5 shrink-0 rounded border-2 border-slate-300 flex items-center justify-center transition-colors"><i class="ph-bold ph-check text-white text-xs opacity-0 check-icon transition-opacity"></i></div>
+                            <span class="text-sm font-medium text-slate-700 font-bold">2 tubes de Crème solaire Écran Total Indice 50+</span>
+                        </label>
+                    </div>
+                    <div class="flex items-start gap-3 relative">
+                        <input type="checkbox" id="chk-v4-c4-2" class="custom-checkbox hidden" onchange="saveSelection('chk-v4-c4-2')">
+                        <label for="chk-v4-c4-2" class="flex gap-3 cursor-pointer w-full group/label">
+                            <div class="box w-5 h-5 mt-0.5 shrink-0 rounded border-2 border-slate-300 flex items-center justify-center transition-colors"><i class="ph-bold ph-check text-white text-xs opacity-0 check-icon transition-opacity"></i></div>
+                            <span class="text-sm font-medium text-slate-700">Lait après-soleil apaisant (Gel d'Aloe Vera)</span>
+                        </label>
+                    </div>
+                    <div class="flex items-start gap-3 relative">
+                        <input type="checkbox" id="chk-v4-c4-3" class="custom-checkbox hidden" onchange="saveSelection('chk-v4-c4-3')">
+                        <label for="chk-v4-c4-3" class="flex gap-3 cursor-pointer w-full group/label">
+                            <div class="box w-5 h-5 mt-0.5 shrink-0 rounded border-2 border-slate-300 flex items-center justify-center transition-colors"><i class="ph-bold ph-check text-white text-xs opacity-0 check-icon transition-opacity"></i></div>
+                            <span class="text-sm font-medium text-slate-700">Spray anti-moustiques zones humides (Basses Gorges)</span>
+                        </label>
+                    </div>
+                    <div class="flex items-start gap-3 relative">
+                        <input type="checkbox" id="chk-v4-c4-4" class="custom-checkbox hidden" onchange="saveSelection('chk-v4-c4-4')">
+                        <label for="chk-v4-c4-4" class="flex gap-3 cursor-pointer w-full group/label">
+                            <div class="box w-5 h-5 mt-0.5 shrink-0 rounded border-2 border-slate-300 flex items-center justify-center transition-colors"><i class="ph-bold ph-check text-white text-xs opacity-0 check-icon transition-opacity"></i></div>
+                            <span class="text-sm font-medium text-slate-700">Shampoing biodégradable + Crème apaisante piqûres</span>
+                        </label>
+                    </div>
+                    <div class="flex items-start gap-3 relative">
+                        <input type="checkbox" id="chk-v4-c4-5" class="custom-checkbox hidden" onchange="saveSelection('chk-v4-c4-5')">
+                        <label for="chk-v4-c4-5" class="flex gap-3 cursor-pointer w-full group/label">
+                            <div class="box w-5 h-5 mt-0.5 shrink-0 rounded border-2 border-slate-300 flex items-center justify-center transition-colors"><i class="ph-bold ph-check text-white text-xs opacity-0 check-icon transition-opacity"></i></div>
+                            <span class="text-sm font-medium text-slate-700">Brosses à dents, dentifrice, coupe-ongles et cotons-tiges</span>
+                        </label>
+                    </div>
+                </div>
+            </details>
+
             <details class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden group" open>
-                <summary class="flex justify-between items-center p-4 cursor-pointer bg-slate-100/60 hover:bg-slate-100 transition-colors">
+                <summary class="flex justify-between items-center p-4 cursor-pointer bg-red-50/80 hover:bg-red-50 transition-colors">
                     <div class="flex items-center gap-3">
-                        <i class="ph-fill ph-jeep text-indigo-600 text-xl"></i>
-                        <span class="font-bold text-slate-800 text-sm">1. Équipement Tucson & Voyage</span>
+                        <i class="ph-fill ph-first-aid text-red-600 text-xl"></i>
+                        <span class="font-bold text-red-800 text-sm">5. Trousse de Secours Tactique</span>
                     </div>
-                    <i class="ph ph-caret-down text-slate-400 group-open:-rotate-180 transition-transform duration-300"></i>
+                    <i class="ph ph-caret-down text-red-400 group-open:-rotate-180 transition-transform duration-300"></i>
                 </summary>
                 <div class="p-4 border-t border-slate-100 space-y-4 bg-white">
                     <div class="flex items-start gap-3 relative">
-                        <input type="checkbox" id="chk-v3-tuc-1" class="custom-checkbox hidden" onchange="saveSelection('chk-v3-tuc-1')">
-                        <label for="chk-v3-tuc-1" class="flex gap-3 cursor-pointer w-full group/label">
+                        <input type="checkbox" id="chk-v4-c5-1" class="custom-checkbox hidden" onchange="saveSelection('chk-v4-c5-1')">
+                        <label for="chk-v4-c5-1" class="flex gap-3 cursor-pointer w-full group/label">
                             <div class="box w-5 h-5 mt-0.5 shrink-0 rounded border-2 border-slate-300 flex items-center justify-center transition-colors"><i class="ph-bold ph-check text-white text-xs opacity-0 check-icon transition-opacity"></i></div>
-                            <span class="text-sm font-medium text-slate-700">Attache-remorque / Fixations coffre de toit</span>
+                            <span class="text-sm font-medium text-slate-700 font-bold">Pince tire-tique <span class="text-red-500 font-bold">(Impératif Var)</span> + Pince à épiler</span>
                         </label>
                     </div>
                     <div class="flex items-start gap-3 relative">
-                        <input type="checkbox" id="chk-v3-tuc-2" class="custom-checkbox hidden" onchange="saveSelection('chk-v3-tuc-2')">
-                        <label for="chk-v3-tuc-2" class="flex gap-3 cursor-pointer w-full group/label">
+                        <input type="checkbox" id="chk-v4-c5-2" class="custom-checkbox hidden" onchange="saveSelection('chk-v4-c5-2')">
+                        <label for="chk-v4-c5-2" class="flex gap-3 cursor-pointer w-full group/label">
                             <div class="box w-5 h-5 mt-0.5 shrink-0 rounded border-2 border-slate-300 flex items-center justify-center transition-colors"><i class="ph-bold ph-check text-white text-xs opacity-0 check-icon transition-opacity"></i></div>
-                            <span class="text-sm font-medium text-slate-700">Support smartphone grille d'aération pour guidage GPS</span>
+                            <span class="text-sm font-medium text-slate-700">Pansements assortis (Tailles variées + Étanches baignade)</span>
                         </label>
                     </div>
                     <div class="flex items-start gap-3 relative">
-                        <input type="checkbox" id="chk-v3-tuc-3" class="custom-checkbox hidden" onchange="saveSelection('chk-v3-tuc-3')">
-                        <label for="chk-v3-tuc-3" class="flex gap-3 cursor-pointer w-full group/label">
+                        <input type="checkbox" id="chk-v4-c5-3" class="custom-checkbox hidden" onchange="saveSelection('chk-v4-c5-3')">
+                        <label for="chk-v4-c5-3" class="flex gap-3 cursor-pointer w-full group/label">
                             <div class="box w-5 h-5 mt-0.5 shrink-0 rounded border-2 border-slate-300 flex items-center justify-center transition-colors"><i class="ph-bold ph-check text-white text-xs opacity-0 check-icon transition-opacity"></i></div>
-                            <span class="text-sm font-medium text-slate-700">Chargeur double allume-cigare + câbles renforcés</span>
+                            <span class="text-sm font-medium text-slate-700 font-bold text-slate-800">Paracétamol (Adulte + Sirop pédiatrique enfant)</span>
                         </label>
                     </div>
                     <div class="flex items-start gap-3 relative">
-                        <input type="checkbox" id="chk-v3-tuc-4" class="custom-checkbox hidden" onchange="saveSelection('chk-v3-tuc-4')">
-                        <label for="chk-v3-tuc-4" class="flex gap-3 cursor-pointer w-full group/label">
+                        <input type="checkbox" id="chk-v4-c5-4" class="custom-checkbox hidden" onchange="saveSelection('chk-v4-c5-4')">
+                        <label for="chk-v4-c5-4" class="flex gap-3 cursor-pointer w-full group/label">
                             <div class="box w-5 h-5 mt-0.5 shrink-0 rounded border-2 border-slate-300 flex items-center justify-center transition-colors"><i class="ph-bold ph-check text-white text-xs opacity-0 check-icon transition-opacity"></i></div>
-                            <span class="text-sm font-medium text-slate-700">Glacière rigide 12V/Passive + 4 accumulateurs gelés</span>
+                            <span class="text-sm font-medium text-slate-700">Anti-vomitif (Mal des transports pour les routes sinueuses)</span>
                         </label>
                     </div>
                     <div class="flex items-start gap-3 relative">
-                        <input type="checkbox" id="chk-v3-tuc-5" class="custom-checkbox hidden" onchange="saveSelection('chk-v3-tuc-5')">
-                        <label for="chk-v3-tuc-5" class="flex gap-3 cursor-pointer w-full group/label">
+                        <input type="checkbox" id="chk-v4-c5-5" class="custom-checkbox hidden" onchange="saveSelection('chk-v4-c5-5')">
+                        <label for="chk-v4-c5-5" class="flex gap-3 cursor-pointer w-full group/label">
                             <div class="box w-5 h-5 mt-0.5 shrink-0 rounded border-2 border-slate-300 flex items-center justify-center transition-colors"><i class="ph-bold ph-check text-white text-xs opacity-0 check-icon transition-opacity"></i></div>
-                            <span class="text-sm font-medium text-slate-700">Sac isotherme souple pour les goûters de la petite</span>
+                            <span class="text-sm font-medium text-slate-700">Désinfectant cutané (Chlorhexidine) + Compresses</span>
                         </label>
                     </div>
                     <div class="flex items-start gap-3 relative">
-                        <input type="checkbox" id="chk-v3-tuc-6" class="custom-checkbox hidden" onchange="saveSelection('chk-v3-tuc-6')">
-                        <label for="chk-v3-tuc-6" class="flex gap-3 cursor-pointer w-full group/label">
+                        <input type="checkbox" id="chk-v4-c5-6" class="custom-checkbox hidden" onchange="saveSelection('chk-v4-c5-6')">
+                        <label for="chk-v4-c5-6" class="flex gap-3 cursor-pointer w-full group/label">
                             <div class="box w-5 h-5 mt-0.5 shrink-0 rounded border-2 border-slate-300 flex items-center justify-center transition-colors"><i class="ph-bold ph-check text-white text-xs opacity-0 check-icon transition-opacity"></i></div>
-                            <span class="text-sm font-medium text-slate-700 font-bold">Parasol de plage inclinaison <span class="text-red-600 font-black">(Impératif S3)</span></span>
-                        </label>
-                    </div>
-                    <div class="flex items-start gap-3 relative">
-                        <input type="checkbox" id="chk-v3-tuc-7" class="custom-checkbox hidden" onchange="saveSelection('chk-v3-tuc-7')">
-                        <label for="chk-v3-tuc-7" class="flex gap-3 cursor-pointer w-full group/label">
-                            <div class="box w-5 h-5 mt-0.5 shrink-0 rounded border-2 border-slate-300 flex items-center justify-center transition-colors"><i class="ph-bold ph-check text-white text-xs opacity-0 check-icon transition-opacity"></i></div>
-                            <span class="text-sm font-medium text-slate-700">Trousse de secours routière (Gilets, triangle, éthylotest)</span>
-                        </label>
-                    </div>
-                    <div class="flex items-start gap-3 relative">
-                        <input type="checkbox" id="chk-v3-tuc-8" class="custom-checkbox hidden" onchange="saveSelection('chk-v3-tuc-8')">
-                        <label for="chk-v3-tuc-8" class="flex gap-3 cursor-pointer w-full group/label">
-                            <div class="box w-5 h-5 mt-0.5 shrink-0 rounded border-2 border-slate-300 flex items-center justify-center transition-colors"><i class="ph-bold ph-check text-white text-xs opacity-0 check-icon transition-opacity"></i></div>
-                            <span class="text-sm font-medium text-slate-700">Lunettes de soleil cat. 3 ou 4 pour toute la famille</span>
-                        </label>
-                    </div>
-                    <div class="flex items-start gap-3 relative">
-                        <input type="checkbox" id="chk-v3-tuc-9" class="custom-checkbox hidden" onchange="saveSelection('chk-v3-tuc-9')">
-                        <label for="chk-v3-tuc-9" class="flex gap-3 cursor-pointer w-full group/label">
-                            <div class="box w-5 h-5 mt-0.5 shrink-0 rounded border-2 border-slate-300 flex items-center justify-center transition-colors"><i class="ph-bold ph-check text-white text-xs opacity-0 check-icon transition-opacity"></i></div>
-                            <span class="text-sm font-medium text-slate-700">Sacks poubelles pour déchets de pique-nique en voiture</span>
+                            <span class="text-sm font-medium text-slate-700">1 Couverture de survie aluminisée + Dosettes sérum phy</span>
                         </label>
                     </div>
                 </div>
             </details>
 
-            <!-- Catégorie 2 -->
             <details class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden group">
-                <summary class="flex justify-between items-center p-4 cursor-pointer bg-slate-100/60 hover:bg-slate-100 transition-colors">
+                <summary class="flex justify-between items-center p-4 cursor-pointer bg-amber-50/80 hover:bg-amber-50 transition-colors">
                     <div class="flex items-center gap-3">
-                        <i class="ph-fill ph-backpack text-teal-600 text-xl"></i>
-                        <span class="font-bold text-slate-800 text-sm">2. Équipement Enfant & Marche</span>
+                        <i class="ph-fill ph-sun text-amber-500 text-xl"></i>
+                        <span class="font-bold text-amber-800 text-sm">6. Le Pack Sortie (Chaque Matin)</span>
                     </div>
-                    <i class="ph ph-caret-down text-slate-400 group-open:-rotate-180 transition-transform duration-300"></i>
+                    <i class="ph ph-caret-down text-amber-400 group-open:-rotate-180 transition-transform duration-300"></i>
                 </summary>
                 <div class="p-4 border-t border-slate-100 space-y-4 bg-white">
                     <div class="flex items-start gap-3 relative">
-                        <input type="checkbox" id="chk-v3-enf-1" class="custom-checkbox hidden" onchange="saveSelection('chk-v3-enf-1')">
-                        <label for="chk-v3-enf-1" class="flex gap-3 cursor-pointer w-full group/label">
+                        <input type="checkbox" id="chk-v4-c6-1" class="custom-checkbox hidden" onchange="saveSelection('chk-v4-c6-1')">
+                        <label for="chk-v4-c6-1" class="flex gap-3 cursor-pointer w-full group/label">
                             <div class="box w-5 h-5 mt-0.5 shrink-0 rounded border-2 border-slate-300 flex items-center justify-center transition-colors"><i class="ph-bold ph-check text-white text-xs opacity-0 check-icon transition-opacity"></i></div>
-                            <span class="text-sm font-medium text-slate-700 font-bold">Lampe frontale LED chargée à 100% <span class="text-red-600 font-black">(Impératif S6)</span></span>
+                            <span class="text-sm font-medium text-slate-700 font-bold">Gourdes eau glacée <span class="text-slate-500 font-semibold">(1.5L/adulte, 1L/enfant)</span></span>
                         </label>
                     </div>
                     <div class="flex items-start gap-3 relative">
-                        <input type="checkbox" id="chk-v3-enf-2" class="custom-checkbox hidden" onchange="saveSelection('chk-v3-enf-2')">
-                        <label for="chk-v3-enf-2" class="flex gap-3 cursor-pointer w-full group/label">
+                        <input type="checkbox" id="chk-v4-c6-2" class="custom-checkbox hidden" onchange="saveSelection('chk-v4-c6-2')">
+                        <label for="chk-v4-c6-2" class="flex gap-3 cursor-pointer w-full group/label">
                             <div class="box w-5 h-5 mt-0.5 shrink-0 rounded border-2 border-slate-300 flex items-center justify-center transition-colors"><i class="ph-bold ph-check text-white text-xs opacity-0 check-icon transition-opacity"></i></div>
-                            <span class="text-sm font-medium text-slate-700 font-bold">Baskets rando semelle crantée <span class="text-slate-500 font-semibold">(Sorties 1 & 6)</span></span>
+                            <span class="text-sm font-medium text-slate-700">Snacks énergétiques (Barres, compotes en gourde)</span>
                         </label>
                     </div>
                     <div class="flex items-start gap-3 relative">
-                        <input type="checkbox" id="chk-v3-enf-3" class="custom-checkbox hidden" onchange="saveSelection('chk-v3-enf-3')">
-                        <label for="chk-v3-enf-3" class="flex gap-3 cursor-pointer w-full group/label">
+                        <input type="checkbox" id="chk-v4-c6-3" class="custom-checkbox hidden" onchange="saveSelection('chk-v4-c6-3')">
+                        <label for="chk-v4-c6-3" class="flex gap-3 cursor-pointer w-full group/label">
                             <div class="box w-5 h-5 mt-0.5 shrink-0 rounded border-2 border-slate-300 flex items-center justify-center transition-colors"><i class="ph-bold ph-check text-white text-xs opacity-0 check-icon transition-opacity"></i></div>
-                            <span class="text-sm font-medium text-slate-700 font-bold">Chaussures d'eau fermées plastique <span class="text-red-600 font-black">(Galets Bauduen/Ruisses)</span></span>
+                            <span class="text-sm font-medium text-slate-700">Téléphones chargés 100% + Powerbank + Câbles</span>
                         </label>
                     </div>
                     <div class="flex items-start gap-3 relative">
-                        <input type="checkbox" id="chk-v3-enf-4" class="custom-checkbox hidden" onchange="saveSelection('chk-v3-enf-4')">
-                        <label for="chk-v3-enf-4" class="flex gap-3 cursor-pointer w-full group/label">
+                        <input type="checkbox" id="chk-v4-c6-4" class="custom-checkbox hidden" onchange="saveSelection('chk-v4-c6-4')">
+                        <label for="chk-v4-c6-4" class="flex gap-3 cursor-pointer w-full group/label">
                             <div class="box w-5 h-5 mt-0.5 shrink-0 rounded border-2 border-slate-300 flex items-center justify-center transition-colors"><i class="ph-bold ph-check text-white text-xs opacity-0 check-icon transition-opacity"></i></div>
-                            <span class="text-sm font-medium text-slate-700">Crème solaire écran total indice 50+ waterproof</span>
+                            <span class="text-sm font-medium text-slate-700">Sac isotherme compact + blocs froid pour le goûter</span>
                         </label>
                     </div>
                     <div class="flex items-start gap-3 relative">
-                        <input type="checkbox" id="chk-v3-enf-5" class="custom-checkbox hidden" onchange="saveSelection('chk-v3-enf-5')">
-                        <label for="chk-v3-enf-5" class="flex gap-3 cursor-pointer w-full group/label">
+                        <input type="checkbox" id="chk-v4-c6-5" class="custom-checkbox hidden" onchange="saveSelection('chk-v4-c6-5')">
+                        <label for="chk-v4-c6-5" class="flex gap-3 cursor-pointer w-full group/label">
                             <div class="box w-5 h-5 mt-0.5 shrink-0 rounded border-2 border-slate-300 flex items-center justify-center transition-colors"><i class="ph-bold ph-check text-white text-xs opacity-0 check-icon transition-opacity"></i></div>
-                            <span class="text-sm font-medium text-slate-700">Casquette saharienne ou chapeau nuque pour la petite</span>
-                        </label>
-                    </div>
-                    <div class="flex items-start gap-3 relative">
-                        <input type="checkbox" id="chk-v3-enf-6" class="custom-checkbox hidden" onchange="saveSelection('chk-v3-enf-6')">
-                        <label for="chk-v3-enf-6" class="flex gap-3 cursor-pointer w-full group/label">
-                            <div class="box w-5 h-5 mt-0.5 shrink-0 rounded border-2 border-slate-300 flex items-center justify-center transition-colors"><i class="ph-bold ph-check text-white text-xs opacity-0 check-icon transition-opacity"></i></div>
-                            <span class="text-sm font-medium text-slate-700 font-bold">Gourde thermique acier inox <span class="text-slate-500 font-semibold">(Min 2L / personne)</span></span>
-                        </label>
-                    </div>
-                    <div class="flex items-start gap-3 relative">
-                        <input type="checkbox" id="chk-v3-enf-7" class="custom-checkbox hidden" onchange="saveSelection('chk-v3-enf-7')">
-                        <label for="chk-v3-enf-7" class="flex gap-3 cursor-pointer w-full group/label">
-                            <div class="box w-5 h-5 mt-0.5 shrink-0 rounded border-2 border-slate-300 flex items-center justify-center transition-colors"><i class="ph-bold ph-check text-white text-xs opacity-0 check-icon transition-opacity"></i></div>
-                            <span class="text-sm font-medium text-slate-700">Sac à dos de portage léger (20-25L) ventilé</span>
-                        </label>
-                    </div>
-                    <div class="flex items-start gap-3 relative">
-                        <input type="checkbox" id="chk-v3-enf-8" class="custom-checkbox hidden" onchange="saveSelection('chk-v3-enf-8')">
-                        <label for="chk-v3-enf-8" class="flex gap-3 cursor-pointer w-full group/label">
-                            <div class="box w-5 h-5 mt-0.5 shrink-0 rounded border-2 border-slate-300 flex items-center justify-center transition-colors"><i class="ph-bold ph-check text-white text-xs opacity-0 check-icon transition-opacity"></i></div>
-                            <span class="text-sm font-medium text-slate-700">Maillots de rechange + serviettes microfibres</span>
-                        </label>
-                    </div>
-                    <div class="flex items-start gap-3 relative">
-                        <input type="checkbox" id="chk-v3-enf-9" class="custom-checkbox hidden" onchange="saveSelection('chk-v3-enf-9')">
-                        <label for="chk-v3-enf-9" class="flex gap-3 cursor-pointer w-full group/label">
-                            <div class="box w-5 h-5 mt-0.5 shrink-0 rounded border-2 border-slate-300 flex items-center justify-center transition-colors"><i class="ph-bold ph-check text-white text-xs opacity-0 check-icon transition-opacity"></i></div>
-                            <span class="text-sm font-medium text-slate-700">Brumisateur d'eau rechargeable (Attentes soleil)</span>
+                            <span class="text-sm font-medium text-slate-700">Parasol de plage inclignable + Sac poubelle vide (déchets)</span>
                         </label>
                     </div>
                 </div>
             </details>
 
-            <!-- Catégorie 3 -->
             <details class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden group">
-                <summary class="flex justify-between items-center p-4 cursor-pointer bg-slate-100/60 hover:bg-slate-100 transition-colors">
+                <summary class="flex justify-between items-center p-4 cursor-pointer bg-slate-800 hover:bg-slate-700 transition-colors">
                     <div class="flex items-center gap-3">
-                        <i class="ph-fill ph-armchair text-orange-500 text-xl"></i>
-                        <span class="font-bold text-slate-800 text-sm">3. Logistique Camping & Mobil-home</span>
+                        <i class="ph-fill ph-flag-checkered text-white text-xl"></i>
+                        <span class="font-bold text-white text-sm">7. Clôture du Mobil-home (Départ)</span>
                     </div>
                     <i class="ph ph-caret-down text-slate-400 group-open:-rotate-180 transition-transform duration-300"></i>
                 </summary>
                 <div class="p-4 border-t border-slate-100 space-y-4 bg-white">
                     <div class="flex items-start gap-3 relative">
-                        <input type="checkbox" id="chk-v3-cam-1" class="custom-checkbox hidden" onchange="saveSelection('chk-v3-cam-1')">
-                        <label for="chk-v3-cam-1" class="flex gap-3 cursor-pointer w-full group/label">
+                        <input type="checkbox" id="chk-v4-c7-1" class="custom-checkbox hidden" onchange="saveSelection('chk-v4-c7-1')">
+                        <label for="chk-v4-c7-1" class="flex gap-3 cursor-pointer w-full group/label">
                             <div class="box w-5 h-5 mt-0.5 shrink-0 rounded border-2 border-slate-300 flex items-center justify-center transition-colors"><i class="ph-bold ph-check text-white text-xs opacity-0 check-icon transition-opacity"></i></div>
-                            <span class="text-sm font-medium text-slate-700">Draps, housses de couette et taies d'oreiller adaptés</span>
+                            <span class="text-sm font-medium text-slate-700">Frigo/Congélateur entièrement vidé, dégivré et nettoyé</span>
                         </label>
                     </div>
                     <div class="flex items-start gap-3 relative">
-                        <input type="checkbox" id="chk-v3-cam-2" class="custom-checkbox hidden" onchange="saveSelection('chk-v3-cam-2')">
-                        <label for="chk-v3-cam-2" class="flex gap-3 cursor-pointer w-full group/label">
+                        <input type="checkbox" id="chk-v4-c7-2" class="custom-checkbox hidden" onchange="saveSelection('chk-v4-c7-2')">
+                        <label for="chk-v4-c7-2" class="flex gap-3 cursor-pointer w-full group/label">
                             <div class="box w-5 h-5 mt-0.5 shrink-0 rounded border-2 border-slate-300 flex items-center justify-center transition-colors"><i class="ph-bold ph-check text-white text-xs opacity-0 check-icon transition-opacity"></i></div>
-                            <span class="text-sm font-medium text-slate-700">Éponge, liquide vaisselle concentré, pastilles</span>
+                            <span class="text-sm font-medium text-slate-700">Vaisselle propre, séchée et rangée dans les placards</span>
                         </label>
                     </div>
                     <div class="flex items-start gap-3 relative">
-                        <input type="checkbox" id="chk-v3-cam-3" class="custom-checkbox hidden" onchange="saveSelection('chk-v3-cam-3')">
-                        <label for="chk-v3-cam-3" class="flex gap-3 cursor-pointer w-full group/label">
+                        <input type="checkbox" id="chk-v4-c7-3" class="custom-checkbox hidden" onchange="saveSelection('chk-v4-c7-3')">
+                        <label for="chk-v4-c7-3" class="flex gap-3 cursor-pointer w-full group/label">
                             <div class="box w-5 h-5 mt-0.5 shrink-0 rounded border-2 border-slate-300 flex items-center justify-center transition-colors"><i class="ph-bold ph-check text-white text-xs opacity-0 check-icon transition-opacity"></i></div>
-                            <span class="text-sm font-medium text-slate-700">Torchons de cuisine + essuie-tout</span>
+                            <span class="text-sm font-medium text-slate-700">Poubelles évacuées vers les bacs de tri du camping</span>
                         </label>
                     </div>
                     <div class="flex items-start gap-3 relative">
-                        <input type="checkbox" id="chk-v3-cam-4" class="custom-checkbox hidden" onchange="saveSelection('chk-v3-cam-4')">
-                        <label for="chk-v3-cam-4" class="flex gap-3 cursor-pointer w-full group/label">
+                        <input type="checkbox" id="chk-v4-c7-4" class="custom-checkbox hidden" onchange="saveSelection('chk-v4-c7-4')">
+                        <label for="chk-v4-c7-4" class="flex gap-3 cursor-pointer w-full group/label">
                             <div class="box w-5 h-5 mt-0.5 shrink-0 rounded border-2 border-slate-300 flex items-center justify-center transition-colors"><i class="ph-bold ph-check text-white text-xs opacity-0 check-icon transition-opacity"></i></div>
-                            <span class="text-sm font-medium text-slate-700">Lessive liquide pour les machines de mi-séjour</span>
+                            <span class="text-sm font-medium text-slate-700">Fermeture bouteille gaz extérieure et extinction lumières</span>
                         </label>
                     </div>
                     <div class="flex items-start gap-3 relative">
-                        <input type="checkbox" id="chk-v3-cam-5" class="custom-checkbox hidden" onchange="saveSelection('chk-v3-cam-5')">
-                        <label for="chk-v3-cam-5" class="flex gap-3 cursor-pointer w-full group/label">
+                        <input type="checkbox" id="chk-v4-c7-5" class="custom-checkbox hidden" onchange="saveSelection('chk-v4-c7-5')">
+                        <label for="chk-v4-c7-5" class="flex gap-3 cursor-pointer w-full group/label">
                             <div class="box w-5 h-5 mt-0.5 shrink-0 rounded border-2 border-slate-300 flex items-center justify-center transition-colors"><i class="ph-bold ph-check text-white text-xs opacity-0 check-icon transition-opacity"></i></div>
-                            <span class="text-sm font-medium text-slate-700">Prise anti-moustiques électrique + recharges tablettes</span>
+                            <span class="text-sm font-medium text-slate-700 font-bold text-red-600">Inspection anti-oubli (Sous lits, prises, placards)</span>
                         </label>
                     </div>
                     <div class="flex items-start gap-3 relative">
-                        <input type="checkbox" id="chk-v3-cam-6" class="custom-checkbox hidden" onchange="saveSelection('chk-v3-cam-6')">
-                        <label for="chk-v3-cam-6" class="flex gap-3 cursor-pointer w-full group/label">
+                        <input type="checkbox" id="chk-v4-c7-6" class="custom-checkbox hidden" onchange="saveSelection('chk-v4-c7-6')">
+                        <label for="chk-v4-c7-6" class="flex gap-3 cursor-pointer w-full group/label">
                             <div class="box w-5 h-5 mt-0.5 shrink-0 rounded border-2 border-slate-300 flex items-center justify-center transition-colors"><i class="ph-bold ph-check text-white text-xs opacity-0 check-icon transition-opacity"></i></div>
-                            <span class="text-sm font-medium text-slate-700">Spray répulsif cutané spécial zones humides (Basses Gorges)</span>
-                        </label>
-                    </div>
-                    <div class="flex items-start gap-3 relative">
-                        <input type="checkbox" id="chk-v3-cam-7" class="custom-checkbox hidden" onchange="saveSelection('chk-v3-cam-7')">
-                        <label for="chk-v3-cam-7" class="flex gap-3 cursor-pointer w-full group/label">
-                            <div class="box w-5 h-5 mt-0.5 shrink-0 rounded border-2 border-slate-300 flex items-center justify-center transition-colors"><i class="ph-bold ph-check text-white text-xs opacity-0 check-icon transition-opacity"></i></div>
-                            <span class="text-sm font-medium text-slate-700">Petite veilleuse nomade pour la chambre de la petite</span>
-                        </label>
-                    </div>
-                    <div class="flex items-start gap-3 relative">
-                        <input type="checkbox" id="chk-v3-cam-8" class="custom-checkbox hidden" onchange="saveSelection('chk-v3-cam-8')">
-                        <label for="chk-v3-cam-8" class="flex gap-3 cursor-pointer w-full group/label">
-                            <div class="box w-5 h-5 mt-0.5 shrink-0 rounded border-2 border-slate-300 flex items-center justify-center transition-colors"><i class="ph-bold ph-check text-white text-xs opacity-0 check-icon transition-opacity"></i></div>
-                            <span class="text-sm font-medium text-slate-700 font-bold">Sacs de cabas réutilisables pour les courses à Riez <span class="text-indigo-600 font-semibold">(Lundi 10)</span></span>
-                        </label>
-                    </div>
-                    <div class="flex items-start gap-3 relative">
-                        <input type="checkbox" id="chk-v3-cam-9" class="custom-checkbox hidden" onchange="saveSelection('chk-v3-cam-9')">
-                        <label for="chk-v3-cam-9" class="flex gap-3 cursor-pointer w-full group/label">
-                            <div class="box w-5 h-5 mt-0.5 shrink-0 rounded border-2 border-slate-300 flex items-center justify-center transition-colors"><i class="ph-bold ph-check text-white text-xs opacity-0 check-icon transition-opacity"></i></div>
-                            <span class="text-sm font-medium text-slate-700">Trousse de toilette complète + pharmacie (Doliprane)</span>
+                            <span class="text-sm font-medium text-slate-700 font-bold">Fenêtres verrouillées, porte close, clés remises avant 10h</span>
                         </label>
                     </div>
                 </div>
