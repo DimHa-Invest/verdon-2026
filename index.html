@@ -113,165 +113,158 @@
         <div id="view-cartes" class="app-view hidden flex flex-col gap-4 pb-4">
             <div class="px-2 pt-2">
                 <h2 class="text-xl font-bold text-slate-800">Logistique Itinéraires & Parkings</h2>
-                <p class="text-xs text-slate-500 mt-1">Garantie d'accès immédiat sans marche inutile pour enfant de 7 ans.</p>
+                <p class="text-xs text-slate-500 mt-1">Guidage GPS par requêtes de Points d'Intérêt (POI) officiels.</p>
             </div>
 
-            <!-- Base Permanente -->
             <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-4 border-l-4 border-l-slate-800">
                 <div class="flex items-center gap-2 mb-3">
                     <i class="ph-fill ph-house-line text-slate-800 text-lg"></i>
                     <h3 class="font-bold text-slate-800 text-sm uppercase tracking-wide">Camp de Base Global</h3>
                 </div>
                 <div class="p-3 bg-slate-50 rounded-xl flex flex-col gap-2">
-                    <p class="text-xs font-bold text-slate-700">Camping Homair La Farigoulette (Saint-Laurent-du-Verdon)</p>
+                    <p class="text-xs font-bold text-slate-700">La Farigoulette</p>
                     <div class="grid grid-cols-2 gap-2 mt-1">
-                        <a href="https://www.google.com/maps/search/?api=1&query=43.6876,6.0645" target="_blank" class="flex items-center justify-center gap-1.5 bg-white border border-slate-200 text-slate-700 py-2 rounded-lg font-bold text-xs shadow-sm hover:bg-slate-50">
-                            <i class="ph ph-google-logo text-base text-blue-500"></i> Google Maps
+                        <a href="#" data-app="google" data-dest="Camping Ciela Village La Farigoulette" target="_blank" class="flex items-center justify-center gap-1.5 bg-white border border-slate-200 text-slate-700 py-2 rounded-lg font-bold text-xs shadow-sm hover:bg-slate-100 transition-colors">
+                            <i class="ph-fill ph-google-logo text-base text-blue-500"></i> Google Maps
                         </a>
-                        <a href="https://waze.com/ul?ll=43.6876,6.0645&navigate=yes" target="_blank" class="flex items-center justify-center gap-1.5 bg-white border border-slate-200 text-slate-700 py-2 rounded-lg font-bold text-xs shadow-sm hover:bg-slate-50">
-                            <i class="ph ph-navigation-arrow text-base text-indigo-500"></i> Waze
+                        <a href="#" data-app="waze" data-dest="Camping Ciela Village La Farigoulette" target="_blank" class="flex items-center justify-center gap-1.5 bg-white border border-slate-200 text-slate-700 py-2 rounded-lg font-bold text-xs shadow-sm hover:bg-slate-100 transition-colors">
+                            <i class="ph-fill ph-navigation-arrow text-base text-indigo-500"></i> Waze
                         </a>
                     </div>
                 </div>
             </div>
 
-            <!-- Sortie 1 -->
             <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-4 border-l-4 border-l-teal-500">
                 <h3 class="font-bold text-slate-800 text-sm mb-3 flex items-center gap-2">
                     <span class="w-2 h-2 rounded-full bg-teal-500"></span>Sortie 1 : Sillans & Villages de Caractère
                 </h3>
                 <div class="space-y-3">
                     <div class="p-3 bg-slate-50 rounded-xl">
-                        <p class="text-xs font-bold text-slate-700 mb-2">1. Sillans : Parking Place du 8 Mai 1945 (Le plus proche cascade)</p>
+                        <p class="text-xs font-bold text-slate-700 mb-2">1. Sillans : Parking Place du 8 Mai 1945</p>
                         <div class="grid grid-cols-2 gap-2">
-                            <a href="https://www.google.com/maps/search/?api=1&query=43.5642,6.1824" target="_blank" class="flex items-center justify-center gap-1 bg-white border text-slate-700 py-1.5 rounded-lg font-bold text-xs shadow-sm">Google Maps</a>
-                            <a href="https://waze.com/ul?ll=43.5642,6.1824&navigate=yes" target="_blank" class="flex items-center justify-center gap-1 bg-white border text-slate-700 py-1.5 rounded-lg font-bold text-xs shadow-sm">Waze</a>
+                            <a href="#" data-app="google" data-dest="Parking du 8 mai 1945, 83690 Sillans-la-Cascade" target="_blank" class="flex items-center justify-center gap-1 bg-white border border-slate-200 text-slate-700 py-1.5 rounded-lg font-bold text-xs shadow-sm hover:bg-slate-100 transition-colors">Maps</a>
+                            <a href="#" data-app="waze" data-dest="Parking du 8 mai 1945, 83690 Sillans-la-Cascade" target="_blank" class="flex items-center justify-center gap-1 bg-white border border-slate-200 text-slate-700 py-1.5 rounded-lg font-bold text-xs shadow-sm hover:bg-slate-100 transition-colors">Waze</a>
                         </div>
                     </div>
                     <div class="p-3 bg-slate-50 rounded-xl">
-                        <p class="text-xs font-bold text-slate-700 mb-2">2. Villecroze : Parking des Grottes / Vallon des Carmes (Au pied)</p>
+                        <p class="text-xs font-bold text-slate-700 mb-2">2. Villecroze : Parking des Grottes</p>
                         <div class="grid grid-cols-2 gap-2">
-                            <a href="https://www.google.com/maps/search/?api=1&query=43.5824,6.2764" target="_blank" class="flex items-center justify-center gap-1 bg-white border text-slate-700 py-1.5 rounded-lg font-bold text-xs shadow-sm">Google Maps</a>
-                            <a href="https://waze.com/ul?ll=43.5824,6.2764&navigate=yes" target="_blank" class="flex items-center justify-center gap-1 bg-white border text-slate-700 py-1.5 rounded-lg font-bold text-xs shadow-sm">Waze</a>
+                            <a href="#" data-app="google" data-dest="Grottes de Villecroze" target="_blank" class="flex items-center justify-center gap-1 bg-white border border-slate-200 text-slate-700 py-1.5 rounded-lg font-bold text-xs shadow-sm hover:bg-slate-100 transition-colors">Maps</a>
+                            <a href="#" data-app="waze" data-dest="Grottes de Villecroze" target="_blank" class="flex items-center justify-center gap-1 bg-white border border-slate-200 text-slate-700 py-1.5 rounded-lg font-bold text-xs shadow-sm hover:bg-slate-100 transition-colors">Waze</a>
                         </div>
                     </div>
                     <div class="p-3 bg-slate-50 rounded-xl">
-                        <p class="text-xs font-bold text-slate-700 mb-2">3. Tourtour : Parking Place des Ormeaux (Entrée village)</p>
+                        <p class="text-xs font-bold text-slate-700 mb-2">3. Tourtour : Entrée du Village</p>
                         <div class="grid grid-cols-2 gap-2">
-                            <a href="https://www.google.com/maps/search/?api=1&query=43.5896,6.2577" target="_blank" class="flex items-center justify-center gap-1 bg-white border text-slate-700 py-1.5 rounded-lg font-bold text-xs shadow-sm">Google Maps</a>
-                            <a href="https://waze.com/ul?ll=43.5896,6.2577&navigate=yes" target="_blank" class="flex items-center justify-center gap-1 bg-white border text-slate-700 py-1.5 rounded-lg font-bold text-xs shadow-sm">Waze</a>
+                            <a href="#" data-app="google" data-dest="Tourtour" target="_blank" class="flex items-center justify-center gap-1 bg-white border border-slate-200 text-slate-700 py-1.5 rounded-lg font-bold text-xs shadow-sm hover:bg-slate-100 transition-colors">Maps</a>
+                            <a href="#" data-app="waze" data-dest="Tourtour" target="_blank" class="flex items-center justify-center gap-1 bg-white border border-slate-200 text-slate-700 py-1.5 rounded-lg font-bold text-xs shadow-sm hover:bg-slate-100 transition-colors">Waze</a>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Sortie 2 -->
             <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-4 border-l-4 border-l-orange-500">
                 <h3 class="font-bold text-slate-800 text-sm mb-3 flex items-center gap-2">
                     <span class="w-2 h-2 rounded-full bg-orange-500"></span>Sortie 2 : Gorges de Baudinard
                 </h3>
                 <div class="p-3 bg-slate-50 rounded-xl">
-                    <p class="text-xs font-bold text-slate-700 mb-2">Base Nautique : Parking du Camping La Farigoulette (Départ direct)</p>
+                    <p class="text-xs font-bold text-slate-700 mb-2">Base Nautique : Départ direct du camping</p>
                     <div class="grid grid-cols-2 gap-2">
-                        <a href="https://www.google.com/maps/search/?api=1&query=43.6876,6.0645" target="_blank" class="flex items-center justify-center gap-1 bg-white border text-slate-700 py-1.5 rounded-lg font-bold text-xs shadow-sm">Google Maps</a>
-                        <a href="https://waze.com/ul?ll=43.6876,6.0645&navigate=yes" target="_blank" class="flex items-center justify-center gap-1 bg-white border text-slate-700 py-1.5 rounded-lg font-bold text-xs shadow-sm">Waze</a>
+                        <a href="#" data-app="google" data-dest="Gorges de Baudinard" target="_blank" class="flex items-center justify-center gap-1 bg-white border border-slate-200 text-slate-700 py-1.5 rounded-lg font-bold text-xs shadow-sm hover:bg-slate-100 transition-colors">Maps</a>
+                        <a href="#" data-app="waze" data-dest="Gorges de Baudinard" target="_blank" class="flex items-center justify-center gap-1 bg-white border border-slate-200 text-slate-700 py-1.5 rounded-lg font-bold text-xs shadow-sm hover:bg-slate-100 transition-colors">Waze</a>
                     </div>
                 </div>
             </div>
 
-            <!-- Sortie 3 -->
             <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-4 border-l-4 border-l-purple-600">
                 <h3 class="font-bold text-slate-800 text-sm mb-3 flex items-center gap-2">
                     <span class="w-2 h-2 rounded-full bg-purple-500"></span>Sortie 3 : Grand Canyon
                 </h3>
                 <div class="space-y-3">
                     <div class="p-3 bg-slate-50 rounded-xl">
-                        <p class="text-xs font-bold text-slate-700 mb-2">1. Galetas : Parking du Pont du Galetas (Accès direct pédalos)</p>
+                        <p class="text-xs font-bold text-slate-700 mb-2">1. Galetas : Accès direct pédalos</p>
                         <div class="grid grid-cols-2 gap-2">
-                            <a href="https://www.google.com/maps/search/?api=1&query=43.8015,6.2464" target="_blank" class="flex items-center justify-center gap-1 bg-white border text-slate-700 py-1.5 rounded-lg font-bold text-xs shadow-sm">Google Maps</a>
-                            <a href="https://waze.com/ul?ll=43.8015,6.2464&navigate=yes" target="_blank" class="flex items-center justify-center gap-1 bg-white border text-slate-700 py-1.5 rounded-lg font-bold text-xs shadow-sm">Waze</a>
+                            <a href="#" data-app="google" data-dest="Pont du Galetas" target="_blank" class="flex items-center justify-center gap-1 bg-white border border-slate-200 text-slate-700 py-1.5 rounded-lg font-bold text-xs shadow-sm hover:bg-slate-100 transition-colors">Maps</a>
+                            <a href="#" data-app="waze" data-dest="Pont du Galetas" target="_blank" class="flex items-center justify-center gap-1 bg-white border border-slate-200 text-slate-700 py-1.5 rounded-lg font-bold text-xs shadow-sm hover:bg-slate-100 transition-colors">Waze</a>
                         </div>
                     </div>
                     <div class="p-3 bg-slate-50 rounded-xl">
-                        <p class="text-xs font-bold text-slate-700 mb-2">2. Route des Crêtes : Parking du Belvédère de l'Escalès (Vautours)</p>
+                        <p class="text-xs font-bold text-slate-700 mb-2">2. Route des Crêtes : Spot des vautours</p>
                         <div class="grid grid-cols-2 gap-2">
-                            <a href="https://www.google.com/maps/search/?api=1&query=43.7742,6.3688" target="_blank" class="flex items-center justify-center gap-1 bg-white border text-slate-700 py-1.5 rounded-lg font-bold text-xs shadow-sm">Google Maps</a>
-                            <a href="https://waze.com/ul?ll=43.7742,6.3688&navigate=yes" target="_blank" class="flex items-center justify-center gap-1 bg-white border text-slate-700 py-1.5 rounded-lg font-bold text-xs shadow-sm">Waze</a>
+                            <a href="#" data-app="google" data-dest="Belvédère de l'Escalès" target="_blank" class="flex items-center justify-center gap-1 bg-white border border-slate-200 text-slate-700 py-1.5 rounded-lg font-bold text-xs shadow-sm hover:bg-slate-100 transition-colors">Maps</a>
+                            <a href="#" data-app="waze" data-dest="Belvédère de l'Escalès" target="_blank" class="flex items-center justify-center gap-1 bg-white border border-slate-200 text-slate-700 py-1.5 rounded-lg font-bold text-xs shadow-sm hover:bg-slate-100 transition-colors">Waze</a>
                         </div>
                     </div>
                     <div class="p-3 bg-slate-50 rounded-xl">
-                        <p class="text-xs font-bold text-slate-700 mb-2">3. Point Sublime : Parking payant du Point Sublime (Seul accès direct)</p>
+                        <p class="text-xs font-bold text-slate-700 mb-2">3. Point Sublime : Parking officiel</p>
                         <div class="grid grid-cols-2 gap-2">
-                            <a href="https://www.google.com/maps/search/?api=1&query=43.7937,6.3986" target="_blank" class="flex items-center justify-center gap-1 bg-white border text-slate-700 py-1.5 rounded-lg font-bold text-xs shadow-sm">Google Maps</a>
-                            <a href="https://waze.com/ul?ll=43.7937,6.3986&navigate=yes" target="_blank" class="flex items-center justify-center gap-1 bg-white border text-slate-700 py-1.5 rounded-lg font-bold text-xs shadow-sm">Waze</a>
+                            <a href="#" data-app="google" data-dest="Point Sublime, Rougon" target="_blank" class="flex items-center justify-center gap-1 bg-white border border-slate-200 text-slate-700 py-1.5 rounded-lg font-bold text-xs shadow-sm hover:bg-slate-100 transition-colors">Maps</a>
+                            <a href="#" data-app="waze" data-dest="Point Sublime, Rougon" target="_blank" class="flex items-center justify-center gap-1 bg-white border border-slate-200 text-slate-700 py-1.5 rounded-lg font-bold text-xs shadow-sm hover:bg-slate-100 transition-colors">Waze</a>
                         </div>
                     </div>
                     <div class="p-3 bg-slate-50 rounded-xl">
-                        <p class="text-xs font-bold text-slate-700 mb-2">4. La Palud : Parking de la Mairie (Dîner du soir)</p>
+                        <p class="text-xs font-bold text-slate-700 mb-2">4. La Palud : Parking Dîner</p>
                         <div class="grid grid-cols-2 gap-2">
-                            <a href="https://www.google.com/maps/search/?api=1&query=43.7797,6.3412" target="_blank" class="flex items-center justify-center gap-1 bg-white border text-slate-700 py-1.5 rounded-lg font-bold text-xs shadow-sm">Google Maps</a>
-                            <a href="https://waze.com/ul?ll=43.7797,6.3412&navigate=yes" target="_blank" class="flex items-center justify-center gap-1 bg-white border text-slate-700 py-1.5 rounded-lg font-bold text-xs shadow-sm">Waze</a>
+                            <a href="#" data-app="google" data-dest="Mairie de La Palud-sur-Verdon" target="_blank" class="flex items-center justify-center gap-1 bg-white border border-slate-200 text-slate-700 py-1.5 rounded-lg font-bold text-xs shadow-sm hover:bg-slate-100 transition-colors">Maps</a>
+                            <a href="#" data-app="waze" data-dest="Mairie de La Palud-sur-Verdon" target="_blank" class="flex items-center justify-center gap-1 bg-white border border-slate-200 text-slate-700 py-1.5 rounded-lg font-bold text-xs shadow-sm hover:bg-slate-100 transition-colors">Waze</a>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Sortie 4 -->
             <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-4 border-l-4 border-l-red-600">
                 <h3 class="font-bold text-slate-800 text-sm mb-3 flex items-center gap-2">
                     <span class="w-2 h-2 rounded-full bg-red-600"></span>Sortie 4 : Moustiers (Assomption)
                 </h3>
                 <div class="space-y-3">
                     <div class="p-3 bg-slate-50 rounded-xl">
-                        <p class="text-xs font-bold text-slate-700 mb-2">1. Lac de Sainte-Croix : Parking de la Plage des Ruisses</p>
+                        <p class="text-xs font-bold text-slate-700 mb-2">1. Lac : Plage des Ruisses</p>
                         <div class="grid grid-cols-2 gap-2">
-                            <a href="https://www.google.com/maps/search/?api=1&query=43.7905,6.2212" target="_blank" class="flex items-center justify-center gap-1 bg-white border text-slate-700 py-1.5 rounded-lg font-bold text-xs shadow-sm">Google Maps</a>
-                            <a href="https://waze.com/ul?ll=43.7905,6.2212&navigate=yes" target="_blank" class="flex items-center justify-center gap-1 bg-white border text-slate-700 py-1.5 rounded-lg font-bold text-xs shadow-sm">Waze</a>
+                            <a href="#" data-app="google" data-dest="Plage des Ruisses" target="_blank" class="flex items-center justify-center gap-1 bg-white border border-slate-200 text-slate-700 py-1.5 rounded-lg font-bold text-xs shadow-sm hover:bg-slate-100 transition-colors">Maps</a>
+                            <a href="#" data-app="waze" data-dest="Plage des Ruisses" target="_blank" class="flex items-center justify-center gap-1 bg-white border border-slate-200 text-slate-700 py-1.5 rounded-lg font-bold text-xs shadow-sm hover:bg-slate-100 transition-colors">Waze</a>
                         </div>
                     </div>
                     <div class="p-3 bg-slate-50 rounded-xl">
-                        <p class="text-xs font-bold text-slate-700 mb-2">2. Moustiers : Infiltration stratégique Parking bas P3 / P4</p>
+                        <p class="text-xs font-bold text-slate-700 mb-2">2. Moustiers : Infiltration Parking P3</p>
                         <div class="grid grid-cols-2 gap-2">
-                            <a href="https://www.google.com/maps/search/?api=1&query=43.8443,6.2235" target="_blank" class="flex items-center justify-center gap-1 bg-white border text-slate-700 py-1.5 rounded-lg font-bold text-xs shadow-sm">Google Maps</a>
-                            <a href="https://waze.com/ul?ll=43.8443,6.2235&navigate=yes" target="_blank" class="flex items-center justify-center gap-1 bg-white border text-slate-700 py-1.5 rounded-lg font-bold text-xs shadow-sm">Waze</a>
+                            <a href="#" data-app="google" data-dest="Parking P3 Moustiers-Sainte-Marie" target="_blank" class="flex items-center justify-center gap-1 bg-white border border-slate-200 text-slate-700 py-1.5 rounded-lg font-bold text-xs shadow-sm hover:bg-slate-100 transition-colors">Maps</a>
+                            <a href="#" data-app="waze" data-dest="Parking P3 Moustiers-Sainte-Marie" target="_blank" class="flex items-center justify-center gap-1 bg-white border border-slate-200 text-slate-700 py-1.5 rounded-lg font-bold text-xs shadow-sm hover:bg-slate-100 transition-colors">Waze</a>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Sortie 5 -->
             <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-4 border-l-4 border-l-pink-500">
                 <h3 class="font-bold text-slate-800 text-sm mb-3 flex items-center gap-2">
                     <span class="w-2 h-2 rounded-full bg-pink-500"></span>Sortie 5 : Bauduen & Artignosc
                 </h3>
                 <div class="space-y-3">
                     <div class="p-3 bg-slate-50 rounded-xl">
-                        <p class="text-xs font-bold text-slate-700 mb-2">1. Bauduen : Parking de l'Entrée du Village / Port</p>
+                        <p class="text-xs font-bold text-slate-700 mb-2">1. Bauduen : Parking du Port</p>
                         <div class="grid grid-cols-2 gap-2">
-                            <a href="https://www.google.com/maps/search/?api=1&query=43.7337,6.1751" target="_blank" class="flex items-center justify-center gap-1 bg-white border text-slate-700 py-1.5 rounded-lg font-bold text-xs shadow-sm">Google Maps</a>
-                            <a href="https://waze.com/ul?ll=43.7337,6.1751&navigate=yes" target="_blank" class="flex items-center justify-center gap-1 bg-white border text-slate-700 py-1.5 rounded-lg font-bold text-xs shadow-sm">Waze</a>
+                            <a href="#" data-app="google" data-dest="Bauduen" target="_blank" class="flex items-center justify-center gap-1 bg-white border border-slate-200 text-slate-700 py-1.5 rounded-lg font-bold text-xs shadow-sm hover:bg-slate-100 transition-colors">Maps</a>
+                            <a href="#" data-app="waze" data-dest="Bauduen" target="_blank" class="flex items-center justify-center gap-1 bg-white border border-slate-200 text-slate-700 py-1.5 rounded-lg font-bold text-xs shadow-sm hover:bg-slate-100 transition-colors">Waze</a>
                         </div>
                     </div>
                     <div class="p-3 bg-slate-50 rounded-xl">
-                        <p class="text-xs font-bold text-slate-700 mb-2">2. Artignosc : Parking du Lac d'Artignosc (Base nautique)</p>
+                        <p class="text-xs font-bold text-slate-700 mb-2">2. Artignosc : Base nautique</p>
                         <div class="grid grid-cols-2 gap-2">
-                            <a href="https://www.google.com/maps/search/?api=1&query=43.7028,6.0911" target="_blank" class="flex items-center justify-center gap-1 bg-white border text-slate-700 py-1.5 rounded-lg font-bold text-xs shadow-sm">Google Maps</a>
-                            <a href="https://waze.com/ul?ll=43.7028,6.0911&navigate=yes" target="_blank" class="flex items-center justify-center gap-1 bg-white border text-slate-700 py-1.5 rounded-lg font-bold text-xs shadow-sm">Waze</a>
+                            <a href="#" data-app="google" data-dest="Plage du lac d'Artignosc du Verdon" target="_blank" class="flex items-center justify-center gap-1 bg-white border border-slate-200 text-slate-700 py-1.5 rounded-lg font-bold text-xs shadow-sm hover:bg-slate-100 transition-colors">Maps</a>
+                            <a href="#" data-app="waze" data-dest="Plage du lac d'Artignosc du Verdon" target="_blank" class="flex items-center justify-center gap-1 bg-white border border-slate-200 text-slate-700 py-1.5 rounded-lg font-bold text-xs shadow-sm hover:bg-slate-100 transition-colors">Waze</a>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Sortie 6 -->
             <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-4 border-l-4 border-l-cyan-600">
                 <h3 class="font-bold text-slate-800 text-sm mb-3 flex items-center gap-2">
-                    <span class="w-2 h-2 rounded-full bg-cyan-600"></span>Sortie 6 : Quinson (Canal Historique)
+                    <span class="w-2 h-2 rounded-full bg-cyan-600"></span>Sortie 6 : Quinson
                 </h3>
                 <div class="p-3 bg-slate-50 rounded-xl">
-                    <p class="text-xs font-bold text-slate-700 mb-2">Quinson : Parking de la Base Nautique (Départ immédiat du sentier)</p>
+                    <p class="text-xs font-bold text-slate-700 mb-2">Quinson : Départ immédiat du sentier</p>
                     <div class="grid grid-cols-2 gap-2">
-                        <a href="https://www.google.com/maps/search/?api=1&query=43.6997,6.0392" target="_blank" class="flex items-center justify-center gap-1 bg-white border text-slate-700 py-1.5 rounded-lg font-bold text-xs shadow-sm">Google Maps</a>
-                        <a href="https://waze.com/ul?ll=43.6997,6.0392&navigate=yes" target="_blank" class="flex items-center justify-center gap-1 bg-white border text-slate-700 py-1.5 rounded-lg font-bold text-xs shadow-sm">Waze</a>
+                        <a href="#" data-app="google" data-dest="Base Nautique de Quinson" target="_blank" class="flex items-center justify-center gap-1 bg-white border border-slate-200 text-slate-700 py-1.5 rounded-lg font-bold text-xs shadow-sm hover:bg-slate-100 transition-colors">Maps</a>
+                        <a href="#" data-app="waze" data-dest="Base Nautique de Quinson" target="_blank" class="flex items-center justify-center gap-1 bg-white border border-slate-200 text-slate-700 py-1.5 rounded-lg font-bold text-xs shadow-sm hover:bg-slate-100 transition-colors">Waze</a>
                     </div>
                 </div>
             </div>
