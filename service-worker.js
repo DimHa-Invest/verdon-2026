@@ -1,4 +1,4 @@
-const CACHE_NAME = 'verdon-cache-v24';
+const CACHE_NAME = 'verdon-cache-v25';
 
 const ASSETS_TO_CACHE = [
     './',
