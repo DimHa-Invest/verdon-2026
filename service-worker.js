@@ -1,53 +1,75 @@
-const CACHE_NAME = 'verdon-v22';
-const REPO = '/verdon-2026'; // Verrouillage strict sur ton dépôt
+const CACHE_NAME = 'verdon-cache-v2';
 
-const ASSETS = [
-  `${REPO}/`,
-  `${REPO}/index.html`,
-  `${REPO}/manifest.json`
+const ASSETS_TO_CACHE = [
+    './',
+    'index.html',
+    'manifest.json',
+    'https://cdn.tailwindcss.com',
+    'https://unpkg.com/@phosphor-icons/web'
+    // Les photos sont exclues pour la phase de test
 ];
 
-self.addEventListener('install', event => {
-  self.skipWaiting();
-  event.waitUntil(
-    caches.open(CACHE_NAME).then(cache => cache.addAll(ASSETS))
-  );
+self.addEventListener('install', (event) => {
+    event.waitUntil(
+        caches.open(CACHE_NAME)
+            .then((cache) => {
+                console.log('📦 [Service Worker] Mise en cache du squelette (sans photos)');
+                return cache.addAll(ASSETS_TO_CACHE);
+            })
+            .then(() => self.skipWaiting())
+    );
 });
 
-self.addEventListener('activate', event => {
-  self.clients.claim();
-  event.waitUntil(
-    caches.keys().then(keys => Promise.all(
-      keys.filter(key => key !== CACHE_NAME).map(key => caches.delete(key))
-    ))
-  );
+self.addEventListener('activate', (event) => {
+    event.waitUntil(
+        caches.keys().then((cacheNames) => {
+            return Promise.all(
+                cacheNames.map((cacheName) => {
+                    if (cacheName !== CACHE_NAME) {
+                        console.log('🧹 [Service Worker] Nettoyage de l\'ancien cache :', cacheName);
+                        return caches.delete(cacheName);
+                    }
+                })
+            );
+        }).then(() => self.clients.claim())
+    );
 });
 
-self.addEventListener('fetch', event => {
-  if (event.request.url.includes('openweathermap')) return;
+self.addEventListener('fetch', (event) => {
+    const requestUrl = new URL(event.request.url);
 
-  event.respondWith(
-    caches.match(event.request).then(cachedResponse => {
-      if (cachedResponse) {
-        // Mise à jour silencieuse
-        fetch(event.request).then(response => {
-          if(response.ok) caches.open(CACHE_NAME).then(cache => cache.put(event.request, response));
-        }).catch(() => {});
-        return cachedResponse;
-      }
-      
-      return fetch(event.request).then(response => {
-         if(response.ok) {
-            const clone = response.clone();
-            caches.open(CACHE_NAME).then(cache => cache.put(event.request, clone));
-         }
-         return response;
-      }).catch(() => {
-         // Fallback sur le chemin strict
-         if (event.request.mode === 'navigate') {
-            return caches.match(`${REPO}/index.html`);
-         }
-      });
-    })
-  );
+    if (requestUrl.hostname === 'api.open-meteo.com') {
+        event.respondWith(
+            fetch(event.request).catch((error) => {
+                console.log('🌩️ [Service Worker] API Météo inaccessible (Mode Hors-ligne).');
+                return caches.match(event.request).then((cachedResponse) => {
+                    if (cachedResponse) return cachedResponse;
+                    throw error;
+                });
+            })
+        );
+        return;
+    }
+
+    event.respondWith(
+        caches.match(event.request).then((cachedResponse) => {
+            if (cachedResponse) {
+                return cachedResponse;
+            }
+            
+            return fetch(event.request).then((networkResponse) => {
+                if (!networkResponse || networkResponse.status !== 200 || (networkResponse.type !== 'basic' && networkResponse.type !== 'cors')) {
+                    return networkResponse;
+                }
+                const responseToCache = networkResponse.clone();
+                caches.open(CACHE_NAME).then((cache) => {
+                    cache.put(event.request, responseToCache);
+                });
+                
+                return networkResponse;
+            }).catch(() => {
+                console.log('🚫 [Service Worker] Requête échouée hors-ligne :', event.request.url);
+            });
+        })
+    );
 });
