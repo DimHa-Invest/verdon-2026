@@ -1,4 +1,4 @@
-const CACHE_NAME = 'verdon-cache-v23';
+const CACHE_NAME = 'verdon-cache-v24';
 
 const ASSETS_TO_CACHE = [
     './',
@@ -6,21 +6,21 @@ const ASSETS_TO_CACHE = [
     'manifest.json',
     'https://cdn.tailwindcss.com',
     'https://unpkg.com/@phosphor-icons/web',
-    'image/j1.webp',
-    'image/j2.webp',
-    'image/j3.webp',
-    'image/j4.webp',
-    'image/j5.webp',
-    'image/j6.webp',
-    'image/j7.webp',
-    'image/j8.webp',
-    'image/j9.webp',
-    'image/j10.webp',
-    'image/j11.webp',
-    'image/j12.webp',
-    'image/j13.webp',
-    'image/j14.webp',
-    'image/j15.webp'
+    'img/j1.webp',
+    'img/j2.webp',
+    'img/j3.webp',
+    'img/j4.webp',
+    'img/j5.webp',
+    'img/j6.webp',
+    'img/j7.webp',
+    'img/j8.webp',
+    'img/j9.webp',
+    'img/j10.webp',
+    'img/j11.webp',
+    'img/j12.webp',
+    'img/j13.webp',
+    'img/j14.webp',
+    'img/j15.webp'
 ];
 
 self.addEventListener('install', (event) => {
