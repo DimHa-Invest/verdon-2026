@@ -4,40 +4,27 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Master Plan Verdon 2026 - Production Finale</title>
+    
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#0f172a">
+    
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
     <style>
         * { box-sizing: border-box; }
         body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; -webkit-tap-highlight-color: transparent; scroll-behavior: smooth; }
-        
         details > summary { list-style: none; outline: none; }
         details > summary::-webkit-details-marker { display: none; }
         details[open] summary ~ * { animation: fadeIn 0.3s ease-in-out; }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(-5px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(-5px); } to { opacity: 1; transform: translateY(0); } }
         .card-body-wrapper { display: grid; grid-template-rows: 0fr; transition: grid-template-rows 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
         .card-body-wrapper.open { grid-template-rows: 1fr; }
         .card-body-inner { overflow: hidden; }
-
-        /* Styles Mode Canicule & Badges */
         .canicule-badge { display: none; }
         body.canicule-active .canicule-badge { display: inline-flex; }
-
         .heat-sensitive { transition: all 0.3s ease; }
-        body.canicule-active .heat-sensitive {
-            opacity: 0.35; filter: grayscale(100%); pointer-events: none; position: relative;
-        }
-        body.canicule-active .heat-sensitive::after {
-            content: 'Masqué (Risque Chaleur)'; position: absolute; top: 50%; left: 50%;
-            transform: translate(-50%, -50%); background-color: #ef4444; color: #ffffff;
-            padding: 4px 10px; font-size: 0.75rem; font-weight: 700; border-radius: 6px;
-            letter-spacing: 0.5px; text-transform: uppercase; z-index: 40; opacity: 1 !important; filter: none !important;
-        }
-
+        body.canicule-active .heat-sensitive { opacity: 0.35; filter: grayscale(100%); pointer-events: none; position: relative; }
+        body.canicule-active .heat-sensitive::after { content: 'Masqué (Risque Chaleur)'; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background-color: #ef4444; color: #ffffff; padding: 4px 10px; font-size: 0.75rem; font-weight: 700; border-radius: 6px; letter-spacing: 0.5px; text-transform: uppercase; z-index: 40; opacity: 1 !important; filter: none !important; }
         .custom-checkbox:checked + label .box { background-color: #10b981; border-color: #10b981; }
         .custom-checkbox:checked + label .check-icon { opacity: 1; }
         .custom-checkbox:checked + label span { text-decoration: line-through; color: #94a3b8; }
@@ -65,7 +52,6 @@
                 </div>
             </div>
         </div>
-        
         <div class="px-4 pb-3 pt-2 flex justify-between items-end max-w-2xl mx-auto border-t border-slate-800 mt-1">
             <div>
                 <p id="header-date-display" class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-0.5 flex items-center gap-1">
@@ -92,38 +78,23 @@
             </div>
             <div class="p-5 space-y-3">
                 <a href="tel:112" class="flex items-center justify-between p-3.5 bg-red-600 text-white rounded-xl shadow-sm hover:bg-red-700 transition-colors">
-                    <div class="flex items-center gap-3">
-                        <i class="ph-fill ph-phone-call text-2xl"></i>
-                        <span class="font-bold text-sm">112 - Urgence Européenne</span>
-                    </div>
+                    <div class="flex items-center gap-3"><i class="ph-fill ph-phone-call text-2xl"></i><span class="font-bold text-sm">112 - Urgence Européenne</span></div>
                 </a>
                 <a href="tel:15" class="flex items-center justify-between p-3.5 bg-red-50 text-red-900 border border-red-100 rounded-xl hover:bg-red-100 transition-colors">
-                    <div class="flex items-center gap-3">
-                        <i class="ph-fill ph-first-aid-kit text-red-600 text-2xl"></i>
-                        <span class="font-bold text-sm">15 - SAMU</span>
-                    </div>
+                    <div class="flex items-center gap-3"><i class="ph-fill ph-first-aid-kit text-red-600 text-2xl"></i><span class="font-bold text-sm">15 - SAMU</span></div>
                 </a>
                 <a href="tel:18" class="flex items-center justify-between p-3.5 bg-red-50 text-red-900 border border-red-100 rounded-xl hover:bg-red-100 transition-colors">
-                    <div class="flex items-center gap-3">
-                        <i class="ph-fill ph-fire text-red-600 text-2xl"></i>
-                        <span class="font-bold text-sm">18 - Sapeurs-Pompiers</span>
-                    </div>
+                    <div class="flex items-center gap-3"><i class="ph-fill ph-fire text-red-600 text-2xl"></i><span class="font-bold text-sm">18 - Sapeurs-Pompiers</span></div>
                 </a>
                 <a href="tel:0492778004" class="flex items-center justify-between p-3.5 bg-blue-50 text-blue-900 border border-blue-100 rounded-xl hover:bg-blue-100 transition-colors">
-                    <div class="flex items-center gap-3">
-                        <i class="ph-fill ph-police-car text-blue-600 text-2xl"></i>
-                        <span class="font-bold text-sm">17 - Gendarmerie (Riez : 04 92 77 80 04)</span>
-                    </div>
+                    <div class="flex items-center gap-3"><i class="ph-fill ph-police-car text-blue-600 text-2xl"></i><span class="font-bold text-sm">17 - Gendarmerie (Riez)</span></div>
                 </a>
                 <a href="tel:0492744162" class="flex items-center justify-between p-3.5 bg-slate-50 text-slate-800 border border-slate-200 rounded-xl hover:bg-slate-100 transition-colors">
-                    <div class="flex items-center gap-3">
-                        <i class="ph-fill ph-tent text-slate-600 text-2xl"></i>
-                        <span class="font-bold text-sm">Camping La Farigoulette (04 92 74 41 62)</span>
-                    </div>
+                    <div class="flex items-center gap-3"><i class="ph-fill ph-tent text-slate-600 text-2xl"></i><span class="font-bold text-sm">La Farigoulette (04 92 74 41 62)</span></div>
                 </a>
                 <div class="pt-2">
                     <a href="https://www.risque-prevention-incendie.fr/var/" target="_blank" class="flex items-center justify-center gap-2 p-3.5 bg-amber-500 text-amber-950 rounded-xl font-bold text-xs shadow-sm hover:bg-amber-600 transition-colors">
-                        <i class="ph-fill ph-fire text-lg"></i> Vérifier l'accès aux Massifs (Risque Incendie)
+                        <i class="ph-fill ph-fire text-lg"></i> Vérifier l'accès aux Massifs
                     </a>
                 </div>
             </div>
@@ -135,188 +106,155 @@
         <div id="view-planning" class="app-view flex flex-col gap-4"></div>
 
         <div id="view-cartes" class="app-view hidden flex flex-col gap-4 pb-4">
-            
             <div class="pt-4 px-2">
                 <div class="bg-amber-50 border border-amber-200 p-3 rounded-xl shadow-sm flex items-start gap-3">
                     <i class="ph-fill ph-warning text-amber-500 text-xl mt-0.5 shrink-0"></i>
-                    <p class="text-xs font-semibold text-amber-800 leading-snug">
-                        <span class="font-bold uppercase tracking-wide">Zone Blanche :</span> Télécharge la carte du Verdon "Hors-connexion" sur Google Maps avant de partir.
-                    </p>
+                    <p class="text-xs font-semibold text-amber-800 leading-snug"><span class="font-bold uppercase tracking-wide">Zone Blanche :</span> Télécharge la carte du Verdon "Hors-connexion" sur Google Maps avant de partir.</p>
                 </div>
             </div>
-
-            <div class="px-2 pt-2">
-                <h2 class="text-xl font-bold text-slate-800">Logistique Itinéraires & Parkings</h2>
-                <p class="text-xs text-slate-500 mt-1">Guidage GPS par requêtes de Points d'Intérêt (POI) officiels.</p>
-            </div>
+            <div class="px-2 pt-2"><h2 class="text-xl font-bold text-slate-800">Logistique Itinéraires & Parkings</h2></div>
 
             <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-4 border-l-4 border-l-slate-800">
-                <div class="flex items-center gap-2 mb-3">
-                    <i class="ph-fill ph-house-line text-slate-800 text-lg"></i>
-                    <h3 class="font-bold text-slate-800 text-sm uppercase tracking-wide">Camp de Base Global</h3>
-                </div>
+                <div class="flex items-center gap-2 mb-3"><i class="ph-fill ph-house-line text-slate-800 text-lg"></i><h3 class="font-bold text-slate-800 text-sm uppercase tracking-wide">Camp de Base Global</h3></div>
                 <div class="p-3 bg-slate-50 rounded-xl flex flex-col gap-2">
                     <p class="text-xs font-bold text-slate-700">La Farigoulette</p>
                     <div class="grid grid-cols-2 gap-2 mt-1">
-                        <a href="#" data-app="google" data-dest="Camping Ciela Village La Farigoulette" target="_blank" class="flex items-center justify-center gap-1.5 bg-white border border-slate-200 text-slate-700 py-2 rounded-lg font-bold text-xs shadow-sm hover:bg-slate-100 transition-colors">
-                            <i class="ph-fill ph-google-logo text-base text-blue-500"></i> Google Maps
-                        </a>
-                        <a href="#" data-app="waze" data-dest="Camping Ciela Village La Farigoulette" target="_blank" class="flex items-center justify-center gap-1.5 bg-white border border-slate-200 text-slate-700 py-2 rounded-lg font-bold text-xs shadow-sm hover:bg-slate-100 transition-colors">
-                            <i class="ph-fill ph-navigation-arrow text-base text-indigo-500"></i> Waze
-                        </a>
+                        <a href="#" data-app="google" data-dest="Camping Ciela Village La Farigoulette" target="_blank" class="flex items-center justify-center gap-1.5 bg-white border border-slate-200 text-slate-700 py-2 rounded-lg font-bold text-xs shadow-sm hover:bg-slate-100"><i class="ph-fill ph-google-logo text-blue-500"></i> Maps</a>
+                        <a href="#" data-app="waze" data-dest="Camping Ciela Village La Farigoulette" target="_blank" class="flex items-center justify-center gap-1.5 bg-white border border-slate-200 text-slate-700 py-2 rounded-lg font-bold text-xs shadow-sm hover:bg-slate-100"><i class="ph-fill ph-navigation-arrow text-indigo-500"></i> Waze</a>
                     </div>
                 </div>
             </div>
 
             <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-4 border-l-4 border-l-teal-500">
-                <h3 class="font-bold text-slate-800 text-sm mb-3 flex items-center gap-2">
-                    <span class="w-2 h-2 rounded-full bg-teal-500"></span>Sortie 1 : Sillans & Villages de Caractère
-                </h3>
+                <h3 class="font-bold text-slate-800 text-sm mb-3 flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-teal-500"></span>Sortie 1 : Sillans & Villages</h3>
                 <div class="space-y-3">
                     <div class="p-3 bg-slate-50 rounded-xl">
                         <p class="text-xs font-bold text-slate-700 mb-2">1. Sillans : Parking Place du 8 Mai 1945</p>
                         <div class="grid grid-cols-2 gap-2">
-                            <a href="#" data-app="google" data-dest="Parking du 8 mai 1945, 83690 Sillans-la-Cascade" target="_blank" class="flex items-center justify-center gap-1 bg-white border border-slate-200 text-slate-700 py-1.5 rounded-lg font-bold text-xs shadow-sm hover:bg-slate-100 transition-colors">Maps</a>
-                            <a href="#" data-app="waze" data-dest="Parking du 8 mai 1945, 83690 Sillans-la-Cascade" target="_blank" class="flex items-center justify-center gap-1 bg-white border border-slate-200 text-slate-700 py-1.5 rounded-lg font-bold text-xs shadow-sm hover:bg-slate-100 transition-colors">Waze</a>
+                            <a href="#" data-app="google" data-dest="Parking du 8 mai 1945, 83690 Sillans-la-Cascade" target="_blank" class="flex items-center justify-center gap-1 bg-white border border-slate-200 text-slate-700 py-1.5 rounded-lg font-bold text-xs shadow-sm hover:bg-slate-100">Maps</a>
+                            <a href="#" data-app="waze" data-dest="Parking du 8 mai 1945, 83690 Sillans-la-Cascade" target="_blank" class="flex items-center justify-center gap-1 bg-white border border-slate-200 text-slate-700 py-1.5 rounded-lg font-bold text-xs shadow-sm hover:bg-slate-100">Waze</a>
                         </div>
                     </div>
                     <div class="p-3 bg-slate-50 rounded-xl">
                         <p class="text-xs font-bold text-slate-700 mb-2">2. Villecroze : Parking des Grottes</p>
                         <div class="grid grid-cols-2 gap-2">
-                            <a href="#" data-app="google" data-dest="Grottes de Villecroze" target="_blank" class="flex items-center justify-center gap-1 bg-white border border-slate-200 text-slate-700 py-1.5 rounded-lg font-bold text-xs shadow-sm hover:bg-slate-100 transition-colors">Maps</a>
-                            <a href="#" data-app="waze" data-dest="Grottes de Villecroze" target="_blank" class="flex items-center justify-center gap-1 bg-white border border-slate-200 text-slate-700 py-1.5 rounded-lg font-bold text-xs shadow-sm hover:bg-slate-100 transition-colors">Waze</a>
+                            <a href="#" data-app="google" data-dest="Grottes de Villecroze" target="_blank" class="flex items-center justify-center gap-1 bg-white border border-slate-200 text-slate-700 py-1.5 rounded-lg font-bold text-xs shadow-sm hover:bg-slate-100">Maps</a>
+                            <a href="#" data-app="waze" data-dest="Grottes de Villecroze" target="_blank" class="flex items-center justify-center gap-1 bg-white border border-slate-200 text-slate-700 py-1.5 rounded-lg font-bold text-xs shadow-sm hover:bg-slate-100">Waze</a>
                         </div>
                     </div>
                     <div class="p-3 bg-slate-50 rounded-xl">
                         <p class="text-xs font-bold text-slate-700 mb-2">3. Tourtour : Entrée du Village</p>
                         <div class="grid grid-cols-2 gap-2">
-                            <a href="#" data-app="google" data-dest="Tourtour" target="_blank" class="flex items-center justify-center gap-1 bg-white border border-slate-200 text-slate-700 py-1.5 rounded-lg font-bold text-xs shadow-sm hover:bg-slate-100 transition-colors">Maps</a>
-                            <a href="#" data-app="waze" data-dest="Tourtour" target="_blank" class="flex items-center justify-center gap-1 bg-white border border-slate-200 text-slate-700 py-1.5 rounded-lg font-bold text-xs shadow-sm hover:bg-slate-100 transition-colors">Waze</a>
+                            <a href="#" data-app="google" data-dest="Tourtour" target="_blank" class="flex items-center justify-center gap-1 bg-white border border-slate-200 text-slate-700 py-1.5 rounded-lg font-bold text-xs shadow-sm hover:bg-slate-100">Maps</a>
+                            <a href="#" data-app="waze" data-dest="Tourtour" target="_blank" class="flex items-center justify-center gap-1 bg-white border border-slate-200 text-slate-700 py-1.5 rounded-lg font-bold text-xs shadow-sm hover:bg-slate-100">Waze</a>
                         </div>
                     </div>
                 </div>
             </div>
 
             <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-4 border-l-4 border-l-orange-500">
-                <h3 class="font-bold text-slate-800 text-sm mb-3 flex items-center gap-2">
-                    <span class="w-2 h-2 rounded-full bg-orange-500"></span>Sortie 2 : Gorges de Baudinard
-                </h3>
+                <h3 class="font-bold text-slate-800 text-sm mb-3 flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-orange-500"></span>Sortie 2 : Gorges de Baudinard</h3>
                 <div class="p-3 bg-slate-50 rounded-xl">
                     <p class="text-xs font-bold text-slate-700 mb-2">Base Nautique : Départ direct du camping</p>
                     <div class="grid grid-cols-2 gap-2">
-                        <a href="#" data-app="google" data-dest="Gorges de Baudinard" target="_blank" class="flex items-center justify-center gap-1 bg-white border border-slate-200 text-slate-700 py-1.5 rounded-lg font-bold text-xs shadow-sm hover:bg-slate-100 transition-colors">Maps</a>
-                        <a href="#" data-app="waze" data-dest="Gorges de Baudinard" target="_blank" class="flex items-center justify-center gap-1 bg-white border border-slate-200 text-slate-700 py-1.5 rounded-lg font-bold text-xs shadow-sm hover:bg-slate-100 transition-colors">Waze</a>
+                        <a href="#" data-app="google" data-dest="Gorges de Baudinard" target="_blank" class="flex items-center justify-center gap-1 bg-white border border-slate-200 text-slate-700 py-1.5 rounded-lg font-bold text-xs shadow-sm hover:bg-slate-100">Maps</a>
+                        <a href="#" data-app="waze" data-dest="Gorges de Baudinard" target="_blank" class="flex items-center justify-center gap-1 bg-white border border-slate-200 text-slate-700 py-1.5 rounded-lg font-bold text-xs shadow-sm hover:bg-slate-100">Waze</a>
                     </div>
                 </div>
             </div>
 
             <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-4 border-l-4 border-l-purple-600">
-                <h3 class="font-bold text-slate-800 text-sm mb-3 flex items-center gap-2">
-                    <span class="w-2 h-2 rounded-full bg-purple-500"></span>Sortie 3 : Grand Canyon
-                </h3>
+                <h3 class="font-bold text-slate-800 text-sm mb-3 flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-purple-500"></span>Sortie 3 : Grand Canyon</h3>
                 <div class="space-y-3">
                     <div class="p-3 bg-slate-50 rounded-xl">
                         <p class="text-xs font-bold text-slate-700 mb-2">1. Galetas : Accès direct pédalos</p>
                         <div class="grid grid-cols-2 gap-2">
-                            <a href="#" data-app="google" data-dest="Pont du Galetas" target="_blank" class="flex items-center justify-center gap-1 bg-white border border-slate-200 text-slate-700 py-1.5 rounded-lg font-bold text-xs shadow-sm hover:bg-slate-100 transition-colors">Maps</a>
-                            <a href="#" data-app="waze" data-dest="Pont du Galetas" target="_blank" class="flex items-center justify-center gap-1 bg-white border border-slate-200 text-slate-700 py-1.5 rounded-lg font-bold text-xs shadow-sm hover:bg-slate-100 transition-colors">Waze</a>
+                            <a href="#" data-app="google" data-dest="Pont du Galetas" target="_blank" class="flex items-center justify-center gap-1 bg-white border border-slate-200 text-slate-700 py-1.5 rounded-lg font-bold text-xs shadow-sm hover:bg-slate-100">Maps</a>
+                            <a href="#" data-app="waze" data-dest="Pont du Galetas" target="_blank" class="flex items-center justify-center gap-1 bg-white border border-slate-200 text-slate-700 py-1.5 rounded-lg font-bold text-xs shadow-sm hover:bg-slate-100">Waze</a>
                         </div>
                     </div>
                     <div class="p-3 bg-slate-50 rounded-xl">
                         <p class="text-xs font-bold text-slate-700 mb-2">2. Route des Crêtes : Spot des vautours</p>
                         <div class="grid grid-cols-2 gap-2">
-                            <a href="#" data-app="google" data-dest="Belvédère de l'Escalès" target="_blank" class="flex items-center justify-center gap-1 bg-white border border-slate-200 text-slate-700 py-1.5 rounded-lg font-bold text-xs shadow-sm hover:bg-slate-100 transition-colors">Maps</a>
-                            <a href="#" data-app="waze" data-dest="Belvédère de l'Escalès" target="_blank" class="flex items-center justify-center gap-1 bg-white border border-slate-200 text-slate-700 py-1.5 rounded-lg font-bold text-xs shadow-sm hover:bg-slate-100 transition-colors">Waze</a>
+                            <a href="#" data-app="google" data-dest="Belvédère de l'Escalès" target="_blank" class="flex items-center justify-center gap-1 bg-white border border-slate-200 text-slate-700 py-1.5 rounded-lg font-bold text-xs shadow-sm hover:bg-slate-100">Maps</a>
+                            <a href="#" data-app="waze" data-dest="Belvédère de l'Escalès" target="_blank" class="flex items-center justify-center gap-1 bg-white border border-slate-200 text-slate-700 py-1.5 rounded-lg font-bold text-xs shadow-sm hover:bg-slate-100">Waze</a>
                         </div>
                     </div>
                     <div class="p-3 bg-slate-50 rounded-xl">
                         <p class="text-xs font-bold text-slate-700 mb-2">3. Point Sublime : Parking officiel</p>
                         <div class="grid grid-cols-2 gap-2">
-                            <a href="#" data-app="google" data-dest="Point Sublime, Rougon" target="_blank" class="flex items-center justify-center gap-1 bg-white border border-slate-200 text-slate-700 py-1.5 rounded-lg font-bold text-xs shadow-sm hover:bg-slate-100 transition-colors">Maps</a>
-                            <a href="#" data-app="waze" data-dest="Point Sublime, Rougon" target="_blank" class="flex items-center justify-center gap-1 bg-white border border-slate-200 text-slate-700 py-1.5 rounded-lg font-bold text-xs shadow-sm hover:bg-slate-100 transition-colors">Waze</a>
+                            <a href="#" data-app="google" data-dest="Point Sublime, Rougon" target="_blank" class="flex items-center justify-center gap-1 bg-white border border-slate-200 text-slate-700 py-1.5 rounded-lg font-bold text-xs shadow-sm hover:bg-slate-100">Maps</a>
+                            <a href="#" data-app="waze" data-dest="Point Sublime, Rougon" target="_blank" class="flex items-center justify-center gap-1 bg-white border border-slate-200 text-slate-700 py-1.5 rounded-lg font-bold text-xs shadow-sm hover:bg-slate-100">Waze</a>
                         </div>
                     </div>
                     <div class="p-3 bg-slate-50 rounded-xl">
                         <p class="text-xs font-bold text-slate-700 mb-2">4. La Palud : Parking Dîner</p>
                         <div class="grid grid-cols-2 gap-2">
-                            <a href="#" data-app="google" data-dest="Mairie de La Palud-sur-Verdon" target="_blank" class="flex items-center justify-center gap-1 bg-white border border-slate-200 text-slate-700 py-1.5 rounded-lg font-bold text-xs shadow-sm hover:bg-slate-100 transition-colors">Maps</a>
-                            <a href="#" data-app="waze" data-dest="Mairie de La Palud-sur-Verdon" target="_blank" class="flex items-center justify-center gap-1 bg-white border border-slate-200 text-slate-700 py-1.5 rounded-lg font-bold text-xs shadow-sm hover:bg-slate-100 transition-colors">Waze</a>
+                            <a href="#" data-app="google" data-dest="Mairie de La Palud-sur-Verdon" target="_blank" class="flex items-center justify-center gap-1 bg-white border border-slate-200 text-slate-700 py-1.5 rounded-lg font-bold text-xs shadow-sm hover:bg-slate-100">Maps</a>
+                            <a href="#" data-app="waze" data-dest="Mairie de La Palud-sur-Verdon" target="_blank" class="flex items-center justify-center gap-1 bg-white border border-slate-200 text-slate-700 py-1.5 rounded-lg font-bold text-xs shadow-sm hover:bg-slate-100">Waze</a>
                         </div>
                     </div>
                 </div>
             </div>
 
             <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-4 border-l-4 border-l-red-600">
-                <h3 class="font-bold text-slate-800 text-sm mb-3 flex items-center gap-2">
-                    <span class="w-2 h-2 rounded-full bg-red-600"></span>Sortie 4 : Moustiers (Assomption)
-                </h3>
+                <h3 class="font-bold text-slate-800 text-sm mb-3 flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-red-600"></span>Sortie 4 : Moustiers</h3>
                 <div class="space-y-3">
                     <div class="p-3 bg-slate-50 rounded-xl">
                         <p class="text-xs font-bold text-slate-700 mb-2">1. Lac : Plage des Ruisses</p>
                         <div class="grid grid-cols-2 gap-2">
-                            <a href="#" data-app="google" data-dest="Plage des Ruisses" target="_blank" class="flex items-center justify-center gap-1 bg-white border border-slate-200 text-slate-700 py-1.5 rounded-lg font-bold text-xs shadow-sm hover:bg-slate-100 transition-colors">Maps</a>
-                            <a href="#" data-app="waze" data-dest="Plage des Ruisses" target="_blank" class="flex items-center justify-center gap-1 bg-white border border-slate-200 text-slate-700 py-1.5 rounded-lg font-bold text-xs shadow-sm hover:bg-slate-100 transition-colors">Waze</a>
+                            <a href="#" data-app="google" data-dest="Plage des Ruisses" target="_blank" class="flex items-center justify-center gap-1 bg-white border border-slate-200 text-slate-700 py-1.5 rounded-lg font-bold text-xs shadow-sm hover:bg-slate-100">Maps</a>
+                            <a href="#" data-app="waze" data-dest="Plage des Ruisses" target="_blank" class="flex items-center justify-center gap-1 bg-white border border-slate-200 text-slate-700 py-1.5 rounded-lg font-bold text-xs shadow-sm hover:bg-slate-100">Waze</a>
                         </div>
                     </div>
                     <div class="p-3 bg-slate-50 rounded-xl">
                         <p class="text-xs font-bold text-slate-700 mb-2">2. Moustiers : Infiltration Parking P3</p>
                         <div class="grid grid-cols-2 gap-2">
-                            <a href="#" data-app="google" data-dest="Parking P3 Moustiers-Sainte-Marie" target="_blank" class="flex items-center justify-center gap-1 bg-white border border-slate-200 text-slate-700 py-1.5 rounded-lg font-bold text-xs shadow-sm hover:bg-slate-100 transition-colors">Maps</a>
-                            <a href="#" data-app="waze" data-dest="Parking P3 Moustiers-Sainte-Marie" target="_blank" class="flex items-center justify-center gap-1 bg-white border border-slate-200 text-slate-700 py-1.5 rounded-lg font-bold text-xs shadow-sm hover:bg-slate-100 transition-colors">Waze</a>
+                            <a href="#" data-app="google" data-dest="Parking P3 Moustiers-Sainte-Marie" target="_blank" class="flex items-center justify-center gap-1 bg-white border border-slate-200 text-slate-700 py-1.5 rounded-lg font-bold text-xs shadow-sm hover:bg-slate-100">Maps</a>
+                            <a href="#" data-app="waze" data-dest="Parking P3 Moustiers-Sainte-Marie" target="_blank" class="flex items-center justify-center gap-1 bg-white border border-slate-200 text-slate-700 py-1.5 rounded-lg font-bold text-xs shadow-sm hover:bg-slate-100">Waze</a>
                         </div>
                     </div>
                 </div>
             </div>
 
             <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-4 border-l-4 border-l-pink-500">
-                <h3 class="font-bold text-slate-800 text-sm mb-3 flex items-center gap-2">
-                    <span class="w-2 h-2 rounded-full bg-pink-500"></span>Sortie 5 : Bauduen & Artignosc
-                </h3>
+                <h3 class="font-bold text-slate-800 text-sm mb-3 flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-pink-500"></span>Sortie 5 : Bauduen & Artignosc</h3>
                 <div class="space-y-3">
                     <div class="p-3 bg-slate-50 rounded-xl">
                         <p class="text-xs font-bold text-slate-700 mb-2">1. Bauduen : Parking du Port</p>
                         <div class="grid grid-cols-2 gap-2">
-                            <a href="#" data-app="google" data-dest="Bauduen" target="_blank" class="flex items-center justify-center gap-1 bg-white border border-slate-200 text-slate-700 py-1.5 rounded-lg font-bold text-xs shadow-sm hover:bg-slate-100 transition-colors">Maps</a>
-                            <a href="#" data-app="waze" data-dest="Bauduen" target="_blank" class="flex items-center justify-center gap-1 bg-white border border-slate-200 text-slate-700 py-1.5 rounded-lg font-bold text-xs shadow-sm hover:bg-slate-100 transition-colors">Waze</a>
+                            <a href="#" data-app="google" data-dest="Bauduen" target="_blank" class="flex items-center justify-center gap-1 bg-white border border-slate-200 text-slate-700 py-1.5 rounded-lg font-bold text-xs shadow-sm hover:bg-slate-100">Maps</a>
+                            <a href="#" data-app="waze" data-dest="Bauduen" target="_blank" class="flex items-center justify-center gap-1 bg-white border border-slate-200 text-slate-700 py-1.5 rounded-lg font-bold text-xs shadow-sm hover:bg-slate-100">Waze</a>
                         </div>
                     </div>
                     <div class="p-3 bg-slate-50 rounded-xl">
                         <p class="text-xs font-bold text-slate-700 mb-2">2. Artignosc : Base nautique</p>
                         <div class="grid grid-cols-2 gap-2">
-                            <a href="#" data-app="google" data-dest="Plage du lac d'Artignosc du Verdon" target="_blank" class="flex items-center justify-center gap-1 bg-white border border-slate-200 text-slate-700 py-1.5 rounded-lg font-bold text-xs shadow-sm hover:bg-slate-100 transition-colors">Maps</a>
-                            <a href="#" data-app="waze" data-dest="Plage du lac d'Artignosc du Verdon" target="_blank" class="flex items-center justify-center gap-1 bg-white border border-slate-200 text-slate-700 py-1.5 rounded-lg font-bold text-xs shadow-sm hover:bg-slate-100 transition-colors">Waze</a>
+                            <a href="#" data-app="google" data-dest="Plage du lac d'Artignosc du Verdon" target="_blank" class="flex items-center justify-center gap-1 bg-white border border-slate-200 text-slate-700 py-1.5 rounded-lg font-bold text-xs shadow-sm hover:bg-slate-100">Maps</a>
+                            <a href="#" data-app="waze" data-dest="Plage du lac d'Artignosc du Verdon" target="_blank" class="flex items-center justify-center gap-1 bg-white border border-slate-200 text-slate-700 py-1.5 rounded-lg font-bold text-xs shadow-sm hover:bg-slate-100">Waze</a>
                         </div>
                     </div>
                 </div>
             </div>
 
             <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-4 border-l-4 border-l-cyan-600">
-                <h3 class="font-bold text-slate-800 text-sm mb-3 flex items-center gap-2">
-                    <span class="w-2 h-2 rounded-full bg-cyan-600"></span>Sortie 6 : Quinson
-                </h3>
+                <h3 class="font-bold text-slate-800 text-sm mb-3 flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-cyan-600"></span>Sortie 6 : Quinson</h3>
                 <div class="p-3 bg-slate-50 rounded-xl">
                     <p class="text-xs font-bold text-slate-700 mb-2">Quinson : Départ immédiat du sentier</p>
                     <div class="grid grid-cols-2 gap-2">
-                        <a href="#" data-app="google" data-dest="Base Nautique de Quinson" target="_blank" class="flex items-center justify-center gap-1 bg-white border border-slate-200 text-slate-700 py-1.5 rounded-lg font-bold text-xs shadow-sm hover:bg-slate-100 transition-colors">Maps</a>
-                        <a href="#" data-app="waze" data-dest="Base Nautique de Quinson" target="_blank" class="flex items-center justify-center gap-1 bg-white border border-slate-200 text-slate-700 py-1.5 rounded-lg font-bold text-xs shadow-sm hover:bg-slate-100 transition-colors">Waze</a>
+                        <a href="#" data-app="google" data-dest="Base Nautique de Quinson" target="_blank" class="flex items-center justify-center gap-1 bg-white border border-slate-200 text-slate-700 py-1.5 rounded-lg font-bold text-xs shadow-sm hover:bg-slate-100">Maps</a>
+                        <a href="#" data-app="waze" data-dest="Base Nautique de Quinson" target="_blank" class="flex items-center justify-center gap-1 bg-white border border-slate-200 text-slate-700 py-1.5 rounded-lg font-bold text-xs shadow-sm hover:bg-slate-100">Waze</a>
                     </div>
                 </div>
             </div>
         </div>
 
         <div id="view-checklists" class="app-view hidden flex flex-col gap-4 pb-4">
-            <div class="px-2 pt-2">
-                <h2 class="text-xl font-bold text-slate-800">Checklist Haute Sécurité</h2>
-                <p class="text-xs text-slate-500 mt-1">Inventaire scindé en 7 phases tactiques. État persistant sauvegardé en local.</p>
-            </div>
-
+            <div class="px-2 pt-2"><h2 class="text-xl font-bold text-slate-800">Checklist Haute Sécurité</h2></div>
+            
             <details class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden group">
                 <summary class="flex justify-between items-center p-4 cursor-pointer bg-slate-100/60 hover:bg-slate-100 transition-colors">
-                    <div class="flex items-center gap-3">
-                        <i class="ph-fill ph-car text-slate-800 text-xl"></i>
-                        <span class="font-bold text-slate-800 text-sm">1. Contrôle du Tucson (J-2)</span>
-                    </div>
-                    <i class="ph ph-caret-down text-slate-400 group-open:-rotate-180 transition-transform duration-300"></i>
+                    <div class="flex items-center gap-3"><i class="ph-fill ph-car text-slate-800 text-xl"></i><span class="font-bold text-slate-800 text-sm">1. Contrôle du Tucson (J-2)</span></div><i class="ph ph-caret-down text-slate-400 group-open:-rotate-180 transition-transform duration-300"></i>
                 </summary>
                 <div class="p-4 border-t border-slate-100 space-y-4 bg-white">
                     <div class="flex items-start gap-3 relative"><input type="checkbox" id="chk-v4-c1-1" class="custom-checkbox hidden" onchange="saveSelection('chk-v4-c1-1')"><label for="chk-v4-c1-1" class="flex gap-3 cursor-pointer w-full group/label"><div class="box w-5 h-5 mt-0.5 shrink-0 rounded border-2 border-slate-300 flex items-center justify-center transition-colors"><i class="ph-bold ph-check text-white text-xs opacity-0 check-icon transition-opacity"></i></div><span class="text-sm font-medium text-slate-700">Niveaux mécaniques (Huile, Refroidissement, Frein, Essuie-glace)</span></label></div>
@@ -325,13 +263,10 @@
                     <div class="flex items-start gap-3 relative"><input type="checkbox" id="chk-v4-c1-4" class="custom-checkbox hidden" onchange="saveSelection('chk-v4-c1-4')"><label for="chk-v4-c1-4" class="flex gap-3 cursor-pointer w-full group/label"><div class="box w-5 h-5 mt-0.5 shrink-0 rounded border-2 border-slate-300 flex items-center justify-center transition-colors"><i class="ph-bold ph-check text-white text-xs opacity-0 check-icon transition-opacity"></i></div><span class="text-sm font-medium text-slate-700">Vérification des feux de stop, clignotants et état des balais</span></label></div>
                 </div>
             </details>
+
             <details class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden group">
                 <summary class="flex justify-between items-center p-4 cursor-pointer bg-slate-100/60 hover:bg-slate-100 transition-colors">
-                    <div class="flex items-center gap-3">
-                        <i class="ph-fill ph-folder text-blue-600 text-xl"></i>
-                        <span class="font-bold text-slate-800 text-sm">2. Sacoche Administrative & Papiers</span>
-                    </div>
-                    <i class="ph ph-caret-down text-slate-400 group-open:-rotate-180 transition-transform duration-300"></i>
+                    <div class="flex items-center gap-3"><i class="ph-fill ph-folder text-blue-600 text-xl"></i><span class="font-bold text-slate-800 text-sm">2. Sacoche Administrative & Papiers</span></div><i class="ph ph-caret-down text-slate-400 group-open:-rotate-180 transition-transform duration-300"></i>
                 </summary>
                 <div class="p-4 border-t border-slate-100 space-y-4 bg-white">
                     <div class="flex items-start gap-3 relative"><input type="checkbox" id="chk-v4-c2-1" class="custom-checkbox hidden" onchange="saveSelection('chk-v4-c2-1')"><label for="chk-v4-c2-1" class="flex gap-3 cursor-pointer w-full group/label"><div class="box w-5 h-5 mt-0.5 shrink-0 rounded border-2 border-slate-300 flex items-center justify-center transition-colors"><i class="ph-bold ph-check text-white text-xs opacity-0 check-icon transition-opacity"></i></div><span class="text-sm font-medium text-slate-700">CNI de toute la famille + Permis de conduire</span></label></div>
@@ -340,13 +275,10 @@
                     <div class="flex items-start gap-3 relative"><input type="checkbox" id="chk-v4-c2-4" class="custom-checkbox hidden" onchange="saveSelection('chk-v4-c2-4')"><label for="chk-v4-c2-4" class="flex gap-3 cursor-pointer w-full group/label"><div class="box w-5 h-5 mt-0.5 shrink-0 rounded border-2 border-slate-300 flex items-center justify-center transition-colors"><i class="ph-bold ph-check text-white text-xs opacity-0 check-icon transition-opacity"></i></div><span class="text-sm font-medium text-slate-700">Vouchers de réservation imprimés/PDF (Camping & Musée)</span></label></div>
                 </div>
             </details>
+
             <details class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden group">
                 <summary class="flex justify-between items-center p-4 cursor-pointer bg-slate-100/60 hover:bg-slate-100 transition-colors">
-                    <div class="flex items-center gap-3">
-                        <i class="ph-fill ph-t-shirt text-indigo-500 text-xl"></i>
-                        <span class="font-bold text-slate-800 text-sm">3. Logistique des Valises (Textile)</span>
-                    </div>
-                    <i class="ph ph-caret-down text-slate-400 group-open:-rotate-180 transition-transform duration-300"></i>
+                    <div class="flex items-center gap-3"><i class="ph-fill ph-t-shirt text-indigo-500 text-xl"></i><span class="font-bold text-slate-800 text-sm">3. Logistique des Valises (Textile)</span></div><i class="ph ph-caret-down text-slate-400 group-open:-rotate-180 transition-transform duration-300"></i>
                 </summary>
                 <div class="p-4 border-t border-slate-100 space-y-4 bg-white">
                     <div class="flex items-start gap-3 relative"><input type="checkbox" id="chk-v4-c3-1" class="custom-checkbox hidden" onchange="saveSelection('chk-v4-c3-1')"><label for="chk-v4-c3-1" class="flex gap-3 cursor-pointer w-full group/label"><div class="box w-5 h-5 mt-0.5 shrink-0 rounded border-2 border-slate-300 flex items-center justify-center transition-colors"><i class="ph-bold ph-check text-white text-xs opacity-0 check-icon transition-opacity"></i></div><span class="text-sm font-medium text-slate-700 font-bold">1 Veste polaire/coupe-vent par personne <span class="text-slate-500 font-semibold">(Nuits & Crêtes à 12°C)</span></span></label></div>
@@ -356,13 +288,10 @@
                     <div class="flex items-start gap-3 relative"><input type="checkbox" id="chk-v4-c3-5" class="custom-checkbox hidden" onchange="saveSelection('chk-v4-c3-5')"><label for="chk-v4-c3-5" class="flex gap-3 cursor-pointer w-full group/label"><div class="box w-5 h-5 mt-0.5 shrink-0 rounded border-2 border-slate-300 flex items-center justify-center transition-colors"><i class="ph-bold ph-check text-white text-xs opacity-0 check-icon transition-opacity"></i></div><span class="text-sm font-medium text-slate-700">Linge de lit complet (Housses de couette, draps, taies)</span></label></div>
                 </div>
             </details>
+
             <details class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden group">
                 <summary class="flex justify-between items-center p-4 cursor-pointer bg-slate-100/60 hover:bg-slate-100 transition-colors">
-                    <div class="flex items-center gap-3">
-                        <i class="ph-fill ph-drop text-teal-500 text-xl"></i>
-                        <span class="font-bold text-slate-800 text-sm">4. Trousse de Toilette & Hygiène</span>
-                    </div>
-                    <i class="ph ph-caret-down text-slate-400 group-open:-rotate-180 transition-transform duration-300"></i>
+                    <div class="flex items-center gap-3"><i class="ph-fill ph-drop text-teal-500 text-xl"></i><span class="font-bold text-slate-800 text-sm">4. Trousse de Toilette & Hygiène</span></div><i class="ph ph-caret-down text-slate-400 group-open:-rotate-180 transition-transform duration-300"></i>
                 </summary>
                 <div class="p-4 border-t border-slate-100 space-y-4 bg-white">
                     <div class="flex items-start gap-3 relative"><input type="checkbox" id="chk-v4-c4-1" class="custom-checkbox hidden" onchange="saveSelection('chk-v4-c4-1')"><label for="chk-v4-c4-1" class="flex gap-3 cursor-pointer w-full group/label"><div class="box w-5 h-5 mt-0.5 shrink-0 rounded border-2 border-slate-300 flex items-center justify-center transition-colors"><i class="ph-bold ph-check text-white text-xs opacity-0 check-icon transition-opacity"></i></div><span class="text-sm font-medium text-slate-700 font-bold">2 tubes de Crème solaire Écran Total Indice 50+</span></label></div>
@@ -372,13 +301,10 @@
                     <div class="flex items-start gap-3 relative"><input type="checkbox" id="chk-v4-c4-5" class="custom-checkbox hidden" onchange="saveSelection('chk-v4-c4-5')"><label for="chk-v4-c4-5" class="flex gap-3 cursor-pointer w-full group/label"><div class="box w-5 h-5 mt-0.5 shrink-0 rounded border-2 border-slate-300 flex items-center justify-center transition-colors"><i class="ph-bold ph-check text-white text-xs opacity-0 check-icon transition-opacity"></i></div><span class="text-sm font-medium text-slate-700">Brosses à dents, dentifrice, coupe-ongles et cotons-tiges</span></label></div>
                 </div>
             </details>
+
             <details class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden group">
                 <summary class="flex justify-between items-center p-4 cursor-pointer bg-red-50/80 hover:bg-red-50 transition-colors">
-                    <div class="flex items-center gap-3">
-                        <i class="ph-fill ph-first-aid text-red-600 text-xl"></i>
-                        <span class="font-bold text-red-800 text-sm">5. Trousse de Secours Tactique</span>
-                    </div>
-                    <i class="ph ph-caret-down text-red-400 group-open:-rotate-180 transition-transform duration-300"></i>
+                    <div class="flex items-center gap-3"><i class="ph-fill ph-first-aid text-red-600 text-xl"></i><span class="font-bold text-red-800 text-sm">5. Trousse de Secours Tactique</span></div><i class="ph ph-caret-down text-red-400 group-open:-rotate-180 transition-transform duration-300"></i>
                 </summary>
                 <div class="p-4 border-t border-slate-100 space-y-4 bg-white">
                     <div class="flex items-start gap-3 relative"><input type="checkbox" id="chk-v4-c5-1" class="custom-checkbox hidden" onchange="saveSelection('chk-v4-c5-1')"><label for="chk-v4-c5-1" class="flex gap-3 cursor-pointer w-full group/label"><div class="box w-5 h-5 mt-0.5 shrink-0 rounded border-2 border-slate-300 flex items-center justify-center transition-colors"><i class="ph-bold ph-check text-white text-xs opacity-0 check-icon transition-opacity"></i></div><span class="text-sm font-medium text-slate-700 font-bold">Pince tire-tique <span class="text-red-500 font-bold">(Impératif Var)</span> + Pince à épiler</span></label></div>
@@ -389,13 +315,10 @@
                     <div class="flex items-start gap-3 relative"><input type="checkbox" id="chk-v4-c5-6" class="custom-checkbox hidden" onchange="saveSelection('chk-v4-c5-6')"><label for="chk-v4-c5-6" class="flex gap-3 cursor-pointer w-full group/label"><div class="box w-5 h-5 mt-0.5 shrink-0 rounded border-2 border-slate-300 flex items-center justify-center transition-colors"><i class="ph-bold ph-check text-white text-xs opacity-0 check-icon transition-opacity"></i></div><span class="text-sm font-medium text-slate-700">1 Couverture de survie aluminisée + Dosettes sérum phy</span></label></div>
                 </div>
             </details>
+
             <details class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden group">
                 <summary class="flex justify-between items-center p-4 cursor-pointer bg-amber-50/80 hover:bg-amber-50 transition-colors">
-                    <div class="flex items-center gap-3">
-                        <i class="ph-fill ph-sun text-amber-500 text-xl"></i>
-                        <span class="font-bold text-amber-800 text-sm">6. Le Pack Sortie (Chaque Matin)</span>
-                    </div>
-                    <i class="ph ph-caret-down text-amber-400 group-open:-rotate-180 transition-transform duration-300"></i>
+                    <div class="flex items-center gap-3"><i class="ph-fill ph-sun text-amber-500 text-xl"></i><span class="font-bold text-amber-800 text-sm">6. Le Pack Sortie (Chaque Matin)</span></div><i class="ph ph-caret-down text-amber-400 group-open:-rotate-180 transition-transform duration-300"></i>
                 </summary>
                 <div class="p-4 border-t border-slate-100 space-y-4 bg-white">
                     <div class="flex items-start gap-3 relative"><input type="checkbox" id="chk-v4-c6-1" class="custom-checkbox hidden" onchange="saveSelection('chk-v4-c6-1')"><label for="chk-v4-c6-1" class="flex gap-3 cursor-pointer w-full group/label"><div class="box w-5 h-5 mt-0.5 shrink-0 rounded border-2 border-slate-300 flex items-center justify-center transition-colors"><i class="ph-bold ph-check text-white text-xs opacity-0 check-icon transition-opacity"></i></div><span class="text-sm font-medium text-slate-700 font-bold">Gourdes eau glacée <span class="text-slate-500 font-semibold">(1.5L/adulte, 1L/enfant)</span></span></label></div>
@@ -405,13 +328,10 @@
                     <div class="flex items-start gap-3 relative"><input type="checkbox" id="chk-v4-c6-5" class="custom-checkbox hidden" onchange="saveSelection('chk-v4-c6-5')"><label for="chk-v4-c6-5" class="flex gap-3 cursor-pointer w-full group/label"><div class="box w-5 h-5 mt-0.5 shrink-0 rounded border-2 border-slate-300 flex items-center justify-center transition-colors"><i class="ph-bold ph-check text-white text-xs opacity-0 check-icon transition-opacity"></i></div><span class="text-sm font-medium text-slate-700">Parasol de plage inclignable + Sac poubelle vide (déchets)</span></label></div>
                 </div>
             </details>
+
             <details class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden group">
                 <summary class="flex justify-between items-center p-4 cursor-pointer bg-slate-800 hover:bg-slate-700 transition-colors">
-                    <div class="flex items-center gap-3">
-                        <i class="ph-fill ph-flag-checkered text-white text-xl"></i>
-                        <span class="font-bold text-white text-sm">7. Clôture du Mobil-home (Départ)</span>
-                    </div>
-                    <i class="ph ph-caret-down text-slate-400 group-open:-rotate-180 transition-transform duration-300"></i>
+                    <div class="flex items-center gap-3"><i class="ph-fill ph-flag-checkered text-white text-xl"></i><span class="font-bold text-white text-sm">7. Clôture du Mobil-home (Départ)</span></div><i class="ph ph-caret-down text-slate-400 group-open:-rotate-180 transition-transform duration-300"></i>
                 </summary>
                 <div class="p-4 border-t border-slate-100 space-y-4 bg-white">
                     <div class="flex items-start gap-3 relative"><input type="checkbox" id="chk-v4-c7-1" class="custom-checkbox hidden" onchange="saveSelection('chk-v4-c7-1')"><label for="chk-v4-c7-1" class="flex gap-3 cursor-pointer w-full group/label"><div class="box w-5 h-5 mt-0.5 shrink-0 rounded border-2 border-slate-300 flex items-center justify-center transition-colors"><i class="ph-bold ph-check text-white text-xs opacity-0 check-icon transition-opacity"></i></div><span class="text-sm font-medium text-slate-700">Frigo/Congélateur entièrement vidé, dégivré et nettoyé</span></label></div>
@@ -422,9 +342,7 @@
                     <div class="flex items-start gap-3 relative"><input type="checkbox" id="chk-v4-c7-6" class="custom-checkbox hidden" onchange="saveSelection('chk-v4-c7-6')"><label for="chk-v4-c7-6" class="flex gap-3 cursor-pointer w-full group/label"><div class="box w-5 h-5 mt-0.5 shrink-0 rounded border-2 border-slate-300 flex items-center justify-center transition-colors"><i class="ph-bold ph-check text-white text-xs opacity-0 check-icon transition-opacity"></i></div><span class="text-sm font-medium text-slate-700 font-bold">Fenêtres verrouillées, porte close, clés remises avant 10h</span></label></div>
                 </div>
             </details>
-
         </div>
-
     </main>
 
     <nav class="fixed bottom-0 left-0 w-full bg-white border-t border-slate-200 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.05)] z-50 pb-safe">
@@ -449,7 +367,7 @@
             {
                 date: "Dimanche 09 Août", type: "Logistique", title: "Arrivée & Déploiement",
                 desc: "Arrivée sur zone à La Farigoulette, prise en main du mobil-home.",
-                imagePath: "img/j01-arrivee.webp",
+                imagePath: "https://images.unsplash.com/photo-1523987355523-c7b5b0dd90a7?q=80&w=800&auto=format&fit=crop",
                 icon: "ph-house-line", color: "bg-slate-500", intensity: "Moyenne",
                 details: [
                     { time: "16:00+", text: "Check-in, état des lieux et installation au mobil-home." }
@@ -459,7 +377,7 @@
             {
                 date: "Lundi 10 Août", type: "Camp de Base", title: "Reconnaissance & Approvisionnement",
                 desc: "Courses lourdes, aménagement complet, visite du camping et de la base nautique.",
-                imagePath: "img/j02-courses.webp",
+                imagePath: "https://images.unsplash.com/photo-1588964895597-cfccd6e2dbf9?q=80&w=800&auto=format&fit=crop",
                 icon: "ph-shopping-cart", color: "bg-blue-500", intensity: "Faible",
                 details: [
                     { time: "Matin", text: "Courses d'approvisionnement lourd pour la semaine à Riez." },
@@ -470,7 +388,7 @@
             {
                 date: "Mardi 11 Août", type: "Sortie 1", title: "Sillans & Villages de Caractère",
                 desc: "Découverte des cascades et chasse aux fontaines dans le Haut-Var.",
-                imagePath: "img/j03-sillans.webp",
+                imagePath: "https://images.unsplash.com/photo-1432405972618-c60b0225b8f9?q=80&w=800&auto=format&fit=crop",
                 icon: "ph-drop", color: "bg-teal-500", intensity: "Moyenne",
                 details: [
                     { time: "09h00 - 10h10", text: "Sillans : Stationnement tactique au Parking Place du 8 Mai 1945. Le véhicule ne bouge plus jusqu'à 14h30. Marche vers le Belvédère (Tracé Violet, 1.6km A/R)." },
@@ -492,7 +410,7 @@
             {
                 date: "Mercredi 12 Août", type: "Repos", title: "Décompression Totale",
                 desc: "Coupure voiture, repos musculaire et baignade au camping.",
-                imagePath: "img/j04-decompression.webp",
+                imagePath: "https://images.unsplash.com/photo-1519046904884-53103b34b206?q=80&w=800&auto=format&fit=crop",
                 icon: "ph-sun", color: "bg-emerald-500", intensity: "Faible",
                 details: [{ time: "Journée", text: "Repos complet à La Farigoulette. Rechargement des batteries." }],
                 materials: [], catering: null
@@ -500,7 +418,7 @@
             {
                 date: "Jeudi 13 Août", type: "Sortie 2", title: "Baudinard en Bateau Électrique",
                 desc: "Exploration douce du canyon secret sans effort direct depuis le camping.",
-                imagePath: "img/j05-baudinard.webp",
+                imagePath: "https://images.unsplash.com/photo-1498307833015-e7b400441eb8?q=80&w=800&auto=format&fit=crop",
                 icon: "ph-boat", color: "bg-orange-500", intensity: "Faible",
                 details: [
                     { time: "09h00 - 13h00", text: "Navigation électrique (4h). Départ depuis la base privée du camping (0 km, aucune logistique Tucson)." },
@@ -519,7 +437,7 @@
             {
                 date: "Vendredi 14 Août", type: "Repos", title: "Stratégie Avant-Fête",
                 desc: "Hydratation et stockage d'énergie avant l'extraction tardive du lendemain.",
-                imagePath: "img/j06-strategie.webp",
+                imagePath: "https://images.unsplash.com/photo-1544490802-bd537877ce56?q=80&w=800&auto=format&fit=crop",
                 icon: "ph-bed", color: "bg-emerald-500", intensity: "Faible",
                 details: [{ time: "Journée", text: "Zéro contrainte horaire. On préserve l'enfant." }],
                 materials: [], catering: null
@@ -527,7 +445,7 @@
             {
                 date: "Samedi 15 Août", type: "Sortie 4", title: "Moustiers : Bal & Feu d'Artifice",
                 desc: "Ancrage Fixe Assomption : Baignade lac, logistique anti-bouchons et soirée festive.",
-                imagePath: "img/j07-moustiers.webp",
+                imagePath: "https://images.unsplash.com/photo-1533362143640-59695d3a51f8?q=80&w=800&auto=format&fit=crop",
                 icon: "ph-fireworks", color: "bg-red-600", intensity: "Élevée",
                 details: [
                     { time: "Matin", text: "Grasse matinée. Repos complet à La Farigoulette." },
@@ -553,7 +471,7 @@
             {
                 date: "Dimanche 16 Août", type: "Repos", title: "Récupération Nocturne",
                 desc: "Grasse matinée et remise à niveau physique obligatoire.",
-                imagePath: "img/j08-recuperation.webp",
+                imagePath: "https://images.unsplash.com/photo-1531353826977-152e0bc2a2f3?q=80&w=800&auto=format&fit=crop",
                 icon: "ph-moon-stars", color: "bg-emerald-500", intensity: "Faible",
                 details: [{ time: "Journée", text: "Le planning est gelé. Priorité au sommeil réparateur de l'enfant suite au retour de 23h15." }],
                 materials: [], catering: null
@@ -561,7 +479,7 @@
             {
                 date: "Lundi 17 Août", type: "Sortie 3", title: "Grand Canyon & Vautours",
                 desc: "Verticalité absolue, pédalo matinal et Route des Crêtes.",
-                imagePath: "img/j09-canyon.webp",
+                imagePath: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?q=80&w=800&auto=format&fit=crop",
                 icon: "ph-mountains", color: "bg-purple-600", intensity: "Élevée",
                 details: [
                     { time: "08h15 - 09h00", text: "Départ matinal strict en Tucson. 35 min de route fluide vers le lac." },
@@ -587,7 +505,7 @@
             {
                 date: "Mardi 18 Août", type: "Repos", title: "Break Post-Canyon",
                 desc: "Récupération physique post-conduite de montagne.",
-                imagePath: "img/j10-break.webp",
+                imagePath: "https://images.unsplash.com/photo-1542304910-a23b9d0325fa?q=80&w=800&auto=format&fit=crop",
                 icon: "ph-armchair", color: "bg-emerald-500", intensity: "Faible",
                 details: [{ time: "Journée", text: "Détente musculaire, piscine et infrastructures du camping." }],
                 materials: [], catering: null
@@ -595,7 +513,7 @@
             {
                 date: "Mercredi 19 Août", type: "Sortie 5", title: "Bauduen, Jouets & Artignosc",
                 desc: "Bourg médiéval, exposition fraîcheur et plage ombragée sans vent.",
-                imagePath: "img/j11-bauduen.webp",
+                imagePath: "https://images.unsplash.com/photo-1505322022379-7c3353ee6291?q=80&w=800&auto=format&fit=crop",
                 icon: "ph-castle-turret", color: "bg-pink-500", intensity: "Moyenne",
                 details: [
                     { time: "09h15 - 10h00", text: "Départ tranquille en Tucson (35 min via D30). Stationnement à l'entrée de Bauduen." },
@@ -618,7 +536,7 @@
             {
                 date: "Jeudi 20 Août", type: "Repos", title: "Journée Tampon",
                 desc: "Transition vers la fin de séjour, activités de décompression.",
-                imagePath: "img/j12-tampon.webp",
+                imagePath: "https://images.unsplash.com/photo-1510414842594-a61c69b5ae57?q=80&w=800&auto=format&fit=crop",
                 icon: "ph-beach-tent", color: "bg-emerald-500", intensity: "Faible",
                 details: [{ time: "Journée", text: "Zéro contrainte routière. Base nautique locale ou farniente." }],
                 materials: [], catering: null
@@ -626,7 +544,7 @@
             {
                 date: "Vendredi 21 Août", type: "Sortie 6", title: "Canal Historique & Préhistoire",
                 desc: "Bilan carbone ultra-bas, tunnel d'aventure et climatisation muséale.",
-                imagePath: "img/j13-quinson.webp",
+                imagePath: "https://images.unsplash.com/photo-1501785888041-af3ef285b470?q=80&w=800&auto=format&fit=crop",
                 icon: "ph-footprints", color: "bg-cyan-600", intensity: "Moyenne",
                 details: [
                     { time: "08h30 - 08h45", text: "Mise en route Tucson. Trajet flash de 7km (8 min via D11). Verrouillage place parking base nautique près du pont." },
@@ -651,7 +569,7 @@
             {
                 date: "Samedi 22 Août", type: "Repos", title: "Sas de Décompression",
                 desc: "Rangement logistique, inventaire et préparation.",
-                imagePath: "img/j14-valises.webp",
+                imagePath: "https://images.unsplash.com/photo-1488646953014-85cb44e25828?q=80&w=800&auto=format&fit=crop",
                 icon: "ph-package", color: "bg-slate-600", intensity: "Faible",
                 details: [{ time: "Journée", text: "Derniers achats souvenirs, nettoyage du mobil-home, bouclage complet des bagages." }],
                 materials: [], catering: null
@@ -659,27 +577,22 @@
             {
                 date: "Dimanche 23 Août", type: "Logistique", title: "Extraction & Retour",
                 desc: "Fin de l'Opération Verdon 2026.",
-                imagePath: "img/j15-retour.webp",
+                imagePath: "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?q=80&w=800&auto=format&fit=crop",
                 icon: "ph-car-profile", color: "bg-slate-800", intensity: "Élevée",
                 details: [{ time: "Matin", text: "Remise des clés, état des lieux de sortie et retour du Tucson dans l'axe de transit." }],
                 materials: [], catering: null
             }
         ];
 
-        /* ========================================================= */
-        /* LOGIQUE DE NAVIGATION (TABS) & ACCORDEON                  */
-        /* ========================================================= */
         function switchView(viewId) {
             document.querySelectorAll('.app-view').forEach(el => el.classList.add('hidden'));
             document.getElementById(`view-${viewId}`).classList.remove('hidden');
-            
             document.querySelectorAll('.nav-btn').forEach(btn => {
                 btn.classList.remove('text-indigo-600');
                 btn.classList.add('text-slate-400');
                 const icon = btn.querySelector('i');
                 if(icon.classList.contains('ph-fill')) icon.classList.replace('ph-fill', 'ph');
             });
-
             const activeBtn = document.getElementById(`nav-${viewId}`);
             if (activeBtn) {
                 activeBtn.classList.remove('text-slate-400');
@@ -693,7 +606,6 @@
             const wrapper = document.getElementById(`card-body-${index}`);
             const chevron = document.getElementById(`chevron-${index}`);
             if (!wrapper) return;
-
             const isOpen = wrapper.classList.contains('open');
             if (isOpen && !forceOpen) {
                 wrapper.classList.remove('open');
@@ -704,13 +616,9 @@
             }
         }
 
-        /* ========================================================= */
-        /* RENDU DYNAMIQUE DU PLANNING                               */
-        /* ========================================================= */
         function renderApp() {
             const container = document.getElementById('view-planning');
             container.innerHTML = '';
-
             masterPlan.forEach((day, index) => {
                 let intensityPill = '';
                 if(day.intensity === 'Faible') intensityPill = 'bg-emerald-100 text-emerald-800 border-emerald-200';
@@ -754,35 +662,11 @@
                     cateringHTML = `
                         <details class="mt-4 bg-slate-50 rounded-lg border border-slate-200 overflow-hidden group">
                             <summary class="flex justify-between items-center p-3 cursor-pointer bg-white hover:bg-slate-50 transition-colors">
-                                <div class="flex items-center gap-2">
-                                    <i class="ph-fill ph-fork-knife text-indigo-500 text-lg"></i>
-                                    <span class="text-sm font-bold text-slate-700">Restauration Choisie / Optionnelle</span>
-                                </div>
-                                <i class="ph ph-caret-down text-slate-400 group-open:-rotate-180 transition-transform duration-300"></i>
+                                <div class="flex items-center gap-2"><i class="ph-fill ph-fork-knife text-indigo-500 text-lg"></i><span class="text-sm font-bold text-slate-700">Restauration Choisie / Optionnelle</span></div><i class="ph ph-caret-down text-slate-400 group-open:-rotate-180 transition-transform duration-300"></i>
                             </summary>
                             <div class="p-4 border-t border-slate-100 space-y-3 bg-white">
-                                <div class="flex items-start gap-3 relative">
-                                    <input type="checkbox" id="${restoId}" class="custom-checkbox hidden" onchange="saveSelection('${restoId}')">
-                                    <label for="${restoId}" class="flex items-start gap-3 cursor-pointer w-full group/label">
-                                        <div class="box w-5 h-5 mt-0.5 rounded border-2 border-slate-300 flex items-center justify-center transition-colors"><i class="ph-bold ph-check text-white text-xs opacity-0 check-icon transition-opacity"></i></div>
-                                        <div class="flex-1">
-                                            <p class="text-sm font-bold text-slate-800 group-hover/label:text-indigo-600 transition-colors">${day.catering.restaurantJoliCadre.name}</p>
-                                            <p class="text-xs text-slate-500 mt-0.5 font-medium flex items-center gap-1"><i class="ph-fill ph-star text-amber-400"></i> ${day.catering.restaurantJoliCadre.rating}/5 • Assis & Cadre</p>
-                                            <p class="text-xs text-slate-400 mt-0.5 flex items-center gap-1"><i class="ph-fill ph-map-pin text-slate-300"></i> ${day.catering.restaurantJoliCadre.distanceText}</p>
-                                        </div>
-                                    </label>
-                                </div>
-                                <div class="flex items-start gap-3 relative">
-                                    <input type="checkbox" id="${snackId}" class="custom-checkbox hidden" onchange="saveSelection('${snackId}')">
-                                    <label for="${snackId}" class="flex items-start gap-3 cursor-pointer w-full group/label">
-                                        <div class="box w-5 h-5 mt-0.5 rounded border-2 border-slate-300 flex items-center justify-center transition-colors"><i class="ph-bold ph-check text-white text-xs opacity-0 check-icon transition-opacity"></i></div>
-                                        <div class="flex-1">
-                                            <p class="text-sm font-bold text-slate-800 group-hover/label:text-indigo-600 transition-colors">${day.catering.snackSurLePouce.name}</p>
-                                            <p class="text-xs text-slate-500 mt-0.5 font-medium flex items-center gap-1"><i class="ph-fill ph-star text-amber-400"></i> ${day.catering.snackSurLePouce.rating}/5 • Rapide</p>
-                                            <p class="text-xs text-slate-400 mt-0.5 flex items-center gap-1"><i class="ph-fill ph-map-pin text-slate-300"></i> ${day.catering.snackSurLePouce.distanceText}</p>
-                                        </div>
-                                    </label>
-                                </div>
+                                <div class="flex items-start gap-3 relative"><input type="checkbox" id="${restoId}" class="custom-checkbox hidden" onchange="saveSelection('${restoId}')"><label for="${restoId}" class="flex items-start gap-3 cursor-pointer w-full group/label"><div class="box w-5 h-5 mt-0.5 rounded border-2 border-slate-300 flex items-center justify-center transition-colors"><i class="ph-bold ph-check text-white text-xs opacity-0 check-icon transition-opacity"></i></div><div class="flex-1"><p class="text-sm font-bold text-slate-800 group-hover/label:text-indigo-600 transition-colors">${day.catering.restaurantJoliCadre.name}</p><p class="text-xs text-slate-500 mt-0.5 font-medium flex items-center gap-1"><i class="ph-fill ph-star text-amber-400"></i> ${day.catering.restaurantJoliCadre.rating}/5 • Assis & Cadre</p><p class="text-xs text-slate-400 mt-0.5 flex items-center gap-1"><i class="ph-fill ph-map-pin text-slate-300"></i> ${day.catering.restaurantJoliCadre.distanceText}</p></div></label></div>
+                                <div class="flex items-start gap-3 relative"><input type="checkbox" id="${snackId}" class="custom-checkbox hidden" onchange="saveSelection('${snackId}')"><label for="${snackId}" class="flex items-start gap-3 cursor-pointer w-full group/label"><div class="box w-5 h-5 mt-0.5 rounded border-2 border-slate-300 flex items-center justify-center transition-colors"><i class="ph-bold ph-check text-white text-xs opacity-0 check-icon transition-opacity"></i></div><div class="flex-1"><p class="text-sm font-bold text-slate-800 group-hover/label:text-indigo-600 transition-colors">${day.catering.snackSurLePouce.name}</p><p class="text-xs text-slate-500 mt-0.5 font-medium flex items-center gap-1"><i class="ph-fill ph-star text-amber-400"></i> ${day.catering.snackSurLePouce.rating}/5 • Rapide</p><p class="text-xs text-slate-400 mt-0.5 flex items-center gap-1"><i class="ph-fill ph-map-pin text-slate-300"></i> ${day.catering.snackSurLePouce.distanceText}</p></div></label></div>
                             </div>
                         </details>
                     `;
@@ -790,13 +674,12 @@
 
                 const card = document.createElement('article');
                 card.id = `card-${index}`;
-                card.className = "bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden break-inside-avoid scroll-mt-28 transition-opacity duration-500";
+                card.className = "bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden break-inside-avoid scroll-mt-28 transition-all duration-500";
+                
                 card.innerHTML = `
                     <div onclick="toggleCard(${index})" class="${day.color} cursor-pointer text-white px-4 py-3 flex items-center justify-between transition-colors hover:brightness-95">
                         <div class="flex items-center gap-3 min-w-0 flex-1">
-                            <div class="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center shrink-0">
-                                <i class="ph-fill ${day.icon} text-xl"></i>
-                            </div>
+                            <div class="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center shrink-0"><i class="ph-fill ${day.icon} text-xl"></i></div>
                             <div class="flex-1 min-w-0 pr-2">
                                 <div class="flex items-center gap-2">
                                     <p class="text-[10px] font-bold text-white/90 uppercase tracking-wider">${day.date}</p>
@@ -808,16 +691,13 @@
                         </div>
                         <i id="chevron-${index}" class="ph-bold ph-caret-down text-xl shrink-0 transition-transform duration-300"></i>
                     </div>
-                    
                     <div id="card-body-${index}" class="card-body-wrapper">
                         <div class="card-body-inner">
                             <img src="${day.imagePath}" alt="${day.title}" class="w-full h-40 object-cover object-center border-b border-slate-100">
                             <div class="p-4 md:p-5">
                                 <p class="text-sm text-slate-600 font-medium leading-snug mb-4">${day.desc}</p>
                                 ${alertBannerHTML}
-                                <ul class="relative mt-2">
-                                    ${timelineHTML}
-                                </ul>
+                                <ul class="relative mt-2">${timelineHTML}</ul>
                                 ${cateringHTML}
                             </div>
                         </div>
@@ -827,15 +707,9 @@
             });
             
             document.querySelectorAll('.custom-checkbox').forEach(cb => {
-                if(localStorage.getItem(cb.id) === 'true') {
-                    cb.checked = true;
-                }
+                if(localStorage.getItem(cb.id) === 'true') cb.checked = true;
             });
         }
-
-        /* ========================================================= */
-        /* GESTION DE LA SÉCURITÉ PWA ET HORS-LIGNE                  */
-        /* ========================================================= */
 
         function updateNetworkStatus() {
             const badge = document.getElementById('network-badge');
@@ -858,12 +732,14 @@
                 const data = await response.json();
                 const temp = Math.round(data.current_weather.temperature);
                 const code = data.current_weather.weathercode;
+                
                 let icon = "ph-sun";
                 if ([1,2,3].includes(code)) icon = "ph-cloud-sun";
                 else if ([45,48].includes(code)) icon = "ph-cloud-fog";
                 else if ([51,53,55,61,63,65,80,81,82].includes(code)) icon = "ph-cloud-rain";
                 else if ([71,73,75,77,85,86].includes(code)) icon = "ph-snow";
                 else if ([95,96,99].includes(code)) icon = "ph-cloud-lightning";
+
                 const weatherHTML = `<i class="ph-fill ${icon} text-amber-400 text-lg"></i> <span>${temp}°C</span>`;
                 display.innerHTML = weatherHTML;
                 localStorage.setItem('weatherCache', weatherHTML);
@@ -872,25 +748,19 @@
                 if (cache) {
                     display.innerHTML = cache + ' <span class="text-[9px] text-slate-500 font-normal ml-1">(Cache)</span>';
                 } else {
-                    display.innerHTML = '<i class="ph-bold ph-wifi-slash text-slate-500 text-lg"></i> <span class="text-[10px] text-slate-400 font-normal">Météo indisponible hors-ligne</span>';
+                    display.innerHTML = '<i class="ph-bold ph-wifi-slash text-slate-500 text-lg"></i> <span class="text-[10px] text-slate-400 font-normal">Météo indisponible</span>';
                 }
             }
         }
 
-        /* ========================================================= */
-        /* GESTION TEMPORELLE, AUTO-SCROLL ET OPACITÉ                */
-        /* ========================================================= */
-        
         function applyProgressionOpacity() {
             const now = new Date();
             masterPlan.forEach((day, index) => {
                 const match = day.date.match(/(\d{2})/);
                 if (match) {
                     const dayNum = parseInt(match[1], 10);
-                    // Fin de la journée ciblée (Août = index 7)
                     const cardDateEnd = new Date(2026, 7, dayNum, 23, 59, 59);
                     const cardElement = document.getElementById(`card-${index}`);
-                    
                     if (cardElement && now > cardDateEnd) {
                         cardElement.classList.add('opacity-50', 'grayscale-[50%]');
                     }
@@ -903,6 +773,7 @@
             const endDate = new Date('2026-08-23T23:59:59');
             const now = new Date();
             const display = document.getElementById('header-date-display');
+
             if (now < targetDate) {
                 const diffTime = Math.abs(targetDate - now);
                 const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
@@ -926,33 +797,24 @@
             const currentMonth = activeDate.getMonth() + 1;
             const currentDay = activeDate.getDate();
             let targetIndex = 0;
+
             if (currentYear === 2026 && currentMonth === 8) {
                 const matchIndex = masterPlan.findIndex(plan => {
                     const match = plan.date.match(/(\d{2})/);
                     return match && parseInt(match[1], 10) === currentDay;
                 });
-                if (matchIndex !== -1) {
-                    targetIndex = matchIndex;
-                }
+                if (matchIndex !== -1) targetIndex = matchIndex;
             }
-            
             toggleCard(targetIndex, true);
             setTimeout(() => {
                 const targetCard = document.getElementById(`card-${targetIndex}`);
-                if (targetCard) {
-                    targetCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                }
-            }, 500);
+                if (targetCard) targetCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }, 500); 
         }
-
-        /* ========================================================= */
-        /* LOGIQUE DES BOUTONS DE L'INTERFACE                        */
-        /* ========================================================= */
 
         function toggleICE() {
             const modal = document.getElementById('ice-modal');
             const content = document.getElementById('ice-modal-content');
-            
             if (modal.classList.contains('hidden')) {
                 modal.classList.remove('hidden');
                 void modal.offsetWidth; 
@@ -961,25 +823,19 @@
             } else {
                 modal.classList.add('opacity-0');
                 content.classList.add('scale-95');
-                setTimeout(() => {
-                    modal.classList.add('hidden');
-                }, 300);
+                setTimeout(() => { modal.classList.add('hidden'); }, 300);
             }
         }
 
         function saveSelection(id) {
             const isChecked = document.getElementById(id).checked;
-            if (isChecked) {
-                localStorage.setItem(id, 'true');
-            } else {
-                localStorage.removeItem(id);
-            }
+            if (isChecked) localStorage.setItem(id, 'true');
+            else localStorage.removeItem(id);
         }
 
         function toggleCanicule() {
             const body = document.body;
             const knob = document.getElementById('canicule-knob');
-            
             body.classList.toggle('canicule-active');
             const isActive = body.classList.contains('canicule-active');
             
@@ -999,28 +855,27 @@
                 const dest = link.getAttribute('data-dest');
                 if (!dest) return;
                 const encodedDest = encodeURIComponent(dest);
-                
-                if (app === 'google') {
-                    link.href = `https://www.google.com/maps/search/?api=1&query=${encodedDest}`;
-                } else if (app === 'waze') {
-                    link.href = `https://waze.com/ul?q=${encodedDest}&navigate=yes`;
-                }
+                if (app === 'google') link.href = `https://www.google.com/maps/search/?api=1&query=$${encodedDest}`;
+                else if (app === 'waze') link.href = `https://waze.com/ul?q=${encodedDest}&navigate=yes`;
             });
         }
 
-        /* ========================================================= */
-        /* AMORÇAGE GÉNÉRAL AU CHARGEMENT DE LA PAGE                 */
-        /* ========================================================= */
         document.addEventListener('DOMContentLoaded', () => {
             renderApp();
             updateNetworkStatus();
             fetchWeather();
             initTimeMode();
-            applyProgressionOpacity(); // Assombrit les journées passées
+            applyProgressionOpacity();
             initNavigationLinks();
 
             if (localStorage.getItem('caniculeMode') === 'true') {
                 toggleCanicule();
+            }
+
+            if ('serviceWorker' in navigator) {
+                navigator.serviceWorker.register('service-worker.js')
+                    .then(reg => console.log('✅ Service Worker activé', reg.scope))
+                    .catch(err => console.error('❌ Échec SW :', err));
             }
         });
     </script>
