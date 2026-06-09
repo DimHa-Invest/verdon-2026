@@ -1072,17 +1072,34 @@
             
             localStorage.setItem('caniculeMode', isActive);
         }
+function initNavigationLinks() {
+    document.querySelectorAll('a[data-app]').forEach(link => {
+        const app = link.getAttribute('data-app');
+        const dest = link.getAttribute('data-dest');
 
-        // AMORÇAGE ET INITIALISATION GÉNÉRALE DE L'APPLICATION
-        document.addEventListener('DOMContentLoaded', () => {
-            renderApp();
-            
-            if (localStorage.getItem('caniculeMode') === 'true') {
-                toggleCanicule();
-            }
+        if (!dest) return;
 
-            executeAutoScroll();
-        });
-    </script>
+        const encodedDest = encodeURIComponent(dest);
+
+        if (app === 'google') {
+            link.href = `https://www.google.com/maps/search/?api=1&query=${encodedDest}`;
+        } else if (app === 'waze') {
+            link.href = `https://waze.com/ul?q=${encodedDest}&navigate=yes`;
+        }
+    });
+}
+
+// AMORÇAGE ET INITIALISATION GÉNÉRALE DE L'APPLICATION
+document.addEventListener('DOMContentLoaded', () => {
+    renderApp();
+
+    if (localStorage.getItem('caniculeMode') === 'true') {
+        toggleCanicule();
+    }
+
+    executeAutoScroll();
+    initNavigationLinks();
+});
+</script>
 </body>
 </html>
