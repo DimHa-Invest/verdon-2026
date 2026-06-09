@@ -1,19 +1,33 @@
-const CACHE_NAME = 'verdon-cache-v2';
+const CACHE_NAME = 'verdon-cache-v23';
 
 const ASSETS_TO_CACHE = [
     './',
     'index.html',
     'manifest.json',
     'https://cdn.tailwindcss.com',
-    'https://unpkg.com/@phosphor-icons/web'
-    // Les photos sont exclues pour la phase de test
+    'https://unpkg.com/@phosphor-icons/web',
+    'image/j1.webp',
+    'image/j2.webp',
+    'image/j3.webp',
+    'image/j4.webp',
+    'image/j5.webp',
+    'image/j6.webp',
+    'image/j7.webp',
+    'image/j8.webp',
+    'image/j9.webp',
+    'image/j10.webp',
+    'image/j11.webp',
+    'image/j12.webp',
+    'image/j13.webp',
+    'image/j14.webp',
+    'image/j15.webp'
 ];
 
 self.addEventListener('install', (event) => {
     event.waitUntil(
         caches.open(CACHE_NAME)
             .then((cache) => {
-                console.log('📦 [Service Worker] Mise en cache du squelette (sans photos)');
+                console.log('📦 [Service Worker] Mise en cache complète (Interface + Photos)');
                 return cache.addAll(ASSETS_TO_CACHE);
             })
             .then(() => self.skipWaiting())
